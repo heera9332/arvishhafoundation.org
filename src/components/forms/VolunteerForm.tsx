@@ -125,7 +125,7 @@ export function VolunteerForm() {
               Phone Number <span className="text-red-500">*</span>
             </label>
             <Input
-              placeholder="+1 (555) 000-0000"
+              placeholder="+91 91119 16239"
               {...register("phone")}
               disabled={status === "loading"}
             />

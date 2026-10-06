@@ -41,26 +41,37 @@ export function ContactSection({ data }: ContactSectionProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
                 {/* Floating Contact Badges (matches reference screenshot page-5) */}
-                <div className="absolute top-6 left-6 right-6 space-y-3">
-                  <div className="bg-[#023420]/95 backdrop-blur-md text-white p-4 rounded-2xl border border-emerald-700/60 shadow-lg">
-                    <p className="text-xs text-amber-300 font-semibold uppercase tracking-wider">
-                      Our Number
+                <div className="absolute top-6 left-6 right-6 space-y-2.5">
+                  {data.info.name && (
+                    <div className="bg-[#023420]/95 backdrop-blur-md text-white p-3.5 rounded-2xl border border-emerald-700/60 shadow-lg">
+                      <p className="text-[11px] text-amber-300 font-semibold uppercase tracking-wider">
+                        Contact Person
+                      </p>
+                      <p className="text-sm sm:text-base font-bold text-white mt-0.5">
+                        {data.info.name}
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="bg-[#023420]/95 backdrop-blur-md text-white p-3.5 rounded-2xl border border-emerald-700/60 shadow-lg">
+                    <p className="text-[11px] text-amber-300 font-semibold uppercase tracking-wider">
+                      Mobile Number
                     </p>
                     <a
                       href={`tel:${data.info.phone.replace(/[^0-9]/g, "")}`}
-                      className="text-base sm:text-lg font-bold text-white hover:text-amber-300 transition-colors block mt-0.5"
+                      className="text-sm sm:text-base font-bold text-white hover:text-amber-300 transition-colors block mt-0.5"
                     >
                       {data.info.phone}
                     </a>
                   </div>
 
-                  <div className="bg-[#023420]/95 backdrop-blur-md text-white p-4 rounded-2xl border border-emerald-700/60 shadow-lg">
-                    <p className="text-xs text-amber-300 font-semibold uppercase tracking-wider">
-                      Our Email
+                  <div className="bg-[#023420]/95 backdrop-blur-md text-white p-3.5 rounded-2xl border border-emerald-700/60 shadow-lg">
+                    <p className="text-[11px] text-amber-300 font-semibold uppercase tracking-wider">
+                      Email Address
                     </p>
                     <a
                       href={`mailto:${data.info.emailAlt || data.info.email}`}
-                      className="text-base sm:text-lg font-bold text-white hover:text-amber-300 transition-colors block mt-0.5 break-all"
+                      className="text-sm sm:text-base font-bold text-white hover:text-amber-300 transition-colors block mt-0.5 break-all"
                     >
                       {data.info.emailAlt || data.info.email}
                     </a>
@@ -68,13 +79,13 @@ export function ContactSection({ data }: ContactSectionProps) {
                 </div>
 
                 {/* Bottom Address note */}
-                <div className="absolute bottom-6 left-6 right-6 bg-black/60 backdrop-blur-md text-white p-4 rounded-2xl border border-white/20">
+                <div className="absolute bottom-6 left-6 right-6 bg-black/60 backdrop-blur-md text-white p-3.5 rounded-2xl border border-white/20">
                   <div className="flex items-center gap-2 text-xs text-amber-300 font-semibold">
                     <MapPin className="h-3.5 w-3.5 shrink-0" />
-                    <span>Location</span>
+                    <span>Office / Field Address</span>
                   </div>
                   <p className="text-xs text-white/90 mt-1 leading-snug">
-                    {data.info.address.line1}, {data.info.address.city}, {data.info.address.state} {data.info.address.pincode}
+                    {data.info.address.line1}, {data.info.address.line2 ? `${data.info.address.line2}, ` : ""}{data.info.address.city}, {data.info.address.state}
                   </p>
                 </div>
               </div>

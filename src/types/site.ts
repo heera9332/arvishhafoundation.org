@@ -92,6 +92,10 @@ export interface ArticleItem {
 }
 
 export interface ContactInfo {
+  name?: string;
+  firstName?: string;
+  lastName?: string;
+  designation?: string;
   phone: string;
   phoneAlt?: string;
   email: string;
@@ -101,7 +105,7 @@ export interface ContactInfo {
     line2?: string;
     city: string;
     state: string;
-    pincode: string;
+    pincode?: string;
     country: string;
   };
   socialLinks: SocialLink[];
@@ -109,3 +113,4 @@ export interface ContactInfo {
   darpanId?: string;
   taxExemption?: string;
 }
+

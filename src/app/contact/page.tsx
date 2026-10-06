@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
+import { Phone, Mail, MapPin, ShieldCheck, User } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/common/PageHero";
 import { SectionLabel } from "@/components/common/SectionLabel";
@@ -54,13 +54,32 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-4">
+                {contactData.info.name && (
+                  <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+                      <User className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
+                        Contact Person
+                      </h3>
+                      <p className="text-base font-bold text-slate-900 mt-1">
+                        {contactData.info.name}
+                      </p>
+                      <p className="text-xs text-emerald-800 font-medium">
+                        Arvishha Foundation Representative
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
                   <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#03452c] shrink-0">
                     <Phone className="h-5 w-5" />
                   </div>
                   <div>
                     <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
-                      Telephone
+                      Mobile Number
                     </h3>
                     <a
                       href={`tel:${contactData.info.phone.replace(/[^0-9]/g, "")}`}
@@ -68,14 +87,6 @@ export default function ContactPage() {
                     >
                       {contactData.info.phone}
                     </a>
-                    {contactData.info.phoneAlt && (
-                      <a
-                        href={`tel:${contactData.info.phoneAlt.replace(/[^0-9]/g, "")}`}
-                        className="text-xs text-slate-500 hover:text-[#03452c] block mt-0.5"
-                      >
-                        {contactData.info.phoneAlt}
-                      </a>
-                    )}
                   </div>
                 </div>
 
@@ -85,7 +96,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
-                      Email Communication
+                      Email Address
                     </h3>
                     <a
                       href={`mailto:${contactData.info.email}`}
@@ -93,14 +104,6 @@ export default function ContactPage() {
                     >
                       {contactData.info.email}
                     </a>
-                    {contactData.info.emailAlt && (
-                      <a
-                        href={`mailto:${contactData.info.emailAlt}`}
-                        className="text-xs text-slate-500 hover:text-[#03452c] block mt-0.5"
-                      >
-                        {contactData.info.emailAlt}
-                      </a>
-                    )}
                   </div>
                 </div>
 
@@ -110,13 +113,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
-                      Office Location
+                      Address
                     </h3>
                     <p className="text-sm font-semibold text-slate-900 mt-1">
                       {contactData.info.address.line1}
                     </p>
                     <p className="text-xs text-slate-600">
-                      {contactData.info.address.city}, {contactData.info.address.state} {contactData.info.address.pincode}
+                      {contactData.info.address.line2 ? `${contactData.info.address.line2}, ` : ""}{contactData.info.address.city}, {contactData.info.address.state}
                     </p>
                   </div>
                 </div>

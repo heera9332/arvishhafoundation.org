@@ -109,24 +109,26 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Quick Info / Contact */}
+              {/* Quick Info / Contact */}
           <div className="lg:col-span-3 space-y-4">
             <h5 className="text-sm font-semibold text-white tracking-wider uppercase">
               Direct Contact
             </h5>
             <ul className="space-y-3 text-sm text-slate-300">
+              <li className="text-xs text-amber-300 font-medium">
+                Representative: <strong className="text-white font-bold">{siteConfig.contactPerson.name}</strong>
+              </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
                 <span>
-                  {siteConfig.contact.address.street}, {siteConfig.contact.address.city},{" "}
-                  {siteConfig.contact.address.region} {siteConfig.contact.address.postalCode}
+                  {siteConfig.contact.address.street}, {siteConfig.contact.address.city}, {siteConfig.contact.address.region}
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-amber-400 shrink-0" />
                 <a
                   href={`tel:${siteConfig.contact.phone.replace(/[^0-9]/g, "")}`}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors font-medium"
                 >
                   {siteConfig.contact.phone}
                 </a>
@@ -134,10 +136,10 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Mail className="h-4 w-4 text-amber-400 shrink-0" />
                 <a
-                  href={`mailto:${siteConfig.contact.emailAlt}`}
+                  href={`mailto:${siteConfig.contact.email}`}
                   className="hover:text-white transition-colors break-all"
                 >
-                  {siteConfig.contact.emailAlt}
+                  {siteConfig.contact.email}
                 </a>
               </li>
             </ul>
@@ -184,10 +186,10 @@ export function Footer() {
                   E-Mail Now
                 </p>
                 <a
-                  href={`mailto:${siteConfig.contact.emailAlt}`}
+                  href={`mailto:${siteConfig.contact.email}`}
                   className="text-base sm:text-lg font-bold text-white hover:text-amber-300 transition-colors"
                 >
-                  {siteConfig.contact.emailAlt}
+                  {siteConfig.contact.email}
                 </a>
               </div>
             </div>
