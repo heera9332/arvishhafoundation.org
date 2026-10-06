@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green-950: #011d12;
+  --color-brand-green-900: #022f1e;
+  --color-brand-green-850: #023c26;
+  --color-brand-green-800: #03452c;
+  --color-brand-green-700: #055e3c;
+  --color-brand-green-600: #087a4f;
+  --color-brand-green-500: #10b981;
+  --color-brand-green-100: #e6f4ed;
+  --color-brand-green-50: #f0f9f4;
+
+  --color-brand-gold-700: #b45309;
+  --color-brand-gold-600: #d97706;
+  --color-brand-gold-500: #f59e0b;
+  --color-brand-gold-400: #fbbf24;
+  --color-brand-gold-300: #fcd34d;
+  --color-brand-gold-100: #fef3c7;
+  --color-brand-gold-50: #fffbeb;
+
+  --color-brand-cream: #faf9f5;
+  --color-brand-surface: #f4f7f4;
+  --color-brand-card: #ffffff;
+  --color-brand-border: #e2e8f0;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar and smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #03452c;
+  color: #ffffff;
+}
