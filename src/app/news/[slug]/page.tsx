@@ -79,7 +79,7 @@ export default async function NewsDetailPage({
         <Container size="narrow">
           <div className="mb-8 flex items-center justify-between">
             <Button asChild variant="ghost" className="gap-2 text-slate-600 hover:text-slate-900">
-              <Link href="/news">
+              <Link href="/news" className="flex items-center gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 <span>Back to All Articles</span>
               </Link>
