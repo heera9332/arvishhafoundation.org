@@ -33,7 +33,7 @@ export const homeData = {
     image: {
       src: "https://media.arvishhafoundation.org/wp-content/uploads/2026/01/hero-community.jpg",
       fallback:
-        "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1604087267213-40e35f1719a3?auto=format&fit=crop&w=1200&q=80",
       alt: "Community members collaborating at Arvishha Foundation initiative",
     },
     features: [
@@ -132,7 +132,7 @@ export const homeData = {
           "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
         iconName: "Sparkles",
         image:
-          "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1708593337380-6f97a307696f?auto=format&fit=crop&w=800&q=80",
         href: "/what-we-do#women",
         keyOutcomes: [
           "Micro-enterprise & vocational handicraft training",
@@ -180,7 +180,7 @@ export const homeData = {
           "Development should reach every community. We work directly with rural hamlets to improve infrastructure awareness and public access.",
         iconName: "Building2",
         image:
-          "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1633410195091-bd66114cef5f?auto=format&fit=crop&w=800&q=80",
         href: "/what-we-do#rural",
         keyOutcomes: [
           "Government scheme entitlement camps",
@@ -279,13 +279,13 @@ export const homeData = {
       },
       {
         id: "stat-b",
-        value: "350+",
+        value: "10+",
         label: "Women Micro-Learners",
         sublabel: "Equipped with financial & livelihood skills",
       },
       {
         id: "stat-c",
-        value: "1,200+",
+        value: "10+",
         label: "Health Checkups Facilitated",
         sublabel: "Through regular community health camps",
       },
@@ -344,7 +344,7 @@ export const homeData = {
         shortDescription:
           "Vocational skill training, digital payment onboarding, and micro-business incubation for women artisans.",
         image:
-          "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1708593337380-6f97a307696f?auto=format&fit=crop&w=800&q=80",
         location: "Community Centers",
         year: "2025–Present",
         status: "Active",
@@ -546,7 +546,7 @@ export const homeData = {
         excerpt:
           "Breaking financial isolation: How smartphone banking workshops helped 40 women artisans gain autonomy over their earnings.",
         image:
-          "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1708593337380-6f97a307696f?auto=format&fit=crop&w=800&q=80",
         date: "September 2026",
         category: "Women Empowerment",
         author: "Programs Coordinator",
