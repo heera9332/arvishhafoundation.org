@@ -81,7 +81,7 @@ export function NewsSection({ data }: NewsSectionProps) {
   return (
     <section className="py-20 sm:py-28 bg-white border-t border-slate-100">
       <Container>
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 sm:mb-16 gap-6">
           <div className="max-w-2xl">
             <SectionLabel>{data.eyebrow}</SectionLabel>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
