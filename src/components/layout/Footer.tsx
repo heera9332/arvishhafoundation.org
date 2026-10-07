@@ -39,7 +39,7 @@ export function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-12 w-12 rounded-xl bg-white p-1 shadow-md shrink-0">
+              <div className="relative h-12 w-12 rounded-xl bg-white p-1 shadow-md shrink-0 overflow-hidden">
                 <Image
                   src="/images/logo.png"
                   alt="Arvishha Foundation Logo"

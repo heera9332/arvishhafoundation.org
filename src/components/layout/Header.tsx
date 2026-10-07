@@ -75,7 +75,7 @@ export function Header() {
             href="/"
             className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-amber-400 rounded-xl p-1"
           >
-            <div className="relative h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-white p-1 shadow-md transition-transform group-hover:scale-105 shrink-0">
+            <div className="relative h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-white p-1 shadow-md transition-transform group-hover:scale-105 shrink-0 overflow-hidden">
               <Image
                 src="/images/logo.png"
                 alt="Arvishha Foundation Logo"

@@ -33,7 +33,7 @@ export function MobileNav() {
       <SheetContent side="right" className="w-[320px] sm:w-[380px] p-0 bg-white">
         <SheetHeader className="p-6 border-b border-slate-100 bg-[#023420] text-white">
           <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12 rounded-xl bg-white p-1 shadow-sm shrink-0">
+            <div className="relative h-12 w-12 rounded-xl bg-white p-1 shadow-sm shrink-0 overflow-hidden">
               <Image
                 src="/images/logo.png"
                 alt="Arvishha Foundation Logo"
