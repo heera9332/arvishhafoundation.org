@@ -29,7 +29,7 @@ export function Header() {
       <div
         className={cn(
           "bg-[#012215] text-emerald-100 text-xs border-b border-emerald-900/40 transition-all duration-300 overflow-hidden",
-          isScrolled ? "h-0 opacity-0 py-0" : "h-auto py-1.5 opacity-100"
+          isScrolled ? "h-0 border-none opacity-0 py-0" : "h-auto py-1.5 opacity-100"
         )}
       >
         <Container className="flex items-center justify-between">
@@ -65,8 +65,8 @@ export function Header() {
         className={cn(
           "bg-[#023420] transition-all duration-300 border-b border-emerald-900/50",
           isScrolled
-            ? "bg-[#023420]/95 backdrop-blur-md shadow-lg py-2.5"
-            : "py-3 sm:py-3.5"
+            ? "bg-[#023420]/95 backdrop-blur-md shadow-lg py-2.5 border-none"
+            : "py-0 sm:py-3.5"
         )}
       >
         <Container className="flex items-center justify-between">
