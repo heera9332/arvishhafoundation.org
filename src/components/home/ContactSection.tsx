@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { MapPin } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -76,17 +75,6 @@ export function ContactSection({ data }: ContactSectionProps) {
                       {data.info.emailAlt || data.info.email}
                     </a>
                   </div>
-                </div>
-
-                {/* Bottom Address note */}
-                <div className="absolute bottom-6 left-6 right-6 bg-black/60 backdrop-blur-md text-white p-3.5 rounded-2xl border border-white/20">
-                  <div className="flex items-center gap-2 text-xs text-amber-300 font-semibold">
-                    <MapPin className="h-3.5 w-3.5 shrink-0" />
-                    <span>Office / Field Address</span>
-                  </div>
-                  <p className="text-xs text-white/90 mt-1 leading-snug">
-                    {data.info.address.line1}, {data.info.address.line2 ? `${data.info.address.line2}, ` : ""}{data.info.address.city}, {data.info.address.state}
-                  </p>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, ShieldCheck, User } from "lucide-react";
+import { Phone, Mail, ShieldCheck, User } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/common/PageHero";
 import { SectionLabel } from "@/components/common/SectionLabel";
@@ -104,23 +104,6 @@ export default function ContactPage() {
                     >
                       {contactData.info.email}
                     </a>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#03452c] shrink-0">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
-                      Address
-                    </h3>
-                    <p className="text-sm font-semibold text-slate-900 mt-1">
-                      {contactData.info.address.line1}
-                    </p>
-                    <p className="text-xs text-slate-600">
-                      {contactData.info.address.line2 ? `${contactData.info.address.line2}, ` : ""}{contactData.info.address.city}, {contactData.info.address.state}
-                    </p>
                   </div>
                 </div>
               </div>

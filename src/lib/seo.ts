@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import {
+  CONTACT_DETAILS,
+  CONTACT_PERSON,
+  SOCIAL_HANDLES,
+  SOCIAL_URLS,
+} from "@/constants";
 
 export const siteConfig = {
   name: "Arvishha Foundation",
@@ -9,30 +15,14 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://arvishhafoundation.org",
   mediaUrl: process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://media.arvishhafoundation.org",
   ogImage: "/images/logo.png",
-  contactPerson: {
-    name: "SHANI KUMAR BASOR",
-    firstName: "SHANI KUMAR",
-    lastName: "BASOR",
-  },
+  contactPerson: CONTACT_PERSON,
   contact: {
-    phone: "+91 91119 16239",
-    phoneRaw: "9111916239",
-    email: "shani79083@gmail.com",
-    emailAlt: "shani79083@gmail.com",
-    address: {
-      street: "Vill Kothi Post Khaur, Dist Rewa",
-      city: "Rewa",
-      region: "Madhya Pradesh",
-      postalCode: "MP",
-      country: "India",
-    },
+    phone: CONTACT_DETAILS.phone,
+    phoneRaw: CONTACT_DETAILS.phoneRaw,
+    email: CONTACT_DETAILS.email,
+    emailAlt: CONTACT_DETAILS.emailAlt,
   },
-  socials: {
-    facebook: "https://facebook.com/arvishhafoundation",
-    instagram: "https://instagram.com/arvishhafoundation",
-    x: "https://x.com/arvishha_ngo",
-    linkedin: "https://linkedin.com/company/arvishhafoundation",
-  },
+  socials: SOCIAL_URLS,
 };
 
 export function constructMetadata({
@@ -84,7 +74,7 @@ export function constructMetadata({
       title: fullTitle,
       description,
       images: [image],
-      creator: "@arvishha_ngo",
+      creator: `@${SOCIAL_HANDLES.x}`,
     },
     robots: {
       index: !noIndex,
@@ -116,20 +106,7 @@ export function generateOrganizationSchema() {
     slogan: siteConfig.slogan,
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.contact.address.street,
-      addressLocality: siteConfig.contact.address.city,
-      addressRegion: siteConfig.contact.address.region,
-      postalCode: siteConfig.contact.address.postalCode,
-      addressCountry: siteConfig.contact.address.country,
-    },
-    sameAs: [
-      siteConfig.socials.facebook,
-      siteConfig.socials.instagram,
-      siteConfig.socials.x,
-      siteConfig.socials.linkedin,
-    ],
+    sameAs: Object.values(siteConfig.socials),
   };
 }
 

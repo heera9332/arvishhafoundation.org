@@ -9,6 +9,7 @@ import type {
   ArticleItem,
   ContactInfo,
 } from "@/types/site";
+import { CONTACT_DETAILS, CONTACT_PERSON, SOCIAL_LINKS } from "@/constants";
 
 export const homeData = {
   hero: {
@@ -574,27 +575,14 @@ export const homeData = {
     subheading:
       "Have questions, ideas for collaboration, or want to support our community programs? Reach out to us directly.",
     info: {
-      name: "SHANI KUMAR BASOR",
-      firstName: "SHANI KUMAR",
-      lastName: "BASOR",
-      phone: "+91 91119 16239",
-      phoneAlt: "9111916239",
-      email: "shani79083@gmail.com",
-      emailAlt: "shani79083@gmail.com",
-      address: {
-        line1: "Vill Kothi Post Khaur",
-        line2: "Dist Rewa",
-        city: "Rewa",
-        state: "Madhya Pradesh",
-        pincode: "MP",
-        country: "India",
-      },
-      socialLinks: [
-        { platform: "facebook", url: "https://facebook.com/arvishhafoundation", label: "Facebook" },
-        { platform: "instagram", url: "https://instagram.com/arvishhafoundation", label: "Instagram" },
-        { platform: "x", url: "https://x.com/arvishha_ngo", label: "X" },
-        { platform: "linkedin", url: "https://linkedin.com/company/arvishhafoundation", label: "LinkedIn" },
-      ],
+      name: CONTACT_PERSON.name,
+      firstName: CONTACT_PERSON.firstName,
+      lastName: CONTACT_PERSON.lastName,
+      phone: CONTACT_DETAILS.phone,
+      phoneAlt: CONTACT_DETAILS.phoneAlt,
+      email: CONTACT_DETAILS.email,
+      emailAlt: CONTACT_DETAILS.emailAlt,
+      socialLinks: [...SOCIAL_LINKS],
     } as ContactInfo,
   },
 };

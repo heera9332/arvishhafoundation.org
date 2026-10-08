@@ -7,7 +7,6 @@ import {
   HeartHandshake,
   Phone,
   Mail,
-  MapPin,
   Sparkles,
 } from "lucide-react";
 import { siteConfig } from "@/lib/seo";
@@ -149,10 +148,6 @@ export default function MaintenancePage() {
               <Mail className="w-4 h-4 text-amber-400" />
               <span className="font-medium">{siteConfig.contact.email}</span>
             </a>
-            <div className="flex items-center gap-2 text-emerald-300/80">
-              <MapPin className="w-4 h-4 text-amber-400" />
-              <span>{siteConfig.contact.address.city}, {siteConfig.contact.address.region}</span>
-            </div>
           </div>
 
           {/* Interactive Bypass & Preview Controls */}
@@ -166,14 +161,6 @@ export default function MaintenancePage() {
           <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <div className="flex items-center gap-5 text-xs">
             <a
-              href={siteConfig.socials.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Facebook
-            </a>
-            <a
               href={siteConfig.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
@@ -182,12 +169,20 @@ export default function MaintenancePage() {
               Instagram
             </a>
             <a
-              href={siteConfig.socials.linkedin}
+              href={siteConfig.socials.youtube}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
-              LinkedIn
+              YouTube
+            </a>
+            <a
+              href={siteConfig.socials.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              X
             </a>
           </div>
         </div>

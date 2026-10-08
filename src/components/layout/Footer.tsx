@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, Heart, ArrowUpRight } from "lucide-react";
+import { Phone, Mail, Heart, ArrowUpRight } from "lucide-react";
 import { Container } from "./Container";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import {
@@ -117,12 +117,6 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-slate-300">
               <li className="text-xs text-amber-300 font-medium">
                 Representative: <strong className="text-white font-bold">{siteConfig.contactPerson.name}</strong>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>
-                  {siteConfig.contact.address.street}, {siteConfig.contact.address.city}, {siteConfig.contact.address.region}
-                </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-amber-400 shrink-0" />

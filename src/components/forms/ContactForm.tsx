@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { wordpressApi } from "@/lib/wordpress";
+import { CONTACT_PHONE } from "@/constants";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name (minimum 2 characters)."),
@@ -129,7 +130,7 @@ export function ContactForm() {
               Phone Number
             </label>
             <Input
-              placeholder="+91 91119 16239"
+              placeholder={CONTACT_PHONE}
               {...register("phone")}
               disabled={status === "loading"}
             />

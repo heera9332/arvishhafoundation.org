@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { wordpressApi } from "@/lib/wordpress";
+import { CONTACT_PHONE } from "@/constants";
 
 const volunteerSchema = z.object({
   fullName: z.string().min(2, "Please enter your name."),
@@ -125,7 +126,7 @@ export function VolunteerForm() {
               Phone Number <span className="text-red-500">*</span>
             </label>
             <Input
-              placeholder="+91 91119 16239"
+              placeholder={CONTACT_PHONE}
               {...register("phone")}
               disabled={status === "loading"}
             />

@@ -100,7 +100,7 @@ export interface ContactInfo {
   phoneAlt?: string;
   email: string;
   emailAlt?: string;
-  address: {
+  address?: {
     line1: string;
     line2?: string;
     city: string;

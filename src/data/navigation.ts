@@ -1,4 +1,5 @@
 import type { NavLink, SocialLink } from "@/types/site";
+import { SOCIAL_LINKS } from "@/constants";
 
 export const mainNavLinks: NavLink[] = [
   { label: "Home", href: "/" },
@@ -33,9 +34,4 @@ export const footerLegalLinks: NavLink[] = [
   { label: "Cookie Policy", href: "/cookie-policy" },
 ];
 
-export const socialLinks: SocialLink[] = [
-  { platform: "facebook", url: "https://facebook.com/arvishhafoundation", label: "Facebook" },
-  { platform: "instagram", url: "https://instagram.com/arvishhafoundation", label: "Instagram" },
-  { platform: "x", url: "https://x.com/arvishha_ngo", label: "X (Twitter)" },
-  { platform: "linkedin", url: "https://linkedin.com/company/arvishhafoundation", label: "LinkedIn" },
-];
+export const socialLinks: SocialLink[] = [...SOCIAL_LINKS];
