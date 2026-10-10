@@ -32,6 +32,7 @@ export const footerLegalLinks: NavLink[] = [
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Conditions", href: "/terms" },
   { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Sitemap", href: "/sitemap" },
 ];
 
 export const socialLinks: SocialLink[] = [...SOCIAL_LINKS];
