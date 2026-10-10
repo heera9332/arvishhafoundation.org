@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-serif: var(--font-lora), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --color-brand-green-950: #011d12;
   --color-brand-green-900: #022f1e;
   --color-brand-green-850: #023c26;

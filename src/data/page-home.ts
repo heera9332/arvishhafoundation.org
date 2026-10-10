@@ -13,28 +13,63 @@ import { CONTACT_DETAILS, CONTACT_PERSON, SOCIAL_LINKS } from "@/constants";
 
 export const homeData = {
   hero: {
-    eyebrow: "Development. Dignity. Social Change.",
-    heading: "Arvishha Foundation",
+    eyebrow: "DEVELOPMENT. DIGNITY. SOCIAL CHANGE.",
+    headingPrefix: "Building a future",
+    headingMiddle: "where everyone",
+    headingAction: "can",
+    highlightWord: "thrive.",
+    heading: "Building a future where everyone can thrive.",
     subheading:
-      "Building stronger communities through education, empowerment, rights awareness, health, and sustainable development.",
+      "At Arvishha Foundation, we work with communities to create opportunities for children, young people, women, and families while promoting education, health, rights awareness, and sustainable development across India.",
     description:
-      "At Arvishha Foundation, we believe meaningful change begins when people have the knowledge, opportunities, support, and confidence to shape a better future. We work with communities to create opportunities for children, young people, women, and families while promoting social justice, civic participation, healthy living, and environmental responsibility.",
+      "At Arvishha Foundation, we work with communities to create opportunities for children, young people, women, and families while promoting education, health, rights awareness, and sustainable development across India.",
     primaryCta: {
       label: "Explore Our Work",
       href: "/what-we-do",
     },
     secondaryCta: {
-      label: "Get Involved",
+      label: "Join Our Mission",
       href: "/get-involved",
+    },
+    stats: [
+      {
+        id: "hero-stat-1",
+        value: "500+",
+        label: "community members",
+        sublabel: "reached & empowered",
+        icon: "Users",
+      },
+      {
+        id: "hero-stat-2",
+        value: "12+",
+        label: "grassroots",
+        sublabel: "initiatives",
+        icon: "Sprout",
+      },
+      {
+        id: "hero-stat-3",
+        value: "3",
+        label: "focus areas",
+        sublabel: "Education • Women Empowerment • Health",
+        icon: "Target",
+      },
+    ],
+    floatingBadges: {
+      communityFirst: {
+        title: "Community First",
+        subtitle: "Local action. Lasting change.",
+      },
+      empowering: {
+        text: "Empowering communities across India",
+      },
     },
     proofBadge: {
       count: "500+",
       text: "community members reached & empowered across grassroots initiatives",
     },
     image: {
-      src: "https://media.arvishhafoundation.org/wp-content/uploads/2026/01/hero-community.jpg",
-      fallback:
-        "https://images.unsplash.com/photo-1604087267213-40e35f1719a3?auto=format&fit=crop&w=1200&q=80",
+      src: "/images/hero-women-photo.png",
+      fallback: "/images/hero-community.png",
       alt: "Community members collaborating at Arvishha Foundation initiative",
     },
     features: [

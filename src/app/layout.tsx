@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -13,6 +13,13 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lora",
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = constructMetadata();
 
 export default function RootLayout({
@@ -21,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} ${lora.variable} h-full scroll-smooth`}>
       <head>
         <link rel="icon" href="/images/logo.png" />
       </head>
