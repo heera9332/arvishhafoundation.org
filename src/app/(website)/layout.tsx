@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
+import { Header } from "@/global/header/component";
 import { Footer } from "@/components/layout/Footer";
 import { constructMetadata } from "@/lib/seo";
 import { MaintenanceSync } from "@/components/common/MaintenanceSync";

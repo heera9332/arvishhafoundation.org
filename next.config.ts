@@ -55,6 +55,17 @@ if (process.env.S3_PUBLIC_URL) {
 const nextConfig: NextConfig = {
   images: {
     remotePatterns,
+    localPatterns: [
+      {
+        pathname: "/api/media/file/**",
+      },
+      {
+        pathname: "/api/**",
+      },
+      {
+        pathname: "/**",
+      },
+    ],
   },
 };
 

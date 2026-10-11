@@ -4,6 +4,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 
 import { Media } from "@/collections/media";
+import { Header } from "@/global/header/schema";
 import { s3Storage } from "@payloadcms/storage-s3";
 
 const s3Bucket = process.env.S3_BUCKET || process.env.S3_BUCKET_NAME || "";
@@ -20,6 +21,9 @@ export default buildConfig({
 
   // Define and configure your collections in this array
   collections: [Media],
+
+  // Define and configure your Globals in this array
+  globals: [Header],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",
