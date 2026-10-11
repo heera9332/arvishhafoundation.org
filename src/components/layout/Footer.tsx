@@ -26,7 +26,8 @@ export function Footer() {
               Be The First To Know — Subscribe Today
             </h3>
             <p className="mt-2 text-sm text-emerald-200/80 max-w-lg leading-relaxed">
-              Get quarterly grassroots field updates, volunteer impact stories, and community achievements delivered directly to your inbox.
+              Get quarterly grassroots field updates, volunteer impact stories,
+              and community achievements delivered directly to your inbox.
             </p>
           </div>
           <div className="lg:col-span-6">
@@ -57,7 +58,9 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              A dedicated non-governmental organization advancing child education, women empowerment, health awareness, and community dignity through grassroots action.
+              A dedicated non-governmental organization advancing child
+              education, women empowerment, health awareness, and community
+              dignity through grassroots action.
             </p>
             <div className="pt-2 flex items-center gap-3">
               <Link
@@ -109,15 +112,12 @@ export function Footer() {
             </ul>
           </div>
 
-              {/* Quick Info / Contact */}
+          {/* Quick Info / Contact */}
           <div className="lg:col-span-3 space-y-4">
             <h5 className="text-sm font-semibold text-white tracking-wider uppercase">
               Direct Contact
             </h5>
             <ul className="space-y-3 text-sm text-slate-300">
-              <li className="text-xs text-amber-300 font-medium">
-                Representative: <strong className="text-white font-bold">{siteConfig.contactPerson.name}</strong>
-              </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="h-4 w-4 text-amber-400 shrink-0" />
                 <a

@@ -9,7 +9,7 @@ import {
 export const siteConfig = {
   name: "Arvishha Foundation",
   shortName: "Arvishha",
-  slogan: "Development. Dignity. Social Change.",
+  slogan: "विकास और सामाजिक कार्यों के लिए अग्रसर",
   description:
     "Arvishha Foundation is a dedicated non-governmental organization working towards inclusive education, youth development, women empowerment, healthcare access, rights awareness, and community growth.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://arvishhafoundation.org",

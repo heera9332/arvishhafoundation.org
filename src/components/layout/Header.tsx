@@ -28,15 +28,12 @@ export function Header() {
       {/* Top Announcement / Info Bar */}
       <div
         className={cn(
-          "bg-[#012215] text-emerald-100 text-xs border-b border-emerald-900/40 transition-all duration-300 overflow-hidden",
+          "bg-[#012215] text-emerald-100 text-xs border-b border-emerald-900/40 transition-all duration-300 overflow-hidden hidden md:block",
           isScrolled ? "h-0 border-none opacity-0 py-0" : "h-auto py-1.5 opacity-100"
         )}
       >
-        <Container className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="hidden sm:inline-block font-medium text-amber-300">
-              विकास और सामाजिक कार्यों के लिए अग्रसर
-            </span>
+        <Container className="flex items-center justify-between py-2">
+          <div className="flex items-center gap-6"> 
             <span className="hidden md:inline-block text-emerald-300/80">
               Non-Profit Organization
             </span>
@@ -69,7 +66,7 @@ export function Header() {
             : "py-0 sm:py-3.5"
         )}
       >
-        <Container className="flex items-center justify-between">
+        <Container className="flex items-center justify-between py-2 md:py-0">
           {/* Brand Logo */}
           <Link
             href="/"
@@ -89,7 +86,7 @@ export function Header() {
                 Arvishha Foundation
               </span>
               <span className="text-amber-400 text-[11px] sm:text-xs font-medium tracking-wide">
-                Development • Dignity • Social Change
+                विकास और सामाजिक कार्यों के लिए अग्रसर
               </span>
             </div>
           </Link>

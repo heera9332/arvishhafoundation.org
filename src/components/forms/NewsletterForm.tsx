@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { wordpressApi } from "@/lib/wordpress";
+import { Input } from "../ui/input";
 
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export function NewsletterForm() {
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-md">
-        <input
+        <Input
           type="email"
           value={email}
           onChange={(e) => {
@@ -46,7 +47,7 @@ export function NewsletterForm() {
           }}
           placeholder="Enter your email address..."
           disabled={status === "loading" || status === "success"}
-          className="flex-1 h-12 px-4 rounded-xl bg-emerald-950/80 border border-emerald-800 text-white placeholder:text-emerald-400/60 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-colors"
+          className="flex-1 h-14 md:h-12 px-4 rounded-xl bg-emerald-950/80 border border-emerald-800 text-white placeholder:text-emerald-400/60 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-colors"
           required
         />
         <button
