@@ -4,9 +4,9 @@ export const Media: CollectionConfig = {
   slug: "media",
   access: {
     read: () => true,
-    create: ({ req }) => true,
-    update: ({ req }) => true,
-    delete: ({ req }) => true
+    create: () => true,
+    update: () => true,
+    delete: () => true,
   },
 
   admin: {
@@ -51,7 +51,7 @@ export const Media: CollectionConfig = {
       admin: {
         description: "Accessible alt text (used for images and SEO)",
       },
-      defaultValue: "number plate shop",
+      defaultValue: "Arvishha Foundation",
     },
   ],
   folders: true,
