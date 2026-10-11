@@ -52,10 +52,15 @@ export default function WhatWeDoPage() {
                       isEven ? "lg:order-2" : "lg:order-1"
                     }`}
                   >
-                    <SectionLabel>{pillar.title}</SectionLabel>
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                      {pillar.heading}
-                    </h2>
+                    <div className="flex items-center">
+                      <div>
+                        <SectionLabel>{pillar.title}</SectionLabel>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                          {pillar.heading}
+                        </h2>
+                      </div>
+                    </div>
+
                     <p className="text-base text-slate-600 leading-relaxed">
                       {pillar.description}
                     </p>
@@ -74,18 +79,6 @@ export default function WhatWeDoPage() {
                           </p>
                         </div>
                       ))}
-                    </div>
-
-                    <div className="pt-2">
-                      <Button
-                        asChild
-                        className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto"
-                      >
-                        <Link href="/get-involved" className="inline-flex items-center gap-2">
-                          <span>Support This Initiative</span>
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </Button>
                     </div>
                   </div>
 
@@ -123,7 +116,9 @@ export default function WhatWeDoPage() {
               Help Us Expand These Programs To More Communities
             </h2>
             <p className="text-emerald-100/90 text-base leading-relaxed">
-              Every donation and volunteer hour directly strengthens our classrooms, medical checkup camps, and livelihood training programs.
+              Every donation and volunteer hour directly strengthens our
+              classrooms, medical checkup camps, and livelihood training
+              programs.
             </p>
             <div className="pt-4 flex flex-wrap gap-4 justify-center">
               <Button
@@ -140,9 +135,7 @@ export default function WhatWeDoPage() {
                 variant="outline"
                 className="bg-white/10 hover:bg-white/20 text-white border-white/30 px-7 py-3.5 h-auto rounded-full"
               >
-                <Link href="/get-involved">
-                  Volunteer With Us
-                </Link>
+                <Link href="/get-involved">Volunteer With Us</Link>
               </Button>
             </div>
           </div>

@@ -28,14 +28,7 @@ export const getInvolvedData = {
       mode: "Virtual",
       description:
         "Help us document community impact stories, capture field photography, write articles, or design visual awareness materials.",
-    },
-    {
-      title: "Women Vocational Skill Trainer",
-      commitment: "Weekend modules",
-      mode: "In-Person",
-      description:
-        "Share expertise in tailoring, handicraft design, financial planning, or digital marketing to boost women artisans' micro-businesses.",
-    },
+    }, 
   ],
   corporatePartnership: {
     heading: "Institutional & Corporate CSR Partnerships",

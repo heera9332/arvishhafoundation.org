@@ -49,30 +49,12 @@ export default function ContactPage() {
                   Reach Our Team
                 </h2>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  We look forward to hearing from you. Select the most convenient channel below or submit the inquiry form.
+                  We look forward to hearing from you. Select the most
+                  convenient channel below or submit the inquiry form.
                 </p>
               </div>
 
               <div className="space-y-4">
-                {contactData.info.name && (
-                  <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
-                    <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
-                      <User className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-xs uppercase tracking-wider font-bold text-slate-500">
-                        Contact Person
-                      </h3>
-                      <p className="text-base font-bold text-slate-900 mt-1">
-                        {contactData.info.name}
-                      </p>
-                      <p className="text-xs text-emerald-800 font-medium">
-                        Arvishha Foundation Representative
-                      </p>
-                    </div>
-                  </div>
-                )}
-
                 <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-start gap-4">
                   <div className="h-12 w-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#03452c] shrink-0">
                     <Phone className="h-5 w-5" />
@@ -115,8 +97,6 @@ export default function ContactPage() {
                   <span>Statutory Registrations</span>
                 </div>
                 <p>Registration No: {contactData.info.registrationNumber}</p>
-                <p>NITI Aayog Darpan: {contactData.info.darpanId}</p>
-                <p>{contactData.info.taxExemption}</p>
               </div>
             </div>
 
@@ -127,7 +107,8 @@ export default function ContactPage() {
                   Send A Message
                 </h3>
                 <p className="text-sm text-slate-600 mt-1">
-                  Fill in your details below and our team will get back to you within 24–48 hours.
+                  Fill in your details below and our team will get back to you
+                  within 24–48 hours.
                 </p>
               </div>
 
@@ -139,7 +120,7 @@ export default function ContactPage() {
 
       {/* Frequently Asked Section on Contact Page */}
       <section className="py-20 bg-white border-t border-slate-200/60">
-        <Container size="narrow">
+        <Container size="narrow" className="max-w-7xl">
           <div className="text-center mb-12">
             <SectionLabel>Common Inquiries</SectionLabel>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">

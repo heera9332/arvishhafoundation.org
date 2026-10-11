@@ -60,7 +60,7 @@ export function PageHero({
           </nav>
         )}
 
-        <div className="max-w-3xl">
+        <div className="max-w-7xl">
           {eyebrow && (
             <SectionLabel variant="gold" className="text-amber-400">
               {eyebrow}
@@ -70,7 +70,7 @@ export function PageHero({
             {heading}
           </h1>
           {description && (
-            <p className="mt-5 text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-2xl">
+            <p className="mt-5 text-base sm:text-lg text-emerald-100/90 leading-relaxed">
               {description}
             </p>
           )}

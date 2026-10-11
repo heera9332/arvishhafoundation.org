@@ -63,6 +63,27 @@ export const aboutData = {
       image:
         "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
     },
+    {
+      name: "Dr. Ananya Sharma",
+      role: "Managing Trustee & Executive Director",
+      bio: "15+ years of experience in community education and developmental sociology.",
+      image:
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    },
+    {
+      name: "Rajesh Varma",
+      role: "Director of Programs & Field Operations",
+      bio: "Former rural development fellow passionate about public health access and youth leadership.",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    },
+    {
+      name: "Meenakshi Sundaram",
+      role: "Lead, Women Livelihoods & Training",
+      bio: "Specialist in microfinance, self-help groups, and rural artisanal crafts.",
+      image:
+        "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    },
   ],
   transparency: {
     heading: "Governance & Financial Transparency",

@@ -23,10 +23,6 @@ export const whatWeDoData = {
           title: "Digital Literacy & STEM Exposure",
           desc: "Interactive computer labs and practical science experiment kits introducing modern technologies to rural youth.",
         },
-        {
-          title: "Career Mentorship & Retention",
-          desc: "Guiding high school students on vocational courses, higher education admissions, and scholarship applications.",
-        },
       ],
       image:
         "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80",
@@ -45,10 +41,6 @@ export const whatWeDoData = {
         {
           title: "Financial Literacy & Bank Linkage",
           desc: "Training on mobile banking, digital payments, government entitlement savings, and micro-credit management.",
-        },
-        {
-          title: "Leadership & Rights Circles",
-          desc: "Workshops covering domestic safety rights, property inheritance awareness, and community panchayat participation.",
         },
       ],
       image:
@@ -69,10 +61,6 @@ export const whatWeDoData = {
           title: "Menstrual Health & Dignity",
           desc: "Breaking taboos, distributing biodegradable sanitary kits, and running adolescent reproductive health workshops.",
         },
-        {
-          title: "Nutritional Support for Mothers & Children",
-          desc: "Combatting malnutrition through balanced meal demonstrations, iron-folic acid distribution, and growth monitoring.",
-        },
       ],
       image:
         "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
@@ -80,7 +68,8 @@ export const whatWeDoData = {
     {
       id: "rural",
       title: "Rural Development & Civic Rights",
-      heading: "Connecting Communities to Rights, Entitlements & Public Resources",
+      heading:
+        "Connecting Communities to Rights, Entitlements & Public Resources",
       description:
         "Marginalized families often miss out on crucial public welfare schemes due to documentation barriers or lack of awareness. We bridge this information deficit.",
       initiatives: [
@@ -91,10 +80,6 @@ export const whatWeDoData = {
         {
           title: "Clean Drinking Water & Village Sanitation",
           desc: "Community awareness drives promoting waste segregation, clean water storage, and drainage upkeep.",
-        },
-        {
-          title: "Disaster Preparedness & Relief",
-          desc: "Rapid response assistance providing relief supplies and long-term rehabilitation during climate emergencies.",
         },
       ],
       image:

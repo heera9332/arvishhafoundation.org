@@ -155,7 +155,7 @@ export default function AboutPage() {
                   {member.bio}
                 </p>
               </div>
-            ))}
+            ))} 
           </div>
         </Container>
       </section>
