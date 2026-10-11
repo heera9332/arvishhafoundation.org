@@ -1,4 +1,4 @@
-import { Phone, Mail, ShieldCheck, User } from "lucide-react";
+import { Phone, Mail, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/common/PageHero";
 import { SectionLabel } from "@/components/common/SectionLabel";

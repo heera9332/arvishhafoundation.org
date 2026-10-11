@@ -4,15 +4,23 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Loader2, CheckCircle2, AlertCircle, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Send,
+  User,
+  Mail,
+  Phone,
+  Tag,
+  MessageSquare,
+} from "lucide-react";
 import { wordpressApi } from "@/lib/wordpress";
 import { CONTACT_PHONE } from "@/constants";
+import { cn } from "@/lib/utils";
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Please enter your name (minimum 2 characters)."),
+  name: z.string().min(2, "Please enter your full name (minimum 2 characters)."),
   email: z.string().email("Please enter a valid email address."),
   phone: z.string().optional(),
   subject: z.string().min(3, "Please provide a subject."),
@@ -90,101 +98,160 @@ export function ContactForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {/* Your Full Name */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700">
-              Your Full Name <span className="text-red-500">*</span>
+            <label
+              htmlFor="contact-name"
+              className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
+            >
+              Your Full Name <span className="text-red-500 font-bold ml-1">*</span>
             </label>
-            <Input
-              placeholder="e.g. John Doe"
-              {...register("name")}
-              disabled={status === "loading"}
-              className={errors.name ? "border-red-400 focus-visible:ring-red-400" : ""}
-            />
+            <div className="relative flex items-center">
+              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-slate-400 pointer-events-none" />
+              <input
+                id="contact-name"
+                type="text"
+                placeholder="e.g. John Doe"
+                disabled={status === "loading"}
+                {...register("name")}
+                className={cn(
+                  "w-full h-12 sm:h-[50px] pl-10 pr-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all disabled:opacity-50 disabled:cursor-not-allowed",
+                  errors.name && "border-red-400 focus:ring-red-400/20 focus:border-red-500"
+                )}
+              />
+            </div>
             {errors.name && (
-              <p className="text-xs text-red-500">{errors.name.message}</p>
+              <p className="text-xs text-red-500 font-medium">{errors.name.message}</p>
             )}
           </div>
 
+          {/* Email Address */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700">
-              Email Address <span className="text-red-500">*</span>
+            <label
+              htmlFor="contact-email"
+              className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
+            >
+              Email Address <span className="text-red-500 font-bold ml-1">*</span>
             </label>
-            <Input
-              type="email"
-              placeholder="you@example.com"
-              {...register("email")}
-              disabled={status === "loading"}
-              className={errors.email ? "border-red-400 focus-visible:ring-red-400" : ""}
-            />
+            <div className="relative flex items-center">
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-slate-400 pointer-events-none" />
+              <input
+                id="contact-email"
+                type="email"
+                placeholder="you@example.com"
+                disabled={status === "loading"}
+                {...register("email")}
+                className={cn(
+                  "w-full h-12 sm:h-[50px] pl-10 pr-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all disabled:opacity-50 disabled:cursor-not-allowed",
+                  errors.email && "border-red-400 focus:ring-red-400/20 focus:border-red-500"
+                )}
+              />
+            </div>
             {errors.email && (
-              <p className="text-xs text-red-500">{errors.email.message}</p>
+              <p className="text-xs text-red-500 font-medium">{errors.email.message}</p>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {/* Phone Number */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700">
+            <label
+              htmlFor="contact-phone"
+              className="text-xs sm:text-sm font-semibold text-slate-800 block"
+            >
               Phone Number
             </label>
-            <Input
-              placeholder={CONTACT_PHONE}
-              {...register("phone")}
-              disabled={status === "loading"}
-            />
+            <div className="relative flex items-center">
+              <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-slate-400 pointer-events-none" />
+              <input
+                id="contact-phone"
+                type="tel"
+                placeholder={CONTACT_PHONE}
+                disabled={status === "loading"}
+                {...register("phone")}
+                className="w-full h-12 sm:h-[50px] pl-10 pr-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              />
+            </div>
           </div>
 
+          {/* Subject */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700">
-              Subject <span className="text-red-500">*</span>
+            <label
+              htmlFor="contact-subject"
+              className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
+            >
+              Subject <span className="text-red-500 font-bold ml-1">*</span>
             </label>
-            <Input
-              placeholder="e.g. CSR Partnership / Volunteer Inquiry"
-              {...register("subject")}
-              disabled={status === "loading"}
-              className={errors.subject ? "border-red-400 focus-visible:ring-red-400" : ""}
-            />
+            <div className="relative flex items-center">
+              <Tag className="absolute left-3.5 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-slate-400 pointer-events-none" />
+              <input
+                id="contact-subject"
+                type="text"
+                placeholder="e.g. CSR Partnership / Volunteer Inquiry"
+                disabled={status === "loading"}
+                {...register("subject")}
+                className={cn(
+                  "w-full h-12 sm:h-[50px] pl-10 pr-4 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all disabled:opacity-50 disabled:cursor-not-allowed",
+                  errors.subject && "border-red-400 focus:ring-red-400/20 focus:border-red-500"
+                )}
+              />
+            </div>
             {errors.subject && (
-              <p className="text-xs text-red-500">{errors.subject.message}</p>
+              <p className="text-xs text-red-500 font-medium">{errors.subject.message}</p>
             )}
           </div>
         </div>
 
+        {/* Your Message */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-slate-700">
-            Your Message <span className="text-red-500">*</span>
+          <label
+            htmlFor="contact-message"
+            className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
+          >
+            Your Message <span className="text-red-500 font-bold ml-1">*</span>
           </label>
-          <Textarea
-            rows={4}
-            placeholder="Tell us how we can help or collaborate..."
-            {...register("message")}
-            disabled={status === "loading"}
-            className={errors.message ? "border-red-400 focus-visible:ring-red-400" : ""}
-          />
+          <div className="relative">
+            <MessageSquare className="absolute left-3.5 top-3.5 h-[18px] w-[18px] text-slate-400 pointer-events-none" />
+            <textarea
+              id="contact-message"
+              rows={4}
+              placeholder="Tell us how we can help or collaborate..."
+              disabled={status === "loading"}
+              {...register("message")}
+              className={cn(
+                "w-full min-h-[125px] sm:min-h-[135px] pl-10 pr-4 pt-3 pb-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all resize-y disabled:opacity-50 disabled:cursor-not-allowed",
+                errors.message && "border-red-400 focus:ring-red-400/20 focus:border-red-500"
+              )}
+            />
+          </div>
           {errors.message && (
-            <p className="text-xs text-red-500">{errors.message.message}</p>
+            <p className="text-xs text-red-500 font-medium">{errors.message.message}</p>
           )}
         </div>
 
-        <Button
-          type="submit"
-          disabled={status === "loading"}
-          className="w-full sm:w-auto bg-[#03452c] hover:bg-[#023320] text-white px-8 py-3.5 h-auto rounded-full font-semibold gap-2 shadow-md transition-all"
-        >
-          {status === "loading" ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Sending Message...</span>
-            </>
-          ) : (
-            <>
-              <span>Send Message</span>
-              <Send className="h-4 w-4" />
-            </>
-          )}
-        </Button>
+        {/* Submit Button */}
+        <div className="pt-2">
+          <button
+            type="submit"
+            disabled={status === "loading"}
+            className="inline-flex items-center justify-center gap-2.5 bg-[#083827] hover:bg-[#05291c] text-white px-8 py-3.5 rounded-full font-medium text-sm sm:text-base shadow-md shadow-emerald-950/20 hover:shadow-lg transition-all active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+          >
+            {status === "loading" ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Sending Message...</span>
+              </>
+            ) : (
+              <>
+                <span>Send Message</span>
+                <Send className="h-4 w-4 ml-0.5" />
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );
