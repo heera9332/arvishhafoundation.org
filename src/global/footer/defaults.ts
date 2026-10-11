@@ -26,6 +26,7 @@ export const defaultFooterData: FooterData = {
     heading: "Be The First To Know — Subscribe Today",
     description:
       "Get quarterly grassroots field updates, volunteer impact stories, and community achievements delivered directly to your inbox.",
+    form: null,
   },
   navigation: {
     quickLinksTitle: "Quick Links",

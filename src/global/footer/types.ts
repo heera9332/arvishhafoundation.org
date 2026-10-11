@@ -28,11 +28,32 @@ export interface FooterBranding {
   };
 }
 
+export interface FooterFormField {
+  blockType: string;
+  name: string;
+  label?: string;
+  required?: boolean;
+}
+
+export interface FooterFormData {
+  id: string;
+  title: string;
+  submitButtonLabel?: string;
+  confirmationType?: "message" | "redirect";
+  confirmationMessage?: unknown;
+  redirect?: {
+    type?: "custom" | "reference";
+    url?: string;
+  };
+  fields?: FooterFormField[];
+}
+
 export interface FooterNewsletter {
   enabled: boolean;
   badge: string;
   heading: string;
   description: string;
+  form?: FooterFormData | string | null;
 }
 
 export interface FooterNavigation {

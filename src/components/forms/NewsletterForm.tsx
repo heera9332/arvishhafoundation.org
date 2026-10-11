@@ -4,11 +4,30 @@ import React, { useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { wordpressApi } from "@/lib/wordpress";
 import { Input } from "../ui/input";
+import type { FooterFormData } from "@/global/footer/types";
 
-export function NewsletterForm() {
+function extractLexicalText(node: unknown): string {
+  if (!node || typeof node !== "object") return "";
+  const n = node as { text?: unknown; children?: unknown };
+  if (typeof n.text === "string") return n.text;
+  if (Array.isArray(n.children)) {
+    return n.children.map(extractLexicalText).filter(Boolean).join(" ");
+  }
+  return "";
+}
+
+export interface NewsletterFormProps {
+  form?: FooterFormData | string | null;
+}
+
+export function NewsletterForm({ form }: NewsletterFormProps = {}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [feedback, setFeedback] = useState("");
+
+  const formObj = typeof form === "object" && form !== null ? form : null;
+  const formId = formObj ? formObj.id : typeof form === "string" ? form : null;
+  const buttonLabel = formObj?.submitButtonLabel || "Subscribe";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,6 +38,68 @@ export function NewsletterForm() {
     }
 
     setStatus("loading");
+
+    // If a Payload Form is linked, submit directly to Payload CMS Form Submissions API
+    if (formId) {
+      try {
+        const emailFieldName =
+          formObj?.fields?.find((f) => f.blockType === "email" || f.name === "email")?.name ||
+          "email";
+
+        const res = await fetch("/api/form-submissions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            form: formId,
+            submissionData: [
+              {
+                field: emailFieldName,
+                value: email,
+              },
+            ],
+          }),
+        });
+
+        if (res.ok) {
+          if (formObj?.confirmationType === "redirect" && formObj?.redirect?.url) {
+            window.location.href = formObj.redirect.url;
+            return;
+          }
+
+          let confirmationMsg = "";
+          if (formObj?.confirmationMessage) {
+            confirmationMsg =
+              typeof formObj.confirmationMessage === "string"
+                ? formObj.confirmationMessage
+                : extractLexicalText(formObj.confirmationMessage);
+          }
+
+          setStatus("success");
+          setFeedback(
+            confirmationMsg || "Thank you! You've successfully subscribed to our newsletter."
+          );
+          setEmail("");
+        } else {
+          const errData = (await res.json().catch(() => null)) as
+            | { errors?: Array<{ message?: string }>; message?: string }
+            | null;
+          const errMsg =
+            errData?.errors?.[0]?.message ||
+            errData?.message ||
+            "Failed to subscribe. Please try again.";
+          setStatus("error");
+          setFeedback(errMsg);
+        }
+      } catch {
+        setStatus("error");
+        setFeedback("Network error. Please try again later.");
+      }
+      return;
+    }
+
+    // Fallback: WordPress newsletter API if no Payload form is configured
     try {
       const res = await wordpressApi.subscribeNewsletter(email);
       if (res.success) {
@@ -59,7 +140,7 @@ export function NewsletterForm() {
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
             <>
-              <span>Subscribe</span>
+              <span>{buttonLabel}</span>
               <Send className="h-4 w-4" />
             </>
           )}

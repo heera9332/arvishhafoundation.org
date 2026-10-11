@@ -46,7 +46,7 @@ export function Footer({ data = defaultFooterData }: FooterProps) {
               )}
             </div>
             <div className="lg:col-span-6">
-              <NewsletterForm />
+              <NewsletterForm form={newsletter.form} />
             </div>
           </div>
         )}

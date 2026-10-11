@@ -4,9 +4,15 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 
 import { Media } from "@/collections/media";
+import { Pages } from "@/collections/pages";
+import { Categories } from "@/collections/categories";
+import { Tags } from "@/collections/tags";
 import { Header } from "@/global/header/schema";
 import { Footer } from "@/global/footer/schema";
 import { s3Storage } from "@payloadcms/storage-s3";
+import { seoPlugin } from "@payloadcms/plugin-seo";
+import { formBuilderPlugin } from "@payloadcms/plugin-form-builder";
+import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 
 const s3Bucket = process.env.S3_BUCKET || process.env.S3_BUCKET_NAME || "";
 const s3AccessKeyId = process.env.S3_ACCESS_KEY_ID || process.env.S3_ACCESS_KEY || "";
@@ -21,7 +27,7 @@ export default buildConfig({
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Media],
+  collections: [Media, Pages, Categories, Tags],
 
   // Define and configure your Globals in this array
   globals: [Header, Footer],
@@ -39,6 +45,55 @@ export default buildConfig({
   // you don't need it!
   sharp,
   plugins: [
+    seoPlugin({
+      collections: [],
+      uploadsCollection: "media",
+      tabbedUI: true,
+      generateTitle: ({ doc }) => {
+        const item = doc as { title?: unknown } | undefined;
+        const title = typeof item?.title === "string" ? item.title : "Arvishha Foundation";
+        return `${title} | Arvishha Foundation`;
+      },
+      generateDescription: ({ doc }) => {
+        const item = doc as { description?: unknown } | undefined;
+        return typeof item?.description === "string"
+          ? item.description
+          : "Arvishha Foundation is a dedicated non-governmental organization working towards inclusive education, youth development, women empowerment, healthcare access, and community growth.";
+      },
+      generateURL: ({ doc }) => {
+        const item = doc as { slug?: unknown } | undefined;
+        const slug = typeof item?.slug === "string" ? item.slug : "";
+        return `https://arvishhafoundation.org/${slug}`;
+      },
+    }),
+    nestedDocsPlugin({
+      collections: ["categories"],
+      generateLabel: (_, currentDoc) => {
+        const item = currentDoc as { title?: unknown } | undefined;
+        return typeof item?.title === "string" ? item.title : "";
+      },
+      generateURL: (docs) =>
+        docs.reduce((url, doc) => {
+          const item = doc as { slug?: unknown } | undefined;
+          const slug = typeof item?.slug === "string" ? item.slug : "";
+          return `${url}/${slug}`;
+        }, ""),
+    }),
+    formBuilderPlugin({
+      fields: {
+        payment: false,
+      },
+      formOverrides: {
+        admin: {
+          group: "Content",
+        },
+      },
+      formSubmissionOverrides: {
+        admin: {
+          group: "Content",
+        },
+      },
+    }),
     ...(isS3Configured
       ? [
           s3Storage({

@@ -1,6 +1,6 @@
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
-import type { FooterData, FooterLinkItem, FooterSocialItem } from "./types";
+import type { FooterData, FooterFormData, FooterLinkItem, FooterSocialItem } from "./types";
 import { defaultFooterData } from "./defaults";
 
 // In-memory flag so auto-seeding is only attempted once per server lifetime
@@ -33,6 +33,25 @@ interface RawFooterSocialItem {
   enabled?: boolean | null;
 }
 
+interface RawFormDoc {
+  id?: string;
+  _id?: string;
+  title?: string;
+  submitButtonLabel?: string;
+  confirmationType?: "message" | "redirect";
+  confirmationMessage?: unknown;
+  redirect?: {
+    type?: "custom" | "reference";
+    url?: string;
+  };
+  fields?: Array<{
+    blockType: string;
+    name: string;
+    label?: string;
+    required?: boolean;
+  }>;
+}
+
 interface RawFooterDoc {
   branding?: {
     logo?: RawMediaObject | string | null;
@@ -53,6 +72,7 @@ interface RawFooterDoc {
     badge?: string | null;
     heading?: string | null;
     description?: string | null;
+    form?: RawFormDoc | string | null;
   } | null;
   navigation?: {
     quickLinksTitle?: string | null;
@@ -123,6 +143,24 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
     logoUrl = branding.logoUrl;
   }
 
+  let form: FooterFormData | string | null = null;
+  if (newsletter?.form) {
+    if (typeof newsletter.form === "string") {
+      form = newsletter.form;
+    } else if (typeof newsletter.form === "object" && newsletter.form !== null) {
+      const f = newsletter.form;
+      form = {
+        id: String(f.id || f._id || ""),
+        title: f.title || "Newsletter",
+        submitButtonLabel: f.submitButtonLabel || "Subscribe",
+        confirmationType: f.confirmationType || "message",
+        confirmationMessage: f.confirmationMessage,
+        redirect: f.redirect,
+        fields: f.fields,
+      };
+    }
+  }
+
   return {
     branding: {
       logoUrl,
@@ -142,6 +180,7 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
       badge: newsletter?.badge || defaultFooterData.newsletter.badge,
       heading: newsletter?.heading || defaultFooterData.newsletter.heading,
       description: newsletter?.description || defaultFooterData.newsletter.description,
+      form,
     },
     navigation: {
       quickLinksTitle:
@@ -258,8 +297,38 @@ export async function getFooterData(): Promise<FooterData> {
       return defaultFooterData;
     }
 
+    let linkedForm = footerDoc?.newsletter?.form;
+    if (!linkedForm) {
+      try {
+        const formsResult = await payload.find({
+          collection: "forms",
+          limit: 1,
+        });
+        if (formsResult.docs.length > 0) {
+          linkedForm = formsResult.docs[0] as unknown as RawFormDoc;
+          await payload.updateGlobal({
+            slug: "footer",
+            data: {
+              newsletter: {
+                ...footerDoc?.newsletter,
+                form: formsResult.docs[0].id,
+              },
+            },
+          });
+        }
+      } catch (fErr) {
+        console.warn("[Footer API] Fallback form discovery skipped:", fErr);
+      }
+    }
+
     if (hasContent) {
-      return formatFooterData(footerDoc);
+      return formatFooterData({
+        ...footerDoc,
+        newsletter: {
+          ...footerDoc?.newsletter,
+          form: linkedForm,
+        },
+      });
     }
 
     return defaultFooterData;

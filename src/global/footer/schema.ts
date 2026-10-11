@@ -126,6 +126,16 @@ export const Footer: GlobalConfig = {
               defaultValue:
                 "Get quarterly grassroots field updates, volunteer impact stories, and community achievements delivered directly to your inbox.",
             },
+            {
+              name: "form",
+              type: "relationship",
+              relationTo: "forms",
+              label: "Select Newsletter / Subscribe Form",
+              admin: {
+                description:
+                  "Choose a form created in Form Builder to collect subscriber submissions.",
+              },
+            },
           ],
         },
         {
