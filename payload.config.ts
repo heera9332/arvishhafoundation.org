@@ -5,6 +5,7 @@ import { buildConfig } from "payload";
 
 import { Media } from "@/collections/media";
 import { Header } from "@/global/header/schema";
+import { Footer } from "@/global/footer/schema";
 import { s3Storage } from "@payloadcms/storage-s3";
 
 const s3Bucket = process.env.S3_BUCKET || process.env.S3_BUCKET_NAME || "";
@@ -23,7 +24,7 @@ export default buildConfig({
   collections: [Media],
 
   // Define and configure your Globals in this array
-  globals: [Header],
+  globals: [Header, Footer],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",

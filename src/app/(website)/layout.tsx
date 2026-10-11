@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/global/header/component";
-import { Footer } from "@/components/layout/Footer";
+import { Footer } from "@/global/footer/component";
 import { constructMetadata } from "@/lib/seo";
 import { MaintenanceSync } from "@/components/common/MaintenanceSync";
 
