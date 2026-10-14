@@ -16,3 +16,5 @@ export { TeamBlock } from "./Team";
 export { PartnersBlock } from "./Partners";
 export { ValuesBlock } from "./Values";
 export { DonateTiersBlock } from "./DonateTiers";
+export { RenderBlocks, blockComponents } from "./RenderBlocks";
+export type { PageBlock, BlockType } from "./RenderBlocks";
