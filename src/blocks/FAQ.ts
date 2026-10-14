@@ -61,5 +61,37 @@ export const FAQBlock: Block = {
         },
       ],
     },
+    {
+      type: "group",
+      name: "Ask a Question",
+      fields: [
+        {
+          type: "text",
+          name: "askQuestionHeading",
+          label: "Ask a Question Heading",
+          defaultValue: "Don't Worry — We've Got Answers!",
+        },
+        {
+          type: "textarea",
+          name: "description",
+          defaultValue:
+            "We are here to help. If you didn't find the answer you were looking for, reach out to our team directly. We are happy to clarify any details.",
+          label: "Ask a Question Description",
+        },
+        {
+          name: "cta",
+          label: "CTA",
+          type: "group",
+          fields: [
+            createLinkField({
+              name: "link",
+              label: "CTA Link",
+              disableLabel: false,
+              defaultValue: "/contact",
+            }),
+          ],
+        },
+      ],
+    },
   ],
 };

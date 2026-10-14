@@ -28,52 +28,18 @@ export const ContactBlock: Block = {
         "Have questions, want to volunteer, explore CSR collaborations, or learn more about our work? Reach out today.",
     },
     {
-      type: "row",
-      fields: [
-        {
-          name: "showForm",
-          type: "checkbox",
-          label: "Show Contact Form",
-          defaultValue: true,
-          admin: { width: "50%" },
-        },
-        {
-          name: "showInfoCards",
-          type: "checkbox",
-          label: "Show Contact Information Cards",
-          defaultValue: true,
-          admin: { width: "50%" },
-        },
-      ],
+      type: "relationship",
+      name: "form",
+      label: "Contact Form",
+      relationTo: "forms",
+      required: true,
     },
     {
-      type: "row",
-      fields: [
-        {
-          name: "phoneOverride",
-          type: "text",
-          label: "Custom Phone Number",
-          admin: {
-            width: "50%",
-            placeholder: "Leave blank to use default site phone",
-          },
-        },
-        {
-          name: "emailOverride",
-          type: "text",
-          label: "Custom Email Address",
-          admin: {
-            width: "50%",
-            placeholder: "Leave blank to use default site email",
-          },
-        },
-      ],
-    },
-    {
-      name: "addressOverride",
-      type: "textarea",
-      label: "Custom Physical Address",
-      admin: { placeholder: "Leave blank to use default site address" },
+      name: "sectionImage",
+      type: "upload",
+      label: "Section Image",
+      relationTo: "media",
+      required: true,
     },
   ],
 };
