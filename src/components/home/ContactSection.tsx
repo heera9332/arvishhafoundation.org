@@ -4,15 +4,40 @@ import React from "react";
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { ContactForm } from "@/components/forms/ContactForm";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface ContactSectionProps {
-  data: typeof homeData.contact;
+export interface ContactSectionData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  phoneOverride?: string | null;
+  emailOverride?: string | null;
+  info?: {
+    name?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    emailAlt?: string | null;
+    hours?: string | null;
+  } | null;
+}
+
+export interface ContactSectionProps {
+  data?: ContactSectionData | typeof homeData.contact | any;
 }
 
 export function ContactSection({ data }: ContactSectionProps) {
-  const phoneClean = (data.info.phone || "").replace(/[^0-9+]/g, "");
-  const emailTarget = data.info.emailAlt || data.info.email;
+  const eyebrow = data?.eyebrow || homeData.contact.eyebrow || "GET IN TOUCH";
+  const heading = data?.heading || homeData.contact.heading;
+  const subheading = data?.subheading || homeData.contact.subheading;
+  const infoPhone =
+    data?.phoneOverride || data?.info?.phone || homeData.contact.info.phone;
+  const infoEmail =
+    data?.emailOverride || data?.info?.email || homeData.contact.info.email;
+  const infoName = data?.info?.name || homeData.contact.info.name;
+  const infoEmailAlt = data?.info?.emailAlt || homeData.contact.info.emailAlt;
+
+  console.log("ContactSection data:", data);
+  const emailTarget = infoEmailAlt || infoEmail;
 
   return (
     <section className="py-16 sm:py-24 lg:py-28 bg-[#faf9f5] border-t border-slate-200/60 relative">
@@ -103,27 +128,13 @@ export function ContactSection({ data }: ContactSectionProps) {
                   className="object-cover select-none"
                   priority
                 />
-
-                {/* Interactive Click Overlays for Phone & Email */}
-                <a
-                  href={`tel:${phoneClean}`}
-                  title={`Call ${data.info.phone}`}
-                  aria-label={`Call ${data.info.name} at ${data.info.phone}`}
-                  className="absolute left-[6%] right-[6%] top-[65%] h-[12%] rounded-2xl transition-all hover:bg-white/10 active:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-400/80 cursor-pointer"
-                />
-
-                <a
-                  href={`mailto:${emailTarget}`}
-                  title={`Email ${emailTarget}`}
-                  aria-label={`Email ${emailTarget}`}
-                  className="absolute left-[6%] right-[6%] top-[79%] h-[12%] rounded-2xl transition-all hover:bg-white/10 active:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-400/80 cursor-pointer"
-                />
+ 
 
                 {/* Accessible semantic details for screen readers & crawlers */}
                 <div className="sr-only">
                   <p>Stronger Communities Brighter Tomorrows</p>
-                  <p>Contact Person: {data.info.name}</p>
-                  <p>Mobile Number: {data.info.phone}</p>
+                  <p>Contact Person: {infoName}</p>
+                  <p>Mobile Number: {infoPhone}</p>
                   <p>Email Address: {emailTarget}</p>
                   <p>People • Community • Positive Change</p>
                 </div>
@@ -136,18 +147,18 @@ export function ContactSection({ data }: ContactSectionProps) {
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
                 <span className="text-xs sm:text-sm font-bold tracking-[0.18em] text-[#083827] uppercase">
-                  {data.eyebrow || "GET IN TOUCH"}
+                  {eyebrow}
                 </span>
               </div>
 
               {/* Serif Heading */}
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-bold text-slate-900 tracking-tight leading-[1.15]">
-                {data.heading}
+                {heading}
               </h2>
 
               {/* Subheading */}
               <p className="mt-3.5 mb-8 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-                {data.subheading}
+                {subheading}
               </p>
 
               {/* Contact Form */}

@@ -5,21 +5,35 @@ import Image from "next/image";
 import { Quote } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface TestimonialsSectionProps {
-  data: typeof homeData.testimonials;
+export interface TestimonialsSectionData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  description?: string | null;
+  theme?: string | null;
+  items?: Array<any> | null;
 }
 
-function TestimonialCard({ item }: { item: (typeof homeData.testimonials.items)[0] }) {
+export interface TestimonialsSectionProps {
+  data?: TestimonialsSectionData | typeof homeData.testimonials | any;
+}
+
+function TestimonialCard({ item }: { item: any }) {
   const [imgError, setImgError] = useState(false);
+  const avatarSrc =
+    typeof item.avatar === "object" && item.avatar?.url
+      ? item.avatar.url
+      : item.avatarUrl ||
+        (typeof item.avatar === "string" ? item.avatar : "/images/avatar-1.png");
 
   return (
     <div className="bg-emerald-950/60 border border-emerald-800/80 rounded-3xl p-8 backdrop-blur-xs flex flex-col justify-between hover:border-amber-400/50 transition-colors shadow-lg relative group">
       <div>
         <div className="flex items-center justify-between mb-6">
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-900/80 text-amber-300 border border-emerald-700/60">
-            {item.initiative}
+            {item.initiative || "Community"}
           </span>
           <Quote className="h-8 w-8 text-amber-400/40 rotate-180" />
         </div>
@@ -33,7 +47,7 @@ function TestimonialCard({ item }: { item: (typeof homeData.testimonials.items)[
         <div className="relative h-12 w-12 rounded-full overflow-hidden bg-emerald-900 border-2 border-amber-400/60 shrink-0">
           {!imgError ? (
             <Image
-              src={item.avatar}
+              src={avatarSrc}
               alt={item.name}
               fill
               sizes="48px"
@@ -42,7 +56,7 @@ function TestimonialCard({ item }: { item: (typeof homeData.testimonials.items)[
             />
           ) : (
             <div className="h-full w-full flex items-center justify-center font-bold text-white text-sm">
-              {item.name.charAt(0)}
+              {item.name ? item.name.charAt(0) : "A"}
             </div>
           )}
         </div>
@@ -53,9 +67,11 @@ function TestimonialCard({ item }: { item: (typeof homeData.testimonials.items)[
           <p className="text-xs text-amber-300 font-medium mt-0.5">
             {item.role}
           </p>
-          <p className="text-[11px] text-emerald-300/70">
-            {item.location}
-          </p>
+          {item.location && (
+            <p className="text-[11px] text-emerald-300/70">
+              {item.location}
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -63,6 +79,15 @@ function TestimonialCard({ item }: { item: (typeof homeData.testimonials.items)[
 }
 
 export function TestimonialsSection({ data }: TestimonialsSectionProps) {
+  const eyebrow = data?.eyebrow || homeData.testimonials.eyebrow;
+  const heading = data?.heading || homeData.testimonials.heading;
+  const subheading =
+    data?.subheading || data?.description || homeData.testimonials.subheading;
+  const items =
+    data?.items && data.items.length > 0
+      ? data.items
+      : homeData.testimonials.items;
+
   return (
     <section className="py-20 sm:py-28 bg-[#023420] text-white relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-5">
@@ -71,18 +96,18 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
 
       <Container className="relative z-10">
         <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-20">
-          <SectionLabel variant="gold">{data.eyebrow}</SectionLabel>
+          <SectionLabel variant="gold">{eyebrow}</SectionLabel>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            {data.heading}
+            {heading}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-emerald-100/90 leading-relaxed">
-            {data.subheading}
+            {subheading}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {data.items.map((item) => (
-            <TestimonialCard key={item.id} item={item} />
+          {items.map((item: any, idx: number) => (
+            <TestimonialCard key={item.id || idx} item={item} />
           ))}
         </div>
       </Container>

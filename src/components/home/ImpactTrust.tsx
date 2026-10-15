@@ -1,10 +1,32 @@
 import React from "react";
-import { Users, HandHeart, BookOpen, Target } from "lucide-react";
+import {
+  Users,
+  HandHeart,
+  BookOpen,
+  Target,
+  Sparkles,
+  Sprout,
+  Heart,
+  ShieldCheck,
+} from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface ImpactTrustProps {
-  data: typeof homeData.impactStats;
+export interface ImpactTrustData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  stats?: Array<{
+    id?: string | null;
+    value: string;
+    label: string;
+    sublabel?: string | null;
+    icon?: string | null;
+  }> | null;
+}
+
+export interface ImpactTrustProps {
+  data?: ImpactTrustData | typeof homeData.impactStats | any;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -12,16 +34,24 @@ const iconMap: Record<string, React.ReactNode> = {
   HandHeart: <HandHeart className="h-6 w-6 text-amber-500" />,
   BookOpen: <BookOpen className="h-6 w-6 text-amber-500" />,
   Target: <Target className="h-6 w-6 text-amber-500" />,
+  Sparkles: <Sparkles className="h-6 w-6 text-amber-500" />,
+  Sprout: <Sprout className="h-6 w-6 text-amber-500" />,
+  Heart: <Heart className="h-6 w-6 text-amber-500" />,
+  ShieldCheck: <ShieldCheck className="h-6 w-6 text-amber-500" />,
 };
 
 export function ImpactTrust({ data }: ImpactTrustProps) {
+  const stats =
+    data?.stats && data.stats.length > 0
+      ? data.stats
+      : homeData.impactStats.stats;
   return (
     <section className="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/60">
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {data.stats.map((stat) => (
+          {stats.map((stat: any, idx: number) => (
             <div
-              key={stat.id}
+              key={stat.id || idx}
               className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
             >
               <div className="mb-4 inline-flex p-3 rounded-2xl bg-emerald-50 w-fit">

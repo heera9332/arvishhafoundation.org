@@ -8,21 +8,40 @@ import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface NewsSectionProps {
-  data: typeof homeData.news;
+export interface NewsSectionData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  description?: string | null;
+  viewAllCta?: { label: string; href: string } | null;
+  viewAllLink?: { label?: string | null; url?: string | null } | null;
+  staticArticles?: Array<any> | null;
+  items?: Array<any> | null;
 }
 
-function ArticleCard({ article }: { article: (typeof homeData.news.staticArticles)[0] }) {
+export interface NewsSectionProps {
+  data?: NewsSectionData | typeof homeData.news | any;
+}
+
+function ArticleCard({ article }: { article: any }) {
   const [imgError, setImgError] = useState(false);
+  const imgSrc =
+    typeof article.image === "object" && article.image?.url
+      ? article.image.url
+      : article.imageUrl ||
+        (typeof article.image === "string" ? article.image : "/images/news-1.png");
+  const category = article.category || "Education";
+  const date = article.date || "Recent Update";
+  const readTime = article.readTime || null;
 
   return (
     <article className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1">
       <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
         {!imgError ? (
           <Image
-            src={article.image}
+            src={imgSrc}
             alt={article.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -31,12 +50,12 @@ function ArticleCard({ article }: { article: (typeof homeData.news.staticArticle
           />
         ) : (
           <div className="absolute inset-0 bg-[#03452c] flex items-center justify-center text-white p-4 text-center">
-            <span className="font-semibold text-sm">{article.category}</span>
+            <span className="font-semibold text-sm">{category}</span>
           </div>
         )}
         <div className="absolute top-4 left-4">
           <Badge className="bg-[#03452c] text-white border-0 font-medium text-xs">
-            {article.category}
+            {category}
           </Badge>
         </div>
       </div>
@@ -46,14 +65,14 @@ function ArticleCard({ article }: { article: (typeof homeData.news.staticArticle
           <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
             <span className="flex items-center gap-1">
               <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-              <span>{article.date}</span>
+              <span>{date}</span>
             </span>
-            {article.readTime && (
+            {readTime && (
               <>
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <Clock className="h-3.5 w-3.5 text-emerald-800" />
-                  <span>{article.readTime}</span>
+                  <span>{readTime}</span>
                 </span>
               </>
             )}
@@ -78,17 +97,32 @@ function ArticleCard({ article }: { article: (typeof homeData.news.staticArticle
 }
 
 export function NewsSection({ data }: NewsSectionProps) {
+  const eyebrow = data?.eyebrow || homeData.news.eyebrow;
+  const heading = data?.heading || homeData.news.heading;
+  const subheading =
+    data?.subheading || data?.description || homeData.news.subheading;
+  const viewAllHref =
+    data?.viewAllCta?.href || data?.viewAllLink?.url || "/news";
+  const viewAllLabel =
+    data?.viewAllCta?.label || data?.viewAllLink?.label || "Read All Stories";
+  const articles =
+    data?.items && data.items.length > 0
+      ? data.items
+      : data?.staticArticles && data.staticArticles.length > 0
+      ? data.staticArticles
+      : homeData.news.staticArticles;
+
   return (
     <section className="py-20 sm:py-28 bg-white border-t border-slate-100">
       <Container>
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 sm:mb-16 gap-6">
           <div className="max-w-2xl">
-            <SectionLabel>{data.eyebrow}</SectionLabel>
+            <SectionLabel>{eyebrow}</SectionLabel>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {data.heading}
+              {heading}
             </h2>
             <p className="mt-4 text-base text-slate-600 leading-relaxed">
-              {data.subheading}
+              {subheading}
             </p>
           </div>
 
@@ -96,19 +130,24 @@ export function NewsSection({ data }: NewsSectionProps) {
             asChild
             className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto shrink-0 shadow-sm"
           >
-            <Link href={data.viewAllCta.href} className="inline-flex items-center gap-2">
-              <span>{data.viewAllCta.label}</span>
+            <Link href={viewAllHref} className="inline-flex items-center gap-2">
+              <span>{viewAllLabel}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {data.staticArticles.map((article) => (
-            <Link key={article.id} href={`/news/${article.slug}`}>
-              <ArticleCard article={article} />
-            </Link>
-          ))}
+          {articles.map((article: any, idx: number) => {
+            const articleSlug =
+              article.slug ||
+              (article.href ? article.href.replace(/^\/news\/?/, "") : `article-${idx}`);
+            return (
+              <Link key={article.id || idx} href={`/news/${articleSlug}`}>
+                <ArticleCard article={article} />
+              </Link>
+            );
+          })}
         </div>
       </Container>
     </section>

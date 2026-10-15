@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="flex-1 flex items-center justify-center py-32 bg-[#faf9f5]">
+    <div className="flex-1 flex items-center justify-center py-32 bg-[#faf9f5] min-h-[720px]">
       <Container size="narrow" className="text-center space-y-6">
         <span className="inline-block text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 uppercase tracking-widest">
           404 — Page Not Found

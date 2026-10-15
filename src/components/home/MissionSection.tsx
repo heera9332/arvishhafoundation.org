@@ -6,14 +6,85 @@ import { CheckCircle2, Heart } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface MissionSectionProps {
-  data: typeof homeData.missionApproach;
+export interface MissionSectionData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  subheading?: string | null;
+  leftVisual?: {
+    badge?: string | null;
+    title?: string | null;
+    subtext?: string | null;
+    bulletPoints?: Array<string | { point: string }> | null;
+    image?: any;
+    imageUrl?: string | null;
+    alt?: string | null;
+    imageAlt?: string | null;
+  } | null;
+  tabs?: Array<{
+    id?: string | null;
+    tabId?: string | null;
+    title?: string | null;
+    label?: string | null;
+    heading?: string | null;
+    description?: string | null;
+    points?: Array<string | { point: string }> | null;
+    image?: any;
+    imageUrl?: string | null;
+  }> | null;
+}
+
+export interface MissionSectionProps {
+  data?: MissionSectionData | typeof homeData.missionApproach | any;
 }
 
 export function MissionSection({ data }: MissionSectionProps) {
-  const [activeTab, setActiveTab] = useState("vision");
+  const eyebrow = data?.eyebrow || homeData.missionApproach.eyebrow;
+  const heading = data?.heading || homeData.missionApproach.heading;
+  const description =
+    data?.description || data?.subheading || homeData.missionApproach.description;
+
+  const leftBadge =
+    data?.leftVisual?.badge || homeData.missionApproach.leftVisual.badge;
+  const leftTitle =
+    data?.leftVisual?.title || "Creating Change Where It Matters Most";
+  const leftSubtext =
+    data?.leftVisual?.subtext || homeData.missionApproach.leftVisual.subtext;
+  const leftBulletPoints: string[] =
+    data?.leftVisual?.bulletPoints && data.leftVisual.bulletPoints.length > 0
+      ? data.leftVisual.bulletPoints.map((b: any) =>
+          typeof b === "string" ? b : b.point
+        )
+      : homeData.missionApproach.leftVisual.bulletPoints;
+
+  const leftImgSrc =
+    typeof data?.leftVisual?.image === "object" && data.leftVisual.image?.url
+      ? data.leftVisual.image.url
+      : data?.leftVisual?.imageUrl ||
+        (typeof data?.leftVisual?.image === "string"
+          ? data.leftVisual.image
+          : homeData.missionApproach.leftVisual.image);
+  const leftImgAlt =
+    data?.leftVisual?.imageAlt ||
+    data?.leftVisual?.alt ||
+    homeData.missionApproach.leftVisual.alt;
+
+  const tabs =
+    data?.tabs && data.tabs.length > 0
+      ? data.tabs.map((tab: any, idx: number) => ({
+          id: tab.tabId || tab.id || `tab-${idx}`,
+          title: tab.label || tab.title || `Pillar ${idx + 1}`,
+          heading: tab.heading,
+          description: tab.description,
+          points: tab.points
+            ? tab.points.map((p: any) => (typeof p === "string" ? p : p.point))
+            : [],
+        }))
+      : homeData.missionApproach.tabs;
+
+  const [activeTab, setActiveTab] = useState(tabs[0]?.id || "vision");
   const [leftImgError, setLeftImgError] = useState(false);
 
   return (
@@ -24,16 +95,16 @@ export function MissionSection({ data }: MissionSectionProps) {
           <div className="lg:col-span-6 space-y-6">
             <div className="bg-[#faf9f5] border border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xs">
               <span className="inline-block text-xs font-semibold text-emerald-800 uppercase tracking-widest mb-3">
-                {data.leftVisual.badge}
+                {leftBadge}
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight mb-4">
-                Creating Change Where It Matters Most
+                {leftTitle}
               </h3>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
-                {data.leftVisual.subtext}
+                {leftSubtext}
               </p>
               <ul className="space-y-2.5 text-sm text-slate-700">
-                {data.leftVisual.bulletPoints.map((pt, idx) => (
+                {leftBulletPoints.map((pt: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                     <span>{pt}</span>
@@ -45,8 +116,8 @@ export function MissionSection({ data }: MissionSectionProps) {
             <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden shadow-lg border border-slate-100 bg-slate-100">
               {!leftImgError ? (
                 <Image
-                  src={data.leftVisual.image}
-                  alt={data.leftVisual.alt}
+                  src={leftImgSrc}
+                  alt={leftImgAlt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
@@ -72,12 +143,12 @@ export function MissionSection({ data }: MissionSectionProps) {
           {/* Right Column: Approach Narrative & Tabs */}
           <div className="lg:col-span-6 space-y-6 lg:pt-4">
             <div>
-              <SectionLabel>{data.eyebrow}</SectionLabel>
+              <SectionLabel>{eyebrow}</SectionLabel>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.15]">
-                {data.heading}
+                {heading}
               </h2>
               <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-                {data.description}
+                {description}
               </p>
             </div>
 
@@ -87,15 +158,15 @@ export function MissionSection({ data }: MissionSectionProps) {
               onValueChange={setActiveTab}
               className="w-full pt-4"
             >
-              <TabsList className="grid grid-cols-3 max-w-sm">
-                {data.tabs.map((tab) => (
+              <TabsList className={`grid max-w-sm`} style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
+                {tabs.map((tab: any) => (
                   <TabsTrigger key={tab.id} value={tab.id}>
                     {tab.title}
                   </TabsTrigger>
                 ))}
               </TabsList>
 
-              {data.tabs.map((tab) => (
+              {tabs.map((tab: any) => (
                 <TabsContent
                   key={tab.id}
                   value={tab.id}
@@ -109,10 +180,10 @@ export function MissionSection({ data }: MissionSectionProps) {
                   </p>
                   {tab.points && tab.points.length > 0 && (
                     <div className="pt-2 border-t border-emerald-900/10 space-y-2">
-                      {tab.points.map((pt, pIdx) => (
+                      {tab.points.map((pt: any, pIdx: number) => (
                         <div key={pIdx} className="flex items-start gap-2 text-sm text-slate-700">
                           <span className="h-1.5 w-1.5 rounded-full bg-amber-500 mt-2 shrink-0" />
-                          <span>{pt}</span>
+                          <span>{typeof pt === "string" ? pt : pt.point}</span>
                         </div>
                       ))}
                     </div>

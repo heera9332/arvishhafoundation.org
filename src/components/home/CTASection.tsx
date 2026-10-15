@@ -3,13 +3,34 @@ import Link from "next/link";
 import { Heart, UserPlus, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface CTASectionProps {
-  data: typeof homeData.cta;
+export interface CTASectionData {
+  badge?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  theme?: string | null;
+  primaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
+  secondaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
+}
+
+export interface CTASectionProps {
+  data?: CTASectionData | typeof homeData.cta | any;
 }
 
 export function CTASection({ data }: CTASectionProps) {
+  const badge = data?.badge || "Join Hands With Arvishha";
+  const heading = data?.heading || homeData.cta.heading;
+  const subheading = data?.subheading || homeData.cta.subheading;
+  const primaryCta = {
+    label: data?.primaryCta?.label || homeData.cta.primaryCta.label,
+    href: data?.primaryCta?.href || data?.primaryCta?.url || homeData.cta.primaryCta.href,
+  };
+  const secondaryCta = {
+    label: data?.secondaryCta?.label || homeData.cta.secondaryCta.label,
+    href: data?.secondaryCta?.href || data?.secondaryCta?.url || homeData.cta.secondaryCta.href,
+  };
+
   return (
     <section className="py-16 sm:py-24 bg-white">
       <Container>
@@ -21,39 +42,43 @@ export function CTASection({ data }: CTASectionProps) {
           <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 text-amber-300 text-xs font-semibold tracking-wider uppercase">
               <span className="h-2 w-2 rounded-full bg-amber-400" />
-              Join Hands With Arvishha
+              {badge}
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              {data.heading}
+              {heading}
             </h2>
 
             <p className="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-2xl mx-auto">
-              {data.subheading}
+              {subheading}
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4 justify-center">
-              <Button
-                asChild
-                className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-3.5 h-auto text-base rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all"
-              >
-                <Link href={data.primaryCta.href} className="inline-flex items-center gap-2">
-                  <Heart className="h-5 w-5 fill-slate-950 text-slate-950" />
-                  <span>{data.primaryCta.label}</span>
-                </Link>
-              </Button>
+              {primaryCta.label && (
+                <Button
+                  asChild
+                  className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-3.5 h-auto text-base rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all"
+                >
+                  <Link href={primaryCta.href} className="inline-flex items-center gap-2">
+                    <Heart className="h-5 w-5 fill-slate-950 text-slate-950" />
+                    <span>{primaryCta.label}</span>
+                  </Link>
+                </Button>
+              )}
 
-              <Button
-                asChild
-                variant="outline"
-                className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-xs px-7 py-3.5 h-auto text-base rounded-full transition-all"
-              >
-                <Link href={data.secondaryCta.href} className="inline-flex items-center gap-2">
-                  <UserPlus className="h-5 w-5 text-amber-300" />
-                  <span>{data.secondaryCta.label}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              {secondaryCta.label && (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-xs px-7 py-3.5 h-auto text-base rounded-full transition-all"
+                >
+                  <Link href={secondaryCta.href} className="inline-flex items-center gap-2">
+                    <UserPlus className="h-5 w-5 text-amber-300" />
+                    <span>{secondaryCta.label}</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>

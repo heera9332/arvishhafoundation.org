@@ -12,24 +12,41 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
 
-interface FAQSectionProps {
-  data: typeof homeData.faq;
+export interface FAQSectionData {
+  eyebrow?: string | null;
+  heading?: string | null;
+  subheading?: string | null;
+  contactLink?: { label?: string | null; url?: string | null } | null;
+  items?: Array<any> | null;
+}
+
+export interface FAQSectionProps {
+  data?: FAQSectionData | typeof homeData.faq | any;
 }
 
 export function FAQSection({ data }: FAQSectionProps) {
+  const eyebrow = data?.eyebrow || homeData.faq.eyebrow;
+  const heading = data?.heading || homeData.faq.heading;
+  const subheading = data?.subheading || homeData.faq.subheading;
+  const contactHref = data?.contactLink?.url || "/contact";
+  const contactLabel = data?.contactLink?.label || "Have More Questions?";
+  const items =
+    data?.items && data.items.length > 0 ? data.items : homeData.faq.items;
+  const firstItemId = items[0]?.id || "faq-0";
+
   return (
     <section className="py-20 sm:py-28 bg-[#faf9f5]">
       <Container>
         <div className="flex flex-col lg:flex-row items-start justify-between mb-12 gap-8">
           <div className="max-w-2xl">
-            <SectionLabel>{data.eyebrow}</SectionLabel>
+            <SectionLabel>{eyebrow}</SectionLabel>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {data.heading}
+              {heading}
             </h2>
             <p className="mt-4 text-base text-slate-600 leading-relaxed">
-              {data.subheading}
+              {subheading}
             </p>
           </div>
 
@@ -37,8 +54,8 @@ export function FAQSection({ data }: FAQSectionProps) {
             asChild
             className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-6 py-2.5 h-auto shrink-0"
           >
-            <Link href="/contact" className="inline-flex items-center gap-2">
-              <span>Have More Questions?</span>
+            <Link href={contactHref} className="inline-flex items-center gap-2">
+              <span>{contactLabel}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -47,17 +64,20 @@ export function FAQSection({ data }: FAQSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Shadcn Accordion */}
           <div className="lg:col-span-8">
-            <Accordion type="single" collapsible defaultValue="faq-1" className="space-y-4">
-              {data.items.map((item) => (
-                <AccordionItem key={item.id} value={item.id}>
-                  <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-[#03452c]">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                    {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
+            <Accordion type="single" collapsible defaultValue={firstItemId} className="space-y-4">
+              {items.map((item: any, idx: number) => {
+                const itemId = item.id || `faq-${idx}`;
+                return (
+                  <AccordionItem key={itemId} value={itemId}>
+                    <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-[#03452c]">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
             </Accordion>
           </div>
 
