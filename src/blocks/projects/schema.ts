@@ -10,6 +10,16 @@ export const ProjectsBlock: Block = {
   },
   fields: [
     {
+      name: "variant",
+      type: "select",
+      label: "Display Layout",
+      defaultValue: "grid",
+      options: [
+        { label: "Grid View (Home & Overview)", value: "grid" },
+        { label: "Detailed List View (Projects Page)", value: "list" },
+      ],
+    },
+    {
       name: "eyebrow",
       type: "text",
       label: "Eyebrow",

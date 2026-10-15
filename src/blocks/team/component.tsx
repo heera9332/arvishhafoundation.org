@@ -7,7 +7,15 @@ import { ExternalLink } from "lucide-react";
 import { getMediaUrl } from "@/blocks/shared/getMediaUrl";
 import { aboutData } from "@/data/page-about";
 
-export function TeamComponent(block: TeamBlock) {
+export interface TeamComponentProps {
+  data?: TeamBlock | Record<string, unknown>;
+}
+
+export function TeamComponent(props?: TeamComponentProps | Partial<TeamBlock>) {
+  const block = (("data" in (props || {}) && (props as TeamComponentProps)?.data
+    ? (props as TeamComponentProps).data
+    : props) || {}) as Partial<TeamBlock>;
+
   const eyebrow = block.eyebrow || "Leadership & Governance";
   const heading =
     block.heading || "Guided by Experienced Social Practitioners";

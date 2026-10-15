@@ -6,7 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Building, CheckCircle2 } from "lucide-react";
 import { donateData } from "@/data/page-donate";
 
-export function DonateTiersComponent(block: DonateTiersBlock) {
+export interface DonateTiersComponentProps {
+  data?: DonateTiersBlock | Record<string, unknown>;
+}
+
+export function DonateTiersComponent(
+  props?: DonateTiersComponentProps | Partial<DonateTiersBlock>
+) {
+  const block = (("data" in (props || {}) && (props as DonateTiersComponentProps)?.data
+    ? (props as DonateTiersComponentProps).data
+    : props) || {}) as Partial<DonateTiersBlock>;
+
   const eyebrow = block.eyebrow || donateData.hero.eyebrow;
   const heading = block.heading || donateData.hero.heading;
   const description = block.description || donateData.hero.description;

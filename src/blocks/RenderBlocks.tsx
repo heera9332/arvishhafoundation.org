@@ -14,12 +14,18 @@ import { CTAComponent } from "./cta/component";
 import { FAQComponent } from "./faq/component";
 import { NewsComponent } from "./news/component";
 import { ContactComponent } from "./contact/component";
+import { ContactPageComponent } from "./contact-page/component";
 import { MediaBlockComponent } from "./media-block/component";
 import { FormBlockComponent } from "./form-block/component";
 import { TeamComponent } from "./team/component";
 import { PartnersComponent } from "./partners/component";
 import { ValuesComponent } from "./values/component";
 import { DonateTiersComponent } from "./donate-tiers/component";
+import { StoryComponent } from "./story/component";
+import { TransparencyComponent } from "./transparency/component";
+import { VolunteerComponent } from "./volunteer/component";
+import { CorporatePartnershipComponent } from "./corporate-partnership/component";
+import { PillarsComponent } from "./pillars/component";
 
 // Shared utilities
 export { getMediaUrl } from "./shared/getMediaUrl";
@@ -45,12 +51,18 @@ export const blockComponents: Record<
   faq: FAQComponent,
   news: NewsComponent,
   contact: ContactComponent,
+  contactPage: ContactPageComponent,
   mediaBlock: MediaBlockComponent,
   formBlock: FormBlockComponent,
   team: TeamComponent,
   partners: PartnersComponent,
   values: ValuesComponent,
   donateTiers: DonateTiersComponent,
+  story: StoryComponent,
+  transparency: TransparencyComponent,
+  volunteer: VolunteerComponent,
+  corporatePartnership: CorporatePartnershipComponent,
+  pillars: PillarsComponent,
 };
 
 export interface RenderBlocksProps {

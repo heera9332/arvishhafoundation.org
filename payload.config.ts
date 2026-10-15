@@ -1,3 +1,5 @@
+import path from "path";
+import { fileURLToPath } from "url";
 import sharp from "sharp";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
@@ -14,6 +16,9 @@ import { seoPlugin } from "@payloadcms/plugin-seo";
 import { formBuilderPlugin } from "@payloadcms/plugin-form-builder";
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs";
 
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
 const s3Bucket = process.env.S3_BUCKET || process.env.S3_BUCKET_NAME || "";
 const s3AccessKeyId = process.env.S3_ACCESS_KEY_ID || process.env.S3_ACCESS_KEY || "";
 const s3SecretAccessKey = process.env.S3_SECRET_ACCESS_KEY || process.env.S3_SECRET_KEY || "";
@@ -23,6 +28,9 @@ const s3Prefix = process.env.S3_PREFIX ?? "media";
 const isS3Configured = Boolean(s3Bucket && s3AccessKeyId && s3SecretAccessKey);
 
 export default buildConfig({
+  typescript: {
+    outputFile: path.resolve(dirname, "src/payload-types.ts"),
+  },
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
 

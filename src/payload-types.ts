@@ -243,12 +243,18 @@ export interface Page {
     | FAQBlock
     | NewsBlock
     | ContactBlock
+    | ContactPageBlock
     | MediaBlock
     | FormBlock
     | TeamBlock
     | PartnersBlock
     | ValuesBlock
     | DonateTiersBlock
+    | StoryBlock
+    | TransparencyBlock
+    | VolunteerBlock
+    | CorporatePartnershipBlock
+    | PillarsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -451,6 +457,7 @@ export interface MissionVisionBlock {
  * via the `definition` "ProjectsBlock".
  */
 export interface ProjectsBlock {
+  variant?: ('grid' | 'list') | null;
   eyebrow?: string | null;
   heading: string;
   description?: string | null;
@@ -575,6 +582,18 @@ export interface FAQBlock {
         id?: string | null;
       }[]
     | null;
+  'Ask a Question': {
+    askQuestionHeading?: string | null;
+    description?: string | null;
+    cta: {
+      link: {
+        label?: string | null;
+        type?: ('custom' | 'external') | null;
+        newTab?: boolean | null;
+        url: string;
+      };
+    };
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
@@ -618,57 +637,11 @@ export interface ContactBlock {
   eyebrow?: string | null;
   heading?: string | null;
   subheading?: string | null;
-  showForm?: boolean | null;
-  showInfoCards?: boolean | null;
-  phoneOverride?: string | null;
-  emailOverride?: string | null;
-  addressOverride?: string | null;
+  form: string | Form;
+  sectionImage: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'contact';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media?: (string | null) | Media;
-  mediaUrl?: string | null;
-  alt?: string | null;
-  caption?: string | null;
-  size?: ('normal' | 'wide' | 'fullscreen') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
- */
-export interface FormBlock {
-  /**
-   * Select an interactive form created in the Form Builder plugin.
-   */
-  form: string | Form;
-  enableIntro?: boolean | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'formBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -837,6 +810,76 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactPageBlock".
+ */
+export interface ContactPageBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  registrationNumber?: string | null;
+  formHeading?: string | null;
+  formDescription?: string | null;
+  showFaq?: boolean | null;
+  faqEyebrow?: string | null;
+  faqHeading?: string | null;
+  faqItems?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactPage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media?: (string | null) | Media;
+  mediaUrl?: string | null;
+  alt?: string | null;
+  caption?: string | null;
+  size?: ('normal' | 'wide' | 'fullscreen') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FormBlock".
+ */
+export interface FormBlock {
+  /**
+   * Select an interactive form created in the Form Builder plugin.
+   */
+  form: string | Form;
+  enableIntro?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'formBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TeamBlock".
  */
 export interface TeamBlock {
@@ -933,6 +976,126 @@ export interface DonateTiersBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'donateTiers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StoryBlock".
+ */
+export interface StoryBlock {
+  eyebrow?: string | null;
+  heading: string;
+  paragraphs?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  image?: (string | null) | Media;
+  imageUrl?: string | null;
+  imageAlt?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'story';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TransparencyBlock".
+ */
+export interface TransparencyBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'transparency';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VolunteerBlock".
+ */
+export interface VolunteerBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  roles?:
+    | {
+        title: string;
+        mode?: string | null;
+        commitment?: string | null;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'volunteer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CorporatePartnershipBlock".
+ */
+export interface CorporatePartnershipBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  benefits?:
+    | {
+        benefit: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  image?: (string | null) | Media;
+  imageUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'corporatePartnership';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock".
+ */
+export interface PillarsBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  items?:
+    | {
+        id?: string | null;
+        title: string;
+        heading: string;
+        description: string;
+        image?: (string | null) | Media;
+        imageUrl?: string | null;
+        initiatives?:
+          | {
+              title: string;
+              desc: string;
+              id?: string | null;
+            }[]
+          | null;
+      }[]
+    | null;
+  showCta?: boolean | null;
+  ctaHeading?: string | null;
+  ctaDescription?: string | null;
+  primaryCtaText?: string | null;
+  primaryCtaLink?: string | null;
+  secondaryCtaText?: string | null;
+  secondaryCtaLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pillars';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1199,12 +1362,18 @@ export interface PagesSelect<T extends boolean = true> {
         faq?: T | FAQBlockSelect<T>;
         news?: T | NewsBlockSelect<T>;
         contact?: T | ContactBlockSelect<T>;
+        contactPage?: T | ContactPageBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         team?: T | TeamBlockSelect<T>;
         partners?: T | PartnersBlockSelect<T>;
         values?: T | ValuesBlockSelect<T>;
         donateTiers?: T | DonateTiersBlockSelect<T>;
+        story?: T | StoryBlockSelect<T>;
+        transparency?: T | TransparencyBlockSelect<T>;
+        volunteer?: T | VolunteerBlockSelect<T>;
+        corporatePartnership?: T | CorporatePartnershipBlockSelect<T>;
+        pillars?: T | PillarsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1387,6 +1556,7 @@ export interface MissionVisionBlockSelect<T extends boolean = true> {
  * via the `definition` "ProjectsBlock_select".
  */
 export interface ProjectsBlockSelect<T extends boolean = true> {
+  variant?: T;
   eyebrow?: T;
   heading?: T;
   description?: T;
@@ -1514,6 +1684,24 @@ export interface FAQBlockSelect<T extends boolean = true> {
         category?: T;
         id?: T;
       };
+  'Ask a Question'?:
+    | T
+    | {
+        askQuestionHeading?: T;
+        description?: T;
+        cta?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    label?: T;
+                    type?: T;
+                    newTab?: T;
+                    url?: T;
+                  };
+            };
+      };
   id?: T;
   blockName?: T;
 }
@@ -1557,11 +1745,34 @@ export interface ContactBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   subheading?: T;
-  showForm?: T;
-  showInfoCards?: T;
-  phoneOverride?: T;
-  emailOverride?: T;
-  addressOverride?: T;
+  form?: T;
+  sectionImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactPageBlock_select".
+ */
+export interface ContactPageBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  phone?: T;
+  email?: T;
+  registrationNumber?: T;
+  formHeading?: T;
+  formDescription?: T;
+  showFaq?: T;
+  faqEyebrow?: T;
+  faqHeading?: T;
+  faqItems?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1683,6 +1894,121 @@ export interface DonateTiersBlockSelect<T extends boolean = true> {
         swiftCode?: T;
         upiId?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StoryBlock_select".
+ */
+export interface StoryBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  image?: T;
+  imageUrl?: T;
+  imageAlt?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TransparencyBlock_select".
+ */
+export interface TransparencyBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VolunteerBlock_select".
+ */
+export interface VolunteerBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  roles?:
+    | T
+    | {
+        title?: T;
+        mode?: T;
+        commitment?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CorporatePartnershipBlock_select".
+ */
+export interface CorporatePartnershipBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  benefits?:
+    | T
+    | {
+        benefit?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  ctaLink?: T;
+  image?: T;
+  imageUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PillarsBlock_select".
+ */
+export interface PillarsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        id?: T;
+        title?: T;
+        heading?: T;
+        description?: T;
+        image?: T;
+        imageUrl?: T;
+        initiatives?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              id?: T;
+            };
+      };
+  showCta?: T;
+  ctaHeading?: T;
+  ctaDescription?: T;
+  primaryCtaText?: T;
+  primaryCtaLink?: T;
+  secondaryCtaText?: T;
+  secondaryCtaLink?: T;
   id?: T;
   blockName?: T;
 }

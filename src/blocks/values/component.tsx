@@ -19,7 +19,17 @@ const valueIcons: Record<string, React.ReactNode> = {
   Heart: <Heart className="h-6 w-6 text-amber-500" />,
 };
 
-export function ValuesComponent(block: ValuesBlock) {
+export interface ValuesComponentProps {
+  data?: ValuesBlock | Record<string, unknown>;
+}
+
+export function ValuesComponent(
+  props?: ValuesComponentProps | Partial<ValuesBlock>
+) {
+  const block = (("data" in (props || {}) && (props as ValuesComponentProps)?.data
+    ? (props as ValuesComponentProps).data
+    : props) || {}) as Partial<ValuesBlock>;
+
   const eyebrow = block.eyebrow || "Guiding Principles";
   const heading = block.heading || "Values That Anchor Everything We Do";
   const description =
