@@ -49,7 +49,7 @@ export function ProcessSection({ data }: ProcessSectionProps) {
             const phase = step.phaseTag || step.phase || `Phase ${step.step}`;
             return (
               <div
-                key={step.step || idx}
+                key={idx}
                 className="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
               >
                 <div>
