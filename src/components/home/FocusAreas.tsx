@@ -18,18 +18,10 @@ import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
-
-export interface FocusAreasData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  description?: string | null;
-  viewAllCta?: { label: string; href: string } | null;
-  items?: Array<any> | null;
-}
+import type { FocusAreasBlock } from "@/payload-types";
 
 export interface FocusAreasProps {
-  data?: FocusAreasData | typeof homeData.focusAreas | any;
+  data?: FocusAreasBlock | typeof homeData.focusAreas;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -101,14 +93,15 @@ function FocusAreaCard({ item }: { item: any }) {
 }
 
 export function FocusAreas({ data }: FocusAreasProps) {
-  const eyebrow = data?.eyebrow || homeData.focusAreas.eyebrow;
-  const heading = data?.heading || homeData.focusAreas.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.focusAreas.eyebrow;
+  const heading = d?.heading || homeData.focusAreas.heading;
   const subheading =
-    data?.subheading || data?.description || homeData.focusAreas.subheading;
-  const viewAllCta = data?.viewAllCta || homeData.focusAreas.viewAllCta;
+    d?.description || d?.subheading || homeData.focusAreas.subheading;
+  const viewAllCta = d?.viewAllCta || homeData.focusAreas.viewAllCta;
   const items =
-    data?.items && data.items.length > 0
-      ? data.items
+    d?.items && d.items.length > 0
+      ? d.items
       : homeData.focusAreas.items;
 
   return (

@@ -9,19 +9,10 @@ import { SectionLabel } from "@/components/common/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
-
-export interface ProjectsSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  description?: string | null;
-  viewAllCta?: { label: string; href: string } | null;
-  viewAllLink?: { label?: string | null; url?: string | null } | null;
-  items?: Array<any> | null;
-}
+import type { ProjectsBlock } from "@/payload-types";
 
 export interface ProjectsSectionProps {
-  data?: ProjectsSectionData | typeof homeData.projects | any;
+  data?: ProjectsBlock | typeof homeData.projects;
 }
 
 function ProjectCard({ project }: { project: any }) {
@@ -108,16 +99,17 @@ function ProjectCard({ project }: { project: any }) {
 }
 
 export function ProjectsSection({ data }: ProjectsSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.projects.eyebrow;
-  const heading = data?.heading || homeData.projects.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.projects.eyebrow;
+  const heading = d?.heading || homeData.projects.heading;
   const subheading =
-    data?.subheading || data?.description || homeData.projects.subheading;
+    d?.description || d?.subheading || homeData.projects.subheading;
   const viewAllHref =
-    data?.viewAllCta?.href || data?.viewAllLink?.url || "/projects";
+    d?.viewAllLink?.url || d?.viewAllCta?.href || "/projects";
   const viewAllLabel =
-    data?.viewAllCta?.label || data?.viewAllLink?.label || "View All Projects";
+    d?.viewAllLink?.label || d?.viewAllCta?.label || "Explore All Projects";
   const items =
-    data?.items && data.items.length > 0 ? data.items : homeData.projects.items;
+    d?.items && d.items.length > 0 ? d.items : homeData.projects.items;
 
   return (
     <section className="py-20 sm:py-28 bg-[#faf9f5]">

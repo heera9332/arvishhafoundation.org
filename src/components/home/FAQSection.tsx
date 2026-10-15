@@ -13,27 +13,21 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
-
-export interface FAQSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  contactLink?: { label?: string | null; url?: string | null } | null;
-  items?: Array<any> | null;
-}
+import type { FAQBlock } from "@/payload-types";
 
 export interface FAQSectionProps {
-  data?: FAQSectionData | typeof homeData.faq | any;
+  data?: FAQBlock | typeof homeData.faq;
 }
 
 export function FAQSection({ data }: FAQSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.faq.eyebrow;
-  const heading = data?.heading || homeData.faq.heading;
-  const subheading = data?.subheading || homeData.faq.subheading;
-  const contactHref = data?.contactLink?.url || "/contact";
-  const contactLabel = data?.contactLink?.label || "Have More Questions?";
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.faq.eyebrow;
+  const heading = d?.heading || homeData.faq.heading;
+  const subheading = d?.subheading || homeData.faq.subheading;
+  const contactHref = d?.contactLink?.url || "/contact";
+  const contactLabel = d?.contactLink?.label || "Have More Questions?";
   const items =
-    data?.items && data.items.length > 0 ? data.items : homeData.faq.items;
+    d?.items && d.items.length > 0 ? d.items : homeData.faq.items;
   const firstItemId = items[0]?.id || "faq-0";
 
   return (

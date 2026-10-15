@@ -218,361 +218,81 @@ export function DynamicHeroBlock(block: HeroBlock) {
     );
   }
 
-  const heroData = {
-    eyebrow: block.eyebrow || homeData.hero.eyebrow,
-    headingPrefix: block.headingPrefix || undefined,
-    headingMiddle: block.headingMiddle || undefined,
-    headingAction: block.headingAction || undefined,
-    highlightWord: block.highlightWord || undefined,
-    heading: block.heading || homeData.hero.heading,
-    description: block.subheading || homeData.hero.description,
-    primaryCta: block.primaryCta?.label
-      ? { label: block.primaryCta.label, href: block.primaryCta.url }
-      : homeData.hero.primaryCta,
-    secondaryCta: block.secondaryCta?.label
-      ? { label: block.secondaryCta.label, href: block.secondaryCta.url }
-      : homeData.hero.secondaryCta,
-    image: getMediaUrl(block.image) || block.imageUrl || homeData.hero.image.src,
-    imageAlt: block.imageAlt || homeData.hero.image.alt,
-    stats:
-      block.stats && block.stats.length > 0
-        ? block.stats
-        : homeData.hero.stats,
-    floatingBadges: block.floatingBadges || homeData.hero.floatingBadges,
-  };
-
-  return <HomeHero data={heroData} />;
+  return <HomeHero data={block} />;
 }
 
 /**
  * 2. Impact Stats Block
  */
 export function DynamicImpactStatsBlock(block: ImpactStatsBlock) {
-  const stats =
-    block.stats && block.stats.length > 0
-      ? block.stats.map((s, idx) => ({
-          id: s.id || `stat-${idx}`,
-          value: s.value,
-          label: s.label,
-          sublabel: s.sublabel || "",
-          icon: s.icon || "Users",
-        }))
-      : homeData.impactStats.stats;
-
   if (block.theme === "darkGreen") {
-    return (
-      <ImpactDarkSection
-        data={{
-          eyebrow: block.eyebrow || homeData.impactDark.eyebrow,
-          heading: block.heading || homeData.impactDark.heading,
-          description: block.description || homeData.impactDark.description,
-          stats,
-          features: homeData.impactDark.features,
-        }}
-      />
-    );
+    return <ImpactDarkSection data={block} />;
   }
 
-  return (
-    <ImpactTrust
-      data={{
-        eyebrow: block.eyebrow || homeData.impactStats.eyebrow,
-        heading: block.heading || homeData.impactStats.heading,
-        description: block.description || homeData.impactStats.description,
-        stats,
-      }}
-    />
-  );
+  return <ImpactTrust data={block} />;
 }
 
 /**
  * 3. Focus Areas Block
  */
 export function DynamicFocusAreasBlock(block: FocusAreasBlock) {
-  const items =
-    block.items && block.items.length > 0
-      ? block.items.map((item, idx) => ({
-          id: item.id || `fa-${idx}`,
-          title: item.title,
-          description: item.description,
-          iconName: item.iconName || "GraduationCap",
-          image: getMediaUrl(item.image) || item.imageUrl || "/images/fa-education.png",
-          href: item.href || "/what-we-do",
-        }))
-      : homeData.focusAreas.items;
-
-  return (
-    <FocusAreas
-      data={{
-        eyebrow: block.eyebrow || homeData.focusAreas.eyebrow,
-        heading: block.heading || homeData.focusAreas.heading,
-        subheading: block.description || homeData.focusAreas.subheading,
-        viewAllCta: homeData.focusAreas.viewAllCta,
-        items,
-      }}
-    />
-  );
+  return <FocusAreas data={block} />;
 }
 
 /**
  * 4. Mission & Vision Block
  */
 export function DynamicMissionVisionBlock(block: MissionVisionBlock) {
-  const leftVisual = {
-    badge: block.leftVisual?.badge || homeData.missionApproach.leftVisual.badge,
-    title: block.leftVisual?.title || "Creating Change Where It Matters Most",
-    subtext: block.leftVisual?.subtext || homeData.missionApproach.leftVisual.subtext,
-    bulletPoints:
-      block.leftVisual?.bulletPoints && block.leftVisual.bulletPoints.length > 0
-        ? block.leftVisual.bulletPoints.map((b: any) =>
-            typeof b === "string" ? b : b.point
-          )
-        : homeData.missionApproach.leftVisual.bulletPoints,
-    image:
-      getMediaUrl(block.leftVisual?.image) ||
-      block.leftVisual?.imageUrl ||
-      homeData.missionApproach.leftVisual.image,
-    alt:
-      block.leftVisual?.imageAlt ||
-      homeData.missionApproach.leftVisual.alt,
-  };
-
-  const tabs =
-    block.tabs && block.tabs.length > 0
-      ? block.tabs.map((tab, idx) => ({
-          id: tab.tabId || `tab-${idx}`,
-          title: tab.label || `Pillar ${idx + 1}`,
-          heading: tab.heading,
-          description: tab.description,
-          points: tab.points?.map((p: any) =>
-            typeof p === "string" ? p : p.point
-          ) || [],
-          image:
-            getMediaUrl(tab.image) ||
-            tab.imageUrl ||
-            "/images/approach-participatory.png",
-        }))
-      : homeData.missionApproach.tabs;
-
-  return (
-    <MissionSection
-      data={{
-        eyebrow: block.eyebrow || homeData.missionApproach.eyebrow,
-        heading: block.heading || homeData.missionApproach.heading,
-        description: block.subheading || homeData.missionApproach.description,
-        leftVisual,
-        tabs,
-      }}
-    />
-  );
+  return <MissionSection data={block} />;
 }
 
 /**
  * 5. Projects Block
  */
 export function DynamicProjectsBlock(block: ProjectsBlock) {
-  const items =
-    block.items && block.items.length > 0
-      ? block.items.map((item, idx) => ({
-          id: item.id || `proj-${idx}`,
-          title: item.title,
-          category: item.category || "Education",
-          status: item.status || "Active",
-          location: item.location || "India",
-          year: item.year || "2024-Present",
-          beneficiaries: item.beneficiaries || "Community Impact",
-          shortDescription: item.shortDescription,
-          image:
-            getMediaUrl(item.image) ||
-            item.imageUrl ||
-            "/images/project-1.png",
-          href:
-            item.href ||
-            (item.slug ? `/projects/${item.slug}` : "/projects"),
-        }))
-      : homeData.projects.items;
-
-  return (
-    <ProjectsSection
-      data={{
-        eyebrow: block.eyebrow || homeData.projects.eyebrow,
-        heading: block.heading || homeData.projects.heading,
-        subheading: block.description || homeData.projects.subheading,
-        viewAllCta: {
-          label: block.viewAllLink?.label || "Explore All Projects",
-          href: block.viewAllLink?.url || "/projects",
-        },
-        items,
-      }}
-    />
-  );
+  return <ProjectsSection data={block} />;
 }
 
 /**
  * 6. Testimonials Block
  */
 export function DynamicTestimonialsBlock(block: TestimonialsBlock) {
-  const items =
-    block.items && block.items.length > 0
-      ? block.items.map((item, idx) => ({
-          id: item.id || `test-${idx}`,
-          quote: item.quote,
-          name: item.name,
-          role: item.role,
-          location: item.location || "",
-          initiative: item.initiative || "Community Impact",
-          avatar:
-            getMediaUrl(item.avatar) ||
-            item.avatarUrl ||
-            "/images/avatar-1.png",
-        }))
-      : homeData.testimonials.items;
-
-  return (
-    <TestimonialsSection
-      data={{
-        eyebrow: block.eyebrow || homeData.testimonials.eyebrow,
-        heading: block.heading || homeData.testimonials.heading,
-        subheading: block.description || homeData.testimonials.subheading,
-        theme: block.theme || "darkGreen",
-        items,
-      }}
-    />
-  );
+  return <TestimonialsSection data={block} />;
 }
 
 /**
  * 7. Process Block
  */
 export function DynamicProcessBlock(block: ProcessBlock) {
-  const steps =
-    block.steps && block.steps.length > 0
-      ? block.steps.map((s) => ({
-          step: s.step,
-          title: s.title,
-          description: s.description,
-          phase: s.phaseTag || `Phase ${s.step}`,
-        }))
-      : homeData.approach.steps;
-
-  return (
-    <ProcessSection
-      data={{
-        eyebrow: block.eyebrow || homeData.approach.eyebrow,
-        heading: block.heading || homeData.approach.heading,
-        subheading: block.subheading || homeData.approach.subheading,
-        steps,
-      }}
-    />
-  );
+  return <ProcessSection data={block} />;
 }
 
 /**
  * 8. CTA Block
  */
 export function DynamicCTABlock(block: CTABlock) {
-  return (
-    <CTASection
-      data={{
-        badge: block.badge || "Join Hands With Arvishha",
-        heading: block.heading || homeData.cta.heading,
-        subheading: block.subheading || homeData.cta.subheading,
-        theme: block.theme || "darkGreen",
-        primaryCta: block.primaryCta?.label
-          ? { label: block.primaryCta.label, href: block.primaryCta.url }
-          : homeData.cta.primaryCta,
-        secondaryCta: block.secondaryCta?.label
-          ? { label: block.secondaryCta.label, href: block.secondaryCta.url }
-          : homeData.cta.secondaryCta,
-      }}
-    />
-  );
+  return <CTASection data={block} />;
 }
 
 /**
  * 9. FAQ Block
  */
 export function DynamicFAQBlock(block: FAQBlock) {
-  const items =
-    block.items && block.items.length > 0
-      ? block.items.map((item, idx) => ({
-          id: item.id || `faq-${idx}`,
-          question: item.question,
-          answer: item.answer,
-          category: item.category || "General",
-        }))
-      : homeData.faq.items;
-
-  return (
-    <FAQSection
-      data={{
-        eyebrow: block.eyebrow || homeData.faq.eyebrow,
-        heading: block.heading || homeData.faq.heading,
-        subheading: block.subheading || homeData.faq.subheading,
-        contactLink: block.contactLink?.label
-          ? { label: block.contactLink.label, url: block.contactLink.url }
-          : { label: "Have More Questions?", url: "/contact" },
-        items,
-      }}
-    />
-  );
+  return <FAQSection data={block} />;
 }
 
 /**
  * 10. News Block
  */
 export function DynamicNewsBlock(block: NewsBlock) {
-  const articles =
-    block.items && block.items.length > 0
-      ? block.items.map((item, idx) => ({
-          id: item.id || `news-${idx}`,
-          title: item.title,
-          category: item.category || "Education",
-          date: item.date || "Recent Update",
-          readTime: item.readTime || "3 min read",
-          excerpt: item.excerpt,
-          image:
-            getMediaUrl(item.image) ||
-            item.imageUrl ||
-            "/images/news-1.png",
-          slug: item.href
-            ? item.href.replace(/^\/news\/?/, "")
-            : `article-${idx}`,
-        }))
-      : homeData.news.staticArticles;
-
-  return (
-    <NewsSection
-      data={{
-        eyebrow: block.eyebrow || homeData.news.eyebrow,
-        heading: block.heading || homeData.news.heading,
-        subheading: block.subheading || homeData.news.subheading,
-        viewAllCta: {
-          label: block.viewAllLink?.label || homeData.news.viewAllCta.label,
-          href: block.viewAllLink?.url || homeData.news.viewAllCta.href,
-        },
-        staticArticles: articles,
-      }}
-    />
-  );
+  return <NewsSection data={block} />;
 }
 
 /**
  * 11. Contact Block
  */
 export function DynamicContactBlock(block: ContactBlock) {
-  return (
-    <ContactSection
-      data={{
-        eyebrow: block.eyebrow || homeData.contact.eyebrow,
-        heading: block.heading || homeData.contact.heading,
-        subheading: block.subheading || homeData.contact.subheading,
-        phoneOverride: block.phoneOverride || undefined,
-        emailOverride: block.emailOverride || undefined,
-        info: homeData.contact.info,
-      }}
-    />
-  );
+  return <ContactSection data={block} />;
 }
 
 /**

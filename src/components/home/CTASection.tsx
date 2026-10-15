@@ -4,31 +4,24 @@ import { Heart, UserPlus, ArrowRight } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
-
-export interface CTASectionData {
-  badge?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  theme?: string | null;
-  primaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
-  secondaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
-}
+import type { CTABlock } from "@/payload-types";
 
 export interface CTASectionProps {
-  data?: CTASectionData | typeof homeData.cta | any;
+  data?: CTABlock | typeof homeData.cta;
 }
 
 export function CTASection({ data }: CTASectionProps) {
-  const badge = data?.badge || "Join Hands With Arvishha";
-  const heading = data?.heading || homeData.cta.heading;
-  const subheading = data?.subheading || homeData.cta.subheading;
+  const d = data as any;
+  const badge = d?.badge || "Join Hands With Arvishha";
+  const heading = d?.heading || homeData.cta.heading;
+  const subheading = d?.subheading || homeData.cta.subheading;
   const primaryCta = {
-    label: data?.primaryCta?.label || homeData.cta.primaryCta.label,
-    href: data?.primaryCta?.href || data?.primaryCta?.url || homeData.cta.primaryCta.href,
+    label: d?.primaryCta?.label || homeData.cta.primaryCta.label,
+    href: d?.primaryCta?.url || d?.primaryCta?.href || homeData.cta.primaryCta.href,
   };
   const secondaryCta = {
-    label: data?.secondaryCta?.label || homeData.cta.secondaryCta.label,
-    href: data?.secondaryCta?.href || data?.secondaryCta?.url || homeData.cta.secondaryCta.href,
+    label: d?.secondaryCta?.label || homeData.cta.secondaryCta.label,
+    href: d?.secondaryCta?.url || d?.secondaryCta?.href || homeData.cta.secondaryCta.href,
   };
 
   return (

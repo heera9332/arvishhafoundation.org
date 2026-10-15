@@ -2,33 +2,21 @@ import React from "react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { homeData } from "@/data/page-home";
-
-export interface ProcessSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  description?: string | null;
-  steps?: Array<{
-    step: string;
-    title: string;
-    description: string;
-    phase?: string | null;
-    phaseTag?: string | null;
-  }> | null;
-}
+import type { ProcessBlock } from "@/payload-types";
 
 export interface ProcessSectionProps {
-  data?: ProcessSectionData | typeof homeData.approach | any;
+  data?: ProcessBlock | typeof homeData.approach;
 }
 
 export function ProcessSection({ data }: ProcessSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.approach.eyebrow;
-  const heading = data?.heading || homeData.approach.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.approach.eyebrow;
+  const heading = d?.heading || homeData.approach.heading;
   const subheading =
-    data?.subheading || data?.description || homeData.approach.subheading;
+    d?.subheading || d?.description || homeData.approach.subheading;
   const steps =
-    data?.steps && data.steps.length > 0
-      ? data.steps
+    d?.steps && d.steps.length > 0
+      ? d.steps
       : homeData.approach.steps;
 
   return (

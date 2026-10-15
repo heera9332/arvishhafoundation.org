@@ -7,73 +7,48 @@ import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { homeData } from "@/data/page-home";
-
-export interface MissionSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  subheading?: string | null;
-  leftVisual?: {
-    badge?: string | null;
-    title?: string | null;
-    subtext?: string | null;
-    bulletPoints?: Array<string | { point: string }> | null;
-    image?: any;
-    imageUrl?: string | null;
-    alt?: string | null;
-    imageAlt?: string | null;
-  } | null;
-  tabs?: Array<{
-    id?: string | null;
-    tabId?: string | null;
-    title?: string | null;
-    label?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    points?: Array<string | { point: string }> | null;
-    image?: any;
-    imageUrl?: string | null;
-  }> | null;
-}
+import type { MissionVisionBlock } from "@/payload-types";
 
 export interface MissionSectionProps {
-  data?: MissionSectionData | typeof homeData.missionApproach | any;
+  data?: MissionVisionBlock | typeof homeData.missionApproach;
 }
 
 export function MissionSection({ data }: MissionSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.missionApproach.eyebrow;
-  const heading = data?.heading || homeData.missionApproach.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.missionApproach.eyebrow;
+  const heading = d?.heading || homeData.missionApproach.heading;
   const description =
-    data?.description || data?.subheading || homeData.missionApproach.description;
+    d?.description || d?.subheading || homeData.missionApproach.description;
 
+  const leftVisual = d?.leftVisual || homeData.missionApproach.leftVisual;
   const leftBadge =
-    data?.leftVisual?.badge || homeData.missionApproach.leftVisual.badge;
+    leftVisual?.badge || homeData.missionApproach.leftVisual.badge;
   const leftTitle =
-    data?.leftVisual?.title || "Creating Change Where It Matters Most";
+    leftVisual?.title || "Creating Change Where It Matters Most";
   const leftSubtext =
-    data?.leftVisual?.subtext || homeData.missionApproach.leftVisual.subtext;
+    leftVisual?.subtext || homeData.missionApproach.leftVisual.subtext;
   const leftBulletPoints: string[] =
-    data?.leftVisual?.bulletPoints && data.leftVisual.bulletPoints.length > 0
-      ? data.leftVisual.bulletPoints.map((b: any) =>
+    leftVisual?.bulletPoints && leftVisual.bulletPoints.length > 0
+      ? leftVisual.bulletPoints.map((b: any) =>
           typeof b === "string" ? b : b.point
         )
       : homeData.missionApproach.leftVisual.bulletPoints;
 
   const leftImgSrc =
-    typeof data?.leftVisual?.image === "object" && data.leftVisual.image?.url
-      ? data.leftVisual.image.url
-      : data?.leftVisual?.imageUrl ||
-        (typeof data?.leftVisual?.image === "string"
-          ? data.leftVisual.image
+    typeof leftVisual?.image === "object" && leftVisual.image?.url
+      ? leftVisual.image.url
+      : leftVisual?.imageUrl ||
+        (typeof leftVisual?.image === "string"
+          ? leftVisual.image
           : homeData.missionApproach.leftVisual.image);
   const leftImgAlt =
-    data?.leftVisual?.imageAlt ||
-    data?.leftVisual?.alt ||
+    leftVisual?.imageAlt ||
+    leftVisual?.alt ||
     homeData.missionApproach.leftVisual.alt;
 
   const tabs =
-    data?.tabs && data.tabs.length > 0
-      ? data.tabs.map((tab: any, idx: number) => ({
+    d?.tabs && d.tabs.length > 0
+      ? d.tabs.map((tab: any, idx: number) => ({
           id: tab.tabId || tab.id || `tab-${idx}`,
           title: tab.label || tab.title || `Pillar ${idx + 1}`,
           heading: tab.heading,

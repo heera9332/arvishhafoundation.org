@@ -11,22 +11,10 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { homeData } from "@/data/page-home";
-
-export interface ImpactTrustData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  stats?: Array<{
-    id?: string | null;
-    value: string;
-    label: string;
-    sublabel?: string | null;
-    icon?: string | null;
-  }> | null;
-}
+import type { ImpactStatsBlock } from "@/payload-types";
 
 export interface ImpactTrustProps {
-  data?: ImpactTrustData | typeof homeData.impactStats | any;
+  data?: ImpactStatsBlock | typeof homeData.impactStats;
 }
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -41,9 +29,10 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function ImpactTrust({ data }: ImpactTrustProps) {
+  const d = data as any;
   const stats =
-    data?.stats && data.stats.length > 0
-      ? data.stats
+    d?.stats && d.stats.length > 0
+      ? d.stats
       : homeData.impactStats.stats;
   return (
     <section className="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/60">

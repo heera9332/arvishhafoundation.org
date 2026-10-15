@@ -9,20 +9,10 @@ import { SectionLabel } from "@/components/common/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
-
-export interface NewsSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  description?: string | null;
-  viewAllCta?: { label: string; href: string } | null;
-  viewAllLink?: { label?: string | null; url?: string | null } | null;
-  staticArticles?: Array<any> | null;
-  items?: Array<any> | null;
-}
+import type { NewsBlock } from "@/payload-types";
 
 export interface NewsSectionProps {
-  data?: NewsSectionData | typeof homeData.news | any;
+  data?: NewsBlock | typeof homeData.news;
 }
 
 function ArticleCard({ article }: { article: any }) {
@@ -97,19 +87,20 @@ function ArticleCard({ article }: { article: any }) {
 }
 
 export function NewsSection({ data }: NewsSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.news.eyebrow;
-  const heading = data?.heading || homeData.news.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.news.eyebrow;
+  const heading = d?.heading || homeData.news.heading;
   const subheading =
-    data?.subheading || data?.description || homeData.news.subheading;
+    d?.subheading || d?.description || homeData.news.subheading;
   const viewAllHref =
-    data?.viewAllCta?.href || data?.viewAllLink?.url || "/news";
+    d?.viewAllLink?.url || d?.viewAllCta?.href || "/news";
   const viewAllLabel =
-    data?.viewAllCta?.label || data?.viewAllLink?.label || "Read All Stories";
+    d?.viewAllLink?.label || d?.viewAllCta?.label || "Read All Stories";
   const articles =
-    data?.items && data.items.length > 0
-      ? data.items
-      : data?.staticArticles && data.staticArticles.length > 0
-      ? data.staticArticles
+    d?.items && d.items.length > 0
+      ? d.items
+      : d?.staticArticles && d.staticArticles.length > 0
+      ? d.staticArticles
       : homeData.news.staticArticles;
 
   return (

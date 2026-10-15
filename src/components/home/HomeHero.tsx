@@ -14,7 +14,8 @@ import {
   BookOpen,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import type { homeData } from "@/data/page-home";
+import { homeData } from "@/data/page-home";
+import type { HeroBlock } from "@/payload-types";
 
 const heroStatIcons: Record<string, React.ReactNode> = {
   Users: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
@@ -25,52 +26,38 @@ const heroStatIcons: Record<string, React.ReactNode> = {
   BookOpen: <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />,
 };
 
-export interface HomeHeroData {
-  eyebrow?: string | null;
-  headingPrefix?: string | null;
-  headingMiddle?: string | null;
-  headingAction?: string | null;
-  highlightWord?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  subheading?: string | null;
-  primaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
-  secondaryCta?: { label?: string | null; href?: string | null; url?: string | null } | null;
-  image?: any;
-  imageAlt?: string | null;
-  stats?: Array<{
-    id?: string | null;
-    value: string;
-    label: string;
-    sublabel?: string | null;
-    icon?: string | null;
-  }> | null;
-  floatingBadges?: any;
-  proofBadge?: any;
-}
-
 export interface HomeHeroProps {
-  data: HomeHeroData | typeof homeData.hero | any;
+  data?: HeroBlock | typeof homeData.hero;
 }
 
 export function HomeHero({ data }: HomeHeroProps) {
-  const d = data as HomeHeroData;
+  const d = data as any;
+  const imageObj = typeof d?.image === "object" ? d.image : null;
   const imageSrc =
-    typeof d.image === "string"
-      ? d.image
-      : d.image?.src ||
-        (typeof d.image === "object" && d.image?.url ? d.image.url : "/images/hero-women-photo.png");
+    (typeof d?.image === "string" ? d.image : null) ||
+    imageObj?.url ||
+    d?.imageUrl ||
+    imageObj?.src ||
+    homeData.hero.image.src;
+
   const imageAlt =
-    (typeof d.image === "object" && d.image?.alt) ||
-    d.imageAlt ||
-    "Community members collaborating at Arvishha Foundation initiative";
+    imageObj?.alt ||
+    d?.imageAlt ||
+    homeData.hero.image.alt;
+
   const imageFallback =
-    (typeof d.image === "object" && d.image?.fallback) || "/images/hero-community.png";
+    (imageObj && "fallback" in imageObj && (imageObj as any).fallback) ||
+    "/images/hero-community.png";
 
   const [imgSrc, setImgSrc] = useState(imageSrc);
 
-  const primaryCtaHref = d.primaryCta?.href || d.primaryCta?.url || "/what-we-do";
-  const secondaryCtaHref = d.secondaryCta?.href || d.secondaryCta?.url || "/get-involved";
+  const primaryCtaHref =
+    (d?.primaryCta && ("url" in d.primaryCta ? d.primaryCta.url : (d.primaryCta as any).href)) ||
+    homeData.hero.primaryCta.href;
+
+  const secondaryCtaHref =
+    (d?.secondaryCta && ("url" in d.secondaryCta ? d.secondaryCta.url : (d.secondaryCta as any).href)) ||
+    homeData.hero.secondaryCta.href;
 
   return (
     <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden bg-[#faf9f5]">
@@ -114,27 +101,27 @@ export function HomeHero({ data }: HomeHeroProps) {
             <div className="flex items-center gap-3 mb-5 sm:mb-6">
               <span className="w-7 h-1 bg-[#ea580c] rounded-full inline-block shrink-0" />
               <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-slate-700 uppercase">
-                {data.eyebrow}
+                {d?.eyebrow || homeData.hero.eyebrow}
               </span>
             </div>
 
             {/* 2. Editorial Serif Heading */}
-            {data.headingPrefix || data.headingMiddle || data.highlightWord ? (
+            {d?.headingPrefix || d?.headingMiddle || d?.highlightWord ? (
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
-                {data.headingPrefix || "Building a future"}
-                {data.headingMiddle && (
+                {d?.headingPrefix || "Building a future"}
+                {d?.headingMiddle && (
                   <>
                     <br />
-                    {data.headingMiddle}
+                    {d.headingMiddle}
                   </>
                 )}
-                {(data.headingAction || data.highlightWord) && (
+                {(d?.headingAction || d?.highlightWord) && (
                   <>
                     <br />
-                    {data.headingAction && `${data.headingAction} `}
-                    {data.highlightWord && (
+                    {d.headingAction && `${d.headingAction} `}
+                    {d.highlightWord && (
                       <span className="relative inline-block italic font-serif text-[#033624]">
-                        {data.highlightWord}
+                        {d.highlightWord}
                         {/* Hand-drawn curved orange brush underline */}
                         <svg
                           className="absolute -bottom-2 sm:-bottom-2.5 left-0 w-[105%] h-3 sm:h-4 text-[#ea580c] pointer-events-none"
@@ -155,33 +142,33 @@ export function HomeHero({ data }: HomeHeroProps) {
               </h1>
             ) : (
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
-                {data.heading || "Building a future where everyone can thrive."}
+                {d?.heading || homeData.hero.heading}
               </h1>
             )}
 
             {/* 3. Description Narrative */}
-            {(data.description || data.subheading) && (
+            {(d?.description || d?.subheading || homeData.hero.description) && (
               <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl mb-8 sm:mb-10">
-                {data.description || data.subheading}
+                {d?.description || d?.subheading || homeData.hero.description}
               </p>
             )}
 
             {/* 4. Action CTAs */}
-            {((data.primaryCta?.label) || (data.secondaryCta?.label)) && (
+            {((d?.primaryCta?.label) || (d?.secondaryCta?.label)) && (
               <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-12 sm:mb-14">
                 {/* Primary Pill Button */}
-                {data.primaryCta?.label && (
+                {d?.primaryCta?.label && (
                   <Link
                     href={primaryCtaHref}
                     className="inline-flex items-center justify-center gap-2.5 bg-[#033624] hover:bg-[#022417] text-white text-sm sm:text-base font-semibold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-200 group"
                   >
-                    <span>{data.primaryCta.label}</span>
+                    <span>{d.primaryCta.label}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 )}
 
                 {/* Secondary Join Mission with Play Circle */}
-                {data.secondaryCta?.label && (
+                {d?.secondaryCta?.label && (
                   <Link
                     href={secondaryCtaHref}
                     className="inline-flex items-center gap-3 text-slate-900 hover:text-[#033624] font-semibold text-sm sm:text-base transition-colors group"
@@ -189,16 +176,16 @@ export function HomeHero({ data }: HomeHeroProps) {
                     <div className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center group-hover:border-[#033624]/40 group-hover:shadow transition-all">
                       <Play className="w-4 h-4 fill-[#033624] text-[#033624] ml-0.5" />
                     </div>
-                    <span>{data.secondaryCta.label}</span>
+                    <span>{d.secondaryCta.label}</span>
                   </Link>
                 )}
               </div>
             )}
 
             {/* 5. Bottom Stats Strip */}
-            {data.stats && data.stats.length > 0 && (
+            {d?.stats && d.stats.length > 0 && (
               <div className="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 items-start">
-                {data.stats.slice(0, 3).map((stat: any, idx: number) => (
+                {d.stats.slice(0, 3).map((stat: any, idx: number) => (
                   <div
                     key={stat.id || idx}
                     className={`flex items-start gap-3.5 ${
@@ -333,13 +320,13 @@ export function HomeHero({ data }: HomeHeroProps) {
             <div className="absolute -bottom-6 left-2 sm:-left-6 lg:-left-8 z-20 bg-[#121c17]/85 backdrop-blur-md text-white p-4 sm:p-5 rounded-2xl border border-white/15 shadow-2xl max-w-[210px] sm:max-w-[230px]">
               <span className="w-7 h-1 bg-[#f27228] rounded-full block mb-2.5" />
               <h4 className="font-bold text-white text-sm sm:text-base leading-tight">
-                {data.floatingBadges?.communityFirstTitle ||
-                  data.floatingBadges?.communityFirst?.title ||
+                {d?.floatingBadges?.communityFirstTitle ||
+                  d?.floatingBadges?.communityFirst?.title ||
                   "Community First"}
               </h4>
               <p className="text-xs text-slate-300 mt-1 leading-snug">
-                {data.floatingBadges?.communityFirstSubtitle ||
-                  data.floatingBadges?.communityFirst?.subtitle ||
+                {d?.floatingBadges?.communityFirstSubtitle ||
+                  d?.floatingBadges?.communityFirst?.subtitle ||
                   "Local action. Lasting change."}
               </p>
             </div>
@@ -348,9 +335,9 @@ export function HomeHero({ data }: HomeHeroProps) {
             <div className="absolute bottom-8 -right-2 sm:-right-6 lg:-right-8 z-20 bg-white/95 backdrop-blur-md rounded-2xl px-4 sm:px-5 py-3.5 shadow-xl border border-slate-100 flex items-center gap-3">
               <Heart className="w-5 h-5 text-[#f27228] fill-[#f27228] shrink-0" />
               <span className="text-xs font-bold text-slate-900 leading-snug max-w-[140px] sm:max-w-[155px]">
-                {data.floatingBadges?.proofText ||
-                  data.floatingBadges?.empowering?.text ||
-                  data.proofBadge?.text ||
+                {d?.floatingBadges?.proofText ||
+                  d?.floatingBadges?.empowering?.text ||
+                  d?.proofBadge?.text ||
                   "Empowering communities across India"}
               </span>
             </div>

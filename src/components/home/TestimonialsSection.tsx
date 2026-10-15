@@ -6,18 +6,10 @@ import { Quote } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { homeData } from "@/data/page-home";
-
-export interface TestimonialsSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  description?: string | null;
-  theme?: string | null;
-  items?: Array<any> | null;
-}
+import type { TestimonialsBlock } from "@/payload-types";
 
 export interface TestimonialsSectionProps {
-  data?: TestimonialsSectionData | typeof homeData.testimonials | any;
+  data?: TestimonialsBlock | typeof homeData.testimonials;
 }
 
 function TestimonialCard({ item }: { item: any }) {
@@ -79,13 +71,14 @@ function TestimonialCard({ item }: { item: any }) {
 }
 
 export function TestimonialsSection({ data }: TestimonialsSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.testimonials.eyebrow;
-  const heading = data?.heading || homeData.testimonials.heading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.testimonials.eyebrow;
+  const heading = d?.heading || homeData.testimonials.heading;
   const subheading =
-    data?.subheading || data?.description || homeData.testimonials.subheading;
+    d?.description || d?.subheading || homeData.testimonials.subheading;
   const items =
-    data?.items && data.items.length > 0
-      ? data.items
+    d?.items && d.items.length > 0
+      ? d.items
       : homeData.testimonials.items;
 
   return (

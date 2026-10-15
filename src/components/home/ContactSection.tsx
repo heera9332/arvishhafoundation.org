@@ -5,38 +5,23 @@ import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { homeData } from "@/data/page-home";
-
-export interface ContactSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  subheading?: string | null;
-  phoneOverride?: string | null;
-  emailOverride?: string | null;
-  info?: {
-    name?: string | null;
-    phone?: string | null;
-    email?: string | null;
-    emailAlt?: string | null;
-    hours?: string | null;
-  } | null;
-}
+import type { ContactBlock } from "@/payload-types";
 
 export interface ContactSectionProps {
-  data?: ContactSectionData | typeof homeData.contact | any;
+  data?: ContactBlock | typeof homeData.contact;
 }
 
 export function ContactSection({ data }: ContactSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.contact.eyebrow || "GET IN TOUCH";
-  const heading = data?.heading || homeData.contact.heading;
-  const subheading = data?.subheading || homeData.contact.subheading;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.contact.eyebrow || "GET IN TOUCH";
+  const heading = d?.heading || homeData.contact.heading;
+  const subheading = d?.subheading || homeData.contact.subheading;
   const infoPhone =
-    data?.phoneOverride || data?.info?.phone || homeData.contact.info.phone;
+    d?.phoneOverride || d?.info?.phone || homeData.contact.info.phone;
   const infoEmail =
-    data?.emailOverride || data?.info?.email || homeData.contact.info.email;
-  const infoName = data?.info?.name || homeData.contact.info.name;
-  const infoEmailAlt = data?.info?.emailAlt || homeData.contact.info.emailAlt;
-
-  console.log("ContactSection data:", data);
+    d?.emailOverride || d?.info?.email || homeData.contact.info.email;
+  const infoName = d?.info?.name || homeData.contact.info.name;
+  const infoEmailAlt = d?.info?.emailAlt || homeData.contact.info.emailAlt;
   const emailTarget = infoEmailAlt || infoEmail;
 
   return (

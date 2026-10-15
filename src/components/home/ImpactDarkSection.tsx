@@ -2,39 +2,24 @@ import { Check, ShieldCheck, Sparkles } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { homeData } from "@/data/page-home";
-
-export interface ImpactDarkSectionData {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
-  stats?: Array<{
-    id?: string | null;
-    value: string;
-    label: string;
-    sublabel?: string | null;
-    icon?: string | null;
-  }> | null;
-  features?: Array<{
-    title: string;
-    description: string;
-  }> | null;
-}
+import type { ImpactStatsBlock } from "@/payload-types";
 
 export interface ImpactDarkSectionProps {
-  data?: ImpactDarkSectionData | typeof homeData.impactDark | any;
+  data?: ImpactStatsBlock | typeof homeData.impactDark;
 }
 
 export function ImpactDarkSection({ data }: ImpactDarkSectionProps) {
-  const eyebrow = data?.eyebrow || homeData.impactDark.eyebrow;
-  const heading = data?.heading || homeData.impactDark.heading;
-  const description = data?.description || homeData.impactDark.description;
+  const d = data as any;
+  const eyebrow = d?.eyebrow || homeData.impactDark.eyebrow;
+  const heading = d?.heading || homeData.impactDark.heading;
+  const description = d?.description || homeData.impactDark.description;
   const stats =
-    data?.stats && data.stats.length > 0
-      ? data.stats
+    d?.stats && d.stats.length > 0
+      ? d.stats
       : homeData.impactDark.stats;
   const features =
-    data?.features && data.features.length > 0
-      ? data.features
+    d?.features && d.features.length > 0
+      ? d.features
       : homeData.impactDark.features;
 
   return (
