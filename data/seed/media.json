@@ -1,0 +1,647 @@
+[
+  {
+    "_id": "6acb9471a0e2c80af74ff664",
+    "createdAt": "2026-10-11T13:51:45.270Z",
+    "updatedAt": "2026-10-11T13:51:46.927Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/logo.png",
+    "filename": "logo.png",
+    "mimeType": "image/jpeg",
+    "filesize": 181019,
+    "width": 556,
+    "height": 556,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/logo-300x300.jpg",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/jpeg",
+        "filesize": 15550,
+        "filename": "logo-300x300.jpg"
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acefd589b2a7762c59e11f2",
+    "createdAt": "2026-10-14T03:56:08.092Z",
+    "updatedAt": "2026-10-14T03:56:09.167Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/hero-women-photo.webp",
+    "filename": "hero-women-photo.webp",
+    "mimeType": "image/webp",
+    "filesize": 79130,
+    "width": 640,
+    "height": 912,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/hero-women-photo-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 24750,
+        "filename": "hero-women-photo-300x300.webp"
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acefe799b2a7762c59e1342",
+    "createdAt": "2026-10-14T04:00:57.960Z",
+    "updatedAt": "2026-10-14T04:00:58.974Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1577896851231-70ef18881754.webp",
+    "filename": "photo-1577896851231-70ef18881754.webp",
+    "mimeType": "image/webp",
+    "filesize": 38896,
+    "width": 640,
+    "height": 426,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1577896851231-70ef18881754-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 17744,
+        "filename": "photo-1577896851231-70ef18881754-300x300.webp"
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acefead9b2a7762c59e13ad",
+    "createdAt": "2026-10-14T04:01:49.998Z",
+    "updatedAt": "2026-10-14T04:01:51.029Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1708593337380-6f97a307696f.webp",
+    "filename": "photo-1708593337380-6f97a307696f.webp",
+    "mimeType": "image/webp",
+    "filesize": 53252,
+    "width": 640,
+    "height": 426,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1708593337380-6f97a307696f-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 23980,
+        "filename": "photo-1708593337380-6f97a307696f-300x300.webp"
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6aceffdf9b2a7762c59e158b",
+    "createdAt": "2026-10-14T04:06:55.869Z",
+    "updatedAt": "2026-10-14T04:06:57.133Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1544005313-94ddf0286df2.webp",
+    "filename": "photo-1544005313-94ddf0286df2.webp",
+    "mimeType": "image/webp",
+    "filesize": 1026,
+    "width": 48,
+    "height": 72,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acf02ab686b476b0e654f4c",
+    "createdAt": "2026-10-14T04:18:51.908Z",
+    "updatedAt": "2026-10-14T04:18:53.331Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1509062522246-3755977927d7.webp",
+    "filename": "photo-1509062522246-3755977927d7.webp",
+    "mimeType": "image/webp",
+    "filesize": 29360,
+    "width": 800,
+    "height": 498,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1509062522246-3755977927d7-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 13104,
+        "filename": "photo-1509062522246-3755977927d7-300x300.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1509062522246-3755977927d7-800x498.webp",
+        "width": 800,
+        "height": 498,
+        "mimeType": "image/webp",
+        "filesize": 29360,
+        "filename": "photo-1509062522246-3755977927d7-800x498.webp"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acf0568686b476b0e6550b9",
+    "createdAt": "2026-10-14T04:30:32.934Z",
+    "updatedAt": "2026-10-14T04:30:33.607Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/contact-visual-card.webp",
+    "filename": "contact-visual-card.webp",
+    "mimeType": "image/webp",
+    "filesize": 38722,
+    "width": 640,
+    "height": 755,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/contact-visual-card-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 14720,
+        "filename": "contact-visual-card-300x300.webp"
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6acf0633686b476b0e65520f",
+    "createdAt": "2026-10-14T04:33:55.188Z",
+    "updatedAt": "2026-10-14T04:33:55.811Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1509062522246-3755977927d7%20(1).webp",
+    "filename": "photo-1509062522246-3755977927d7 (1).webp",
+    "mimeType": "image/webp",
+    "filesize": 29360,
+    "width": 800,
+    "height": 498,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1509062522246-3755977927d7%20(1)-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 13104,
+        "filename": "photo-1509062522246-3755977927d7 (1)-300x300.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1509062522246-3755977927d7%20(1)-800x498.webp",
+        "width": 800,
+        "height": 498,
+        "mimeType": "image/webp",
+        "filesize": 29360,
+        "filename": "photo-1509062522246-3755977927d7 (1)-800x498.webp"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad05d1bb671d43567217f82",
+    "createdAt": "2026-10-15T04:56:59.441Z",
+    "updatedAt": "2026-10-15T04:57:00.746Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1531206715517-5c0ba140b2b8.webp",
+    "filename": "photo-1531206715517-5c0ba140b2b8.webp",
+    "mimeType": "image/webp",
+    "filesize": 34818,
+    "width": 828,
+    "height": 552,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1531206715517-5c0ba140b2b8-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 13404,
+        "filename": "photo-1531206715517-5c0ba140b2b8-300x300.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1531206715517-5c0ba140b2b8-800x533.webp",
+        "width": 800,
+        "height": 533,
+        "mimeType": "image/webp",
+        "filesize": 35058,
+        "filename": "photo-1531206715517-5c0ba140b2b8-800x533.webp"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad05e17b671d43567218128",
+    "createdAt": "2026-10-15T05:01:11.115Z",
+    "updatedAt": "2026-10-15T05:01:12.150Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1500648767791-00dcc994a43e.webp",
+    "filename": "photo-1500648767791-00dcc994a43e.webp",
+    "mimeType": "image/webp",
+    "filesize": 3290,
+    "width": 128,
+    "height": 192,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad05e2db671d4356721817d",
+    "createdAt": "2026-10-15T05:01:33.893Z",
+    "updatedAt": "2026-10-15T05:01:34.496Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1573496359142-b8d87734a5a2.webp",
+    "filename": "photo-1573496359142-b8d87734a5a2.webp",
+    "mimeType": "image/webp",
+    "filesize": 3612,
+    "width": 128,
+    "height": 191,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad19c542f2b463781c1cc8d",
+    "createdAt": "2026-10-16T03:39:00.204Z",
+    "updatedAt": "2026-10-16T03:39:01.675Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1516738901171-8eb4fc13bd20.webp",
+    "filename": "photo-1516738901171-8eb4fc13bd20.webp",
+    "mimeType": "image/webp",
+    "filesize": 16144,
+    "width": 800,
+    "height": 533,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1516738901171-8eb4fc13bd20-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 6962,
+        "filename": "photo-1516738901171-8eb4fc13bd20-300x300.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1516738901171-8eb4fc13bd20-800x533.webp",
+        "width": 800,
+        "height": 533,
+        "mimeType": "image/webp",
+        "filesize": 16144,
+        "filename": "photo-1516738901171-8eb4fc13bd20-800x533.webp"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad19c762f2b463781c1ccb6",
+    "createdAt": "2026-10-16T03:39:34.342Z",
+    "updatedAt": "2026-10-16T03:39:36.323Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1584515979956-d9f6e5d09982.jpeg",
+    "filename": "photo-1584515979956-d9f6e5d09982.jpeg",
+    "mimeType": "image/jpeg",
+    "filesize": 73624,
+    "width": 800,
+    "height": 640,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1584515979956-d9f6e5d09982-300x300.jpg",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/jpeg",
+        "filesize": 15749,
+        "filename": "photo-1584515979956-d9f6e5d09982-300x300.jpg"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1584515979956-d9f6e5d09982-800x640.jpg",
+        "width": 800,
+        "height": 640,
+        "mimeType": "image/jpeg",
+        "filesize": 64015,
+        "filename": "photo-1584515979956-d9f6e5d09982-800x640.jpg"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad19c942f2b463781c1cd2b",
+    "createdAt": "2026-10-16T03:40:04.744Z",
+    "updatedAt": "2026-10-16T03:40:05.797Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1594708767771-a7502209ff51.jpeg",
+    "filename": "photo-1594708767771-a7502209ff51.jpeg",
+    "mimeType": "image/jpeg",
+    "filesize": 85638,
+    "width": 800,
+    "height": 533,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1594708767771-a7502209ff51-300x300.jpg",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/jpeg",
+        "filesize": 21541,
+        "filename": "photo-1594708767771-a7502209ff51-300x300.jpg"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1594708767771-a7502209ff51-800x533.jpg",
+        "width": 800,
+        "height": 533,
+        "mimeType": "image/jpeg",
+        "filesize": 75810,
+        "filename": "photo-1594708767771-a7502209ff51-800x533.jpg"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  },
+  {
+    "_id": "6ad19cad2f2b463781c1cda6",
+    "createdAt": "2026-10-16T03:40:29.008Z",
+    "updatedAt": "2026-10-16T03:40:29.649Z",
+    "alt": "Arvishha Foundation",
+    "prefix": "media",
+    "url": "/api/media/file/photo-1577896851231-70ef18881754%20(1).webp",
+    "filename": "photo-1577896851231-70ef18881754 (1).webp",
+    "mimeType": "image/webp",
+    "filesize": 52686,
+    "width": 800,
+    "height": 533,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/photo-1577896851231-70ef18881754%20(1)-300x300.webp",
+        "width": 300,
+        "height": 300,
+        "mimeType": "image/webp",
+        "filesize": 17846,
+        "filename": "photo-1577896851231-70ef18881754 (1)-300x300.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/photo-1577896851231-70ef18881754%20(1)-800x533.webp",
+        "width": 800,
+        "height": 533,
+        "mimeType": "image/webp",
+        "filesize": 52686,
+        "filename": "photo-1577896851231-70ef18881754 (1)-800x533.webp"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    },
+    "__v": 0,
+    "thumbnailURL": null
+  }
+]

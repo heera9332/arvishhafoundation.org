@@ -65,6 +65,48 @@ export default buildConfig({
       },
     },
     {
+      path: "/seed",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const { seedAll } = await import("@/lib/seed");
+          const result = await seedAll(req.payload);
+          return Response.json(result);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed error";
+          return Response.json({ success: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
+      path: "/seed-header",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const { seedHeader } = await import("@/lib/seed");
+          const result = await seedHeader(req.payload);
+          return Response.json(result);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed header error";
+          return Response.json({ success: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
+      path: "/seed-footer",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const { seedFooter } = await import("@/lib/seed");
+          const result = await seedFooter(req.payload);
+          return Response.json(result);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed footer error";
+          return Response.json({ success: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
       path: "/seed-posts",
       method: "get",
       handler: async (req) => {
@@ -82,24 +124,9 @@ export default buildConfig({
       method: "get",
       handler: async (req) => {
         try {
-          const { defaultSiteSettingsData } = await import("@/global/site-settings/defaults");
-          const updated = await (req.payload.updateGlobal as any)({
-            slug: "site-settings",
-            data: {
-              siteName: defaultSiteSettingsData.siteName,
-              tagline: defaultSiteSettingsData.tagline,
-              contactEmail: defaultSiteSettingsData.contactEmail,
-              phone: defaultSiteSettingsData.phone,
-              address: defaultSiteSettingsData.address,
-              socialLinks: defaultSiteSettingsData.socialLinks.map((s) => ({
-                platform: s.platform,
-                url: s.url,
-              })),
-              footerCopyright: defaultSiteSettingsData.footerCopyright,
-              maintenanceMode: false,
-            },
-          });
-          return Response.json({ success: true, doc: updated });
+          const { seedSiteSettings } = await import("@/lib/seed");
+          const result = await seedSiteSettings(req.payload);
+          return Response.json(result);
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : "Seed site-settings error";
           return Response.json({ success: false, error: message }, { status: 500 });
@@ -111,21 +138,9 @@ export default buildConfig({
       method: "get",
       handler: async (req) => {
         try {
-          const { defaultSEOSettingsData } = await import("@/global/seo-settings/defaults");
-          const updated = await (req.payload.updateGlobal as any)({
-            slug: "seo-settings",
-            data: {
-              defaultTitle: defaultSEOSettingsData.defaultTitle,
-              titleTemplate: defaultSEOSettingsData.titleTemplate,
-              defaultDescription: defaultSEOSettingsData.defaultDescription,
-              defaultKeywords: defaultSEOSettingsData.defaultKeywords,
-              siteUrl: defaultSEOSettingsData.siteUrl,
-              robots: defaultSEOSettingsData.robots,
-              verification: defaultSEOSettingsData.verification,
-              additionalHeadTags: defaultSEOSettingsData.additionalHeadTags,
-            },
-          });
-          return Response.json({ success: true, doc: updated });
+          const { seedSeoSettings } = await import("@/lib/seed");
+          const result = await seedSeoSettings(req.payload);
+          return Response.json(result);
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : "Seed seo-settings error";
           return Response.json({ success: false, error: message }, { status: 500 });

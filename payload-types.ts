@@ -108,10 +108,14 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'site-settings': SiteSetting;
+    'seo-settings': SeoSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'seo-settings': SeoSettingsSelect<false> | SeoSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -257,6 +261,7 @@ export interface Page {
     | VolunteerBlock
     | CorporatePartnershipBlock
     | PillarsBlock
+    | PostsGridBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1082,9 +1087,6 @@ export interface CorporatePartnershipBlock {
  * via the `definition` "PillarsBlock".
  */
 export interface PillarsBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
   items?:
     | {
         id?: string | null;
@@ -1112,6 +1114,48 @@ export interface PillarsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'pillars';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsGridBlock".
+ */
+export interface PostsGridBlock {
+  /**
+   * Choose to display news articles, ground projects, or both.
+   */
+  postType: 'all' | 'news' | 'projects';
+  /**
+   * Number of items per page (or max items when pagination is disabled).
+   */
+  limit: number;
+  /**
+   * Allow visitors to search in real time by title, description, and keywords.
+   */
+  enableSearch?: boolean | null;
+  /**
+   * Enable page numbers and navigation when posts exceed the limit.
+   */
+  enablePagination?: boolean | null;
+  /**
+   * Show interactive category tabs (e.g., Education, Healthcare, Empowerment).
+   */
+  showCategoryFilter?: boolean | null;
+  /**
+   * Visual card presentation style.
+   */
+  variant?: ('grid' | 'detailed') | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  viewAllLink: {
+    label?: string | null;
+    type?: ('custom' | 'external') | null;
+    newTab?: boolean | null;
+    url: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'postsGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1498,6 +1542,7 @@ export interface PagesSelect<T extends boolean = true> {
         volunteer?: T | VolunteerBlockSelect<T>;
         corporatePartnership?: T | CorporatePartnershipBlockSelect<T>;
         pillars?: T | PillarsBlockSelect<T>;
+        postsGrid?: T | PostsGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -2111,9 +2156,6 @@ export interface CorporatePartnershipBlockSelect<T extends boolean = true> {
  * via the `definition` "PillarsBlock_select".
  */
 export interface PillarsBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
   items?:
     | T
     | {
@@ -2138,6 +2180,31 @@ export interface PillarsBlockSelect<T extends boolean = true> {
   primaryCtaLink?: T;
   secondaryCtaText?: T;
   secondaryCtaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsGridBlock_select".
+ */
+export interface PostsGridBlockSelect<T extends boolean = true> {
+  postType?: T;
+  limit?: T;
+  enableSearch?: T;
+  enablePagination?: T;
+  showCategoryFilter?: T;
+  variant?: T;
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  viewAllLink?:
+    | T
+    | {
+        label?: T;
+        type?: T;
+        newTab?: T;
+        url?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -2630,6 +2697,90 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Manage global website branding, logos, contact info, social links, and maintenance mode.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  siteName: string;
+  tagline?: string | null;
+  logo?: (string | null) | Media;
+  favicon?: (string | null) | Media;
+  contactEmail?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'x';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  footerCopyright?: string | null;
+  maintenanceMode?: boolean | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage default SEO settings for the entire website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo-settings".
+ */
+export interface SeoSetting {
+  id: string;
+  /**
+   * Default title used when a page has no SEO title.
+   */
+  defaultTitle: string;
+  /**
+   * Use %s as the page title placeholder.
+   */
+  titleTemplate?: string | null;
+  defaultDescription?: string | null;
+  /**
+   * Optional comma-separated keywords.
+   */
+  defaultKeywords?: string | null;
+  /**
+   * Default Open Graph and social sharing image.
+   */
+  defaultImage?: (string | null) | Media;
+  /**
+   * Canonical website origin, e.g. https://example.com
+   */
+  siteUrl: string;
+  robots?: {
+    index?: boolean | null;
+    follow?: boolean | null;
+    noarchive?: boolean | null;
+  };
+  verification?: {
+    /**
+     * Google Search Console verification token.
+     */
+    google?: string | null;
+    /**
+     * Bing Webmaster Tools verification token.
+     */
+    bing?: string | null;
+  };
+  /**
+   * Optional custom metadata name/content pairs.
+   */
+  additionalHeadTags?:
+    | {
+        name: string;
+        content: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -2815,6 +2966,66 @@ export interface FooterSelect<T extends boolean = true> {
               enabled?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  tagline?: T;
+  logo?: T;
+  favicon?: T;
+  contactEmail?: T;
+  phone?: T;
+  address?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  footerCopyright?: T;
+  maintenanceMode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo-settings_select".
+ */
+export interface SeoSettingsSelect<T extends boolean = true> {
+  defaultTitle?: T;
+  titleTemplate?: T;
+  defaultDescription?: T;
+  defaultKeywords?: T;
+  defaultImage?: T;
+  siteUrl?: T;
+  robots?:
+    | T
+    | {
+        index?: T;
+        follow?: T;
+        noarchive?: T;
+      };
+  verification?:
+    | T
+    | {
+        google?: T;
+        bing?: T;
+      };
+  additionalHeadTags?:
+    | T
+    | {
+        name?: T;
+        content?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -1,0 +1,683 @@
+[
+  {
+    "_id": "6ad19489318914ab78ebd2bb",
+    "title": "Project Shiksha: Community Learning Centers",
+    "slug": "project-shiksha",
+    "postType": "projects",
+    "categoryCustom": "Education",
+    "excerpt": "Grassroots remedial education centers delivering daily literacy, numeracy, and life skills coaching to children from marginalized households.",
+    "shortDescription": "Grassroots remedial education centers delivering daily literacy, numeracy, and life skills coaching to children from marginalized households.",
+    "fullDescription": "Project Shiksha addresses high dropout rates and foundational learning deficits among first-generation schoolgoers. Operating daily after school hours, our trained local educators provide individual attention, interactive learning kits, and school curriculum reinforcement. Over 90% of enrolled students have improved basic reading and math competencies within six months.",
+    "location": "Peri-urban clusters & rural settlements",
+    "year": "2024–Present",
+    "status": "Active",
+    "beneficiaries": "350+ Children",
+    "imageUrl": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+    "href": "/projects/project-shiksha",
+    "author": "Arvishha Foundation",
+    "publishedOn": "2024-01-15T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:31.725Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Project Shiksha addresses high dropout rates and foundational learning deficits among first-generation schoolgoers. Operating daily after school hours, our trained local educators provide individual attention, interactive learning kits, and school curriculum reinforcement.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Over 90% of enrolled students have improved basic reading and math competencies within six months. Our centers also emphasize digital literacy, introducing children to educational technology and safe internet practices.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "By partnering closely with parents and local government schools, Project Shiksha creates an enduring support ecosystem where every child is encouraged to stay in school and achieve their full potential.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [
+      {
+        "outcome": "Over 90% of enrolled students improved basic reading and math competencies within six months",
+        "id": "6ad1a06fef54f23f44d061bd"
+      },
+      {
+        "outcome": "Daily after-school remedial learning and digital literacy coaching",
+        "id": "6ad1a06fef54f23f44d061be"
+      },
+      {
+        "outcome": "Over 350 children supported across marginalized household clusters",
+        "id": "6ad1a06fef54f23f44d061bf"
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2bc",
+    "title": "Project Swavalamban: Women Artisan Collective",
+    "slug": "project-swavalamban",
+    "postType": "projects",
+    "categoryCustom": "Empowerment",
+    "excerpt": "Skill enhancement and economic market linkages enabling women home-makers to establish dignified micro-enterprises.",
+    "shortDescription": "Skill enhancement and economic market linkages enabling women home-makers to establish dignified micro-enterprises.",
+    "fullDescription": "Project Swavalamban organizes women into small self-help artisan clusters. We provide vocational training in eco-friendly textiles, jute accessories, and food packaging, coupled with essential financial literacy, bank account openings, and direct sales channel partnerships. Today, participating women contribute significantly to household income and education expenses.",
+    "location": "Haridwar & Delhi NCR",
+    "year": "2025–Present",
+    "status": "Active",
+    "beneficiaries": "120+ Women Artisans",
+    "imageUrl": "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80",
+    "href": "/projects/project-swavalamban",
+    "author": "Arvishha Foundation",
+    "publishedOn": "2025-02-10T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:32.225Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Project Swavalamban organizes women into small self-help artisan clusters. We provide vocational training in eco-friendly textiles, jute accessories, and food packaging, coupled with essential financial literacy, bank account openings, and direct sales channel partnerships.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Today, participating women contribute significantly to household income and education expenses. Through structured mentorship, they learn pricing, inventory management, and digital UPI payments.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Our goal is to expand the artisan network to 500+ women, building community-owned cooperatives that guarantee sustained income, dignity, and independence.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [
+      {
+        "outcome": "Over 120 women trained in vocational crafts and dignified micro-enterprises",
+        "id": "6ad1a070ef54f23f44d061c0"
+      },
+      {
+        "outcome": "Direct market and exhibition linkages with transparent digital revenue flow",
+        "id": "6ad1a070ef54f23f44d061c1"
+      },
+      {
+        "outcome": "100% of participating artisans onboarded onto personal bank accounts",
+        "id": "6ad1a070ef54f23f44d061c2"
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2bd",
+    "title": "Arogya Chetna: Preventive Health & Hygiene Camps",
+    "slug": "project-arogya",
+    "postType": "projects",
+    "categoryCustom": "Healthcare",
+    "excerpt": "Mobile medical checkups, anemia detection, diagnostic screenings, and menstrual health distribution across remote hamlets.",
+    "shortDescription": "Mobile medical checkups, anemia detection, diagnostic screenings, and menstrual health distribution across remote hamlets.",
+    "fullDescription": "Many remote families lack timely access to medical consultation, allowing treatable ailments to become life-threatening. Arogya Chetna partners with volunteer doctors and diagnostic technicians to bring healthcare directly to village doorsteps. We also organize dedicated adolescent girls' workshops on menstrual hygiene and distribute eco-friendly sanitary kits.",
+    "location": "Rural Hamlets",
+    "year": "2025–2026",
+    "status": "Ongoing",
+    "beneficiaries": "800+ Families",
+    "imageUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80",
+    "href": "/projects/project-arogya",
+    "author": "Arvishha Foundation",
+    "publishedOn": "2025-06-05T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:32.929Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Many remote families lack timely access to medical consultation, allowing treatable ailments to become life-threatening. Arogya Chetna partners with volunteer doctors and diagnostic technicians to bring healthcare directly to village doorsteps.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We also organize dedicated adolescent girls' workshops on menstrual hygiene and distribute eco-friendly sanitary kits, breaking long-standing taboos through open education.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Regular health camps, anemia screening, and tele-health follow-ups ensure that rural communities receive continuous preventive care and life-saving health education.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [
+      {
+        "outcome": "800+ families screened for chronic, nutritional, and preventable illnesses",
+        "id": "6ad1a070ef54f23f44d061c3"
+      },
+      {
+        "outcome": "Free distribution of vital supplements, diagnostic tests, and adolescent hygiene kits",
+        "id": "6ad1a070ef54f23f44d061c4"
+      },
+      {
+        "outcome": "Regular follow-up visits and tele-consultation support with partner clinics",
+        "id": "6ad1a070ef54f23f44d061c5"
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2be",
+    "title": "Project Prakriti: Green Schools & Clean Neighborhoods",
+    "slug": "project-prakriti",
+    "postType": "projects",
+    "categoryCustom": "Environment",
+    "excerpt": "Afforestation drives, organic waste composting, and clean drinking water awareness in village schools and common spaces.",
+    "shortDescription": "Afforestation drives, organic waste composting, and clean drinking water awareness in village schools and common spaces.",
+    "fullDescription": "Environmental stewardship starts with community ownership. Project Prakriti engages school students and youth clubs in native tree plantations, rainwater conservation awareness, and zero-plastic campaigns. We also install bio-compost pits in community centers to demonstrate safe organic waste management.",
+    "location": "Semi-Rural Blocks",
+    "year": "2026",
+    "status": "Active",
+    "beneficiaries": "15 Village Schools",
+    "imageUrl": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80",
+    "href": "/projects/project-prakriti",
+    "author": "Arvishha Foundation",
+    "publishedOn": "2026-01-20T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:33.578Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Environmental stewardship starts with community ownership. Project Prakriti engages school students and youth clubs in native tree plantations, rainwater conservation awareness, and zero-plastic campaigns.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We also install bio-compost pits in community centers to demonstrate safe organic waste management and sustainable agricultural practices.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Through green eco-clubs, children learn hands-on ecological care, ensuring that conservation values become an integral part of community life.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [
+      {
+        "outcome": "Native tree plantations and green corridors established in 15 village schools",
+        "id": "6ad1a071ef54f23f44d061c6"
+      },
+      {
+        "outcome": "Zero-plastic drives and bio-compost demonstration pits in community hubs",
+        "id": "6ad1a071ef54f23f44d061c7"
+      },
+      {
+        "outcome": "Clean water safety testing and student eco-club leadership training",
+        "id": "6ad1a071ef54f23f44d061c8"
+      }
+    ],
+    "meta": {}
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2bf",
+    "title": "Opening New Community Learning Centers in Underserved Blocks",
+    "slug": "opening-new-community-learning-center",
+    "postType": "news",
+    "categoryCustom": "Education",
+    "excerpt": "How community-led learning spaces are bridging foundational numeracy and literacy gaps for first-generation schoolgoers.",
+    "author": "Arvishha Field Team",
+    "readTime": "4 min read",
+    "imageUrl": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+    "href": "/news/opening-new-community-learning-center",
+    "publishedOn": "2026-10-01T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:34.054Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "How community-led learning spaces are bridging foundational numeracy and literacy gaps for first-generation schoolgoers.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "At Arvishha Foundation, our field programs are built on regular, on-the-ground engagement with rural and urban communities. Through dedicated dialogue sessions, local partnerships, and continuous monitoring, our teams strive to ensure every program delivers meaningful and sustainable outcomes.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Education remains at the core of our interventions. When community members are equipped with knowledge, skills, and equal opportunity, entire generations thrive.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We invite supporters, educators, and volunteers to partner with us as we expand these essential initiatives to more underserved areas across the region.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [],
+    "meta": {},
+    "status": "Active"
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2c0",
+    "title": "Empowering Rural Women Through Digital Financial Literacy",
+    "slug": "women-empowerment-through-digital-financial-skills",
+    "postType": "news",
+    "categoryCustom": "Women Empowerment",
+    "excerpt": "Breaking financial isolation: How smartphone banking workshops helped 40 women artisans gain autonomy over their earnings.",
+    "author": "Programs Coordinator",
+    "readTime": "5 min read",
+    "imageUrl": "https://images.unsplash.com/photo-1708593337380-6f97a307696f?auto=format&fit=crop&w=800&q=80",
+    "href": "/news/women-empowerment-through-digital-financial-skills",
+    "publishedOn": "2026-09-15T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:34.553Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Breaking financial isolation: How smartphone banking workshops helped 40 women artisans gain autonomy over their earnings.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Financial inclusion is a cornerstone of women's empowerment. By teaching artisans how to use digital banking, track savings, and manage household budgets, we empower them to take control of their economic futures.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "The initiative has witnessed remarkable enthusiasm, with participants now confidently executing payments and accessing government welfare schemes independently.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [],
+    "meta": {},
+    "status": "Active"
+  },
+  {
+    "_id": "6ad19489318914ab78ebd2c1",
+    "title": "Bringing Preventive Healthcare & Anemia Care to Remote Hamlets",
+    "slug": "preventive-healthcare-reaches-remote-hamlets",
+    "postType": "news",
+    "categoryCustom": "Healthcare",
+    "author": "Health Outreach Team",
+    "readTime": "3 min read",
+    "excerpt": "Over 300 mothers and adolescent girls received vital health screenings and nutritional guidance at our recent medical camp.",
+    "imageUrl": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+    "href": "/news/preventive-healthcare-reaches-remote-hamlets",
+    "publishedOn": "2026-08-20T00:00:00.000Z",
+    "_status": "published",
+    "createdAt": "2026-10-16T03:05:44.352Z",
+    "updatedAt": "2026-10-16T03:56:35.030Z",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "direction": "ltr",
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Over 300 mothers and adolescent girls received vital health screenings and nutritional guidance at our recent medical camp.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Preventive healthcare access transforms rural livelihoods by preventing manageable health issues from escalating into severe burdens. Our mobile health team provided pediatric checkups, hemoglobin testing, and nutritional education.",
+                "version": 1
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "direction": "ltr",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "We extend our heartfelt gratitude to the medical volunteers and community leaders whose tireless dedication made this camp a resounding success.",
+                "version": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "generateSlug": false,
+    "keyOutcomes": [],
+    "meta": {},
+    "status": "Active"
+  }
+]

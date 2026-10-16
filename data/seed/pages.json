@@ -1,0 +1,1096 @@
+[
+  {
+    "_id": "6acb9fe8107ca2b5e90fa266",
+    "createdAt": "2026-10-11T14:40:40.143Z",
+    "updatedAt": "2026-10-16T05:09:31.464Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "variant": "home",
+        "eyebrow": "DEVELOPMENT. DIGNITY. SOCIAL CHANGE.",
+        "heading": "Building a future where everyone can thrive.",
+        "headingPrefix": "Building a future",
+        "headingMiddle": "where everyone",
+        "headingAction": "can",
+        "highlightWord": "thrive",
+        "subheading": "At Arvishha Foundation, we work with communities to create opportunities for children, young people, women, and families while promoting education, health, rights awareness, and sustainable development across India.",
+        "primaryCta": {
+          "label": "Explore Our Work",
+          "type": "custom",
+          "newTab": false,
+          "url": "#"
+        },
+        "secondaryCta": {
+          "label": "Join Our Mission",
+          "type": "custom",
+          "newTab": false,
+          "url": "#"
+        },
+        "image": "6acefd589b2a7762c59e11f2",
+        "imageAlt": "Community members collaborating at Arvishha Foundation initiative",
+        "stats": [
+          {
+            "value": "500+",
+            "label": "community members ",
+            "sublabel": "reached & empowered",
+            "icon": "Users",
+            "id": "6acefd96dddd9f49ad6c92b1"
+          },
+          {
+            "value": "12+",
+            "label": "grassroots initiatives",
+            "icon": "Sprout",
+            "id": "6acefdbedddd9f49ad6c92b3"
+          },
+          {
+            "value": "3",
+            "label": "focus areas",
+            "sublabel": "Education • Women Empowerment • Health",
+            "icon": "Target",
+            "id": "6acefdd3dddd9f49ad6c92b5"
+          }
+        ],
+        "floatingBadges": {
+          "communityFirstTitle": "Community First",
+          "communityFirstSubtitle": "Local action. Lasting change.",
+          "proofCount": "500+",
+          "proofText": "community members reached & empowered across grassroots initiatives"
+        },
+        "breadcrumbs": [],
+        "id": "6acefca6dddd9f49ad6c92af"
+      },
+      {
+        "blockType": "focusAreas",
+        "eyebrow": "What We Do",
+        "heading": "Building Stronger Communities Through Meaningful Social Action",
+        "description": "Our targeted programs address root causes of inequality and poverty through sustainable community partnerships.",
+        "items": [
+          {
+            "title": "Education & Youth Development",
+            "iconName": "GraduationCap",
+            "description": "Education can open doors that once seemed impossible. We provide foundational learning support, digital literacy, and youth mentoring.",
+            "image": "6acefe799b2a7762c59e1342",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefe4edddd9f49ad6c92bb"
+          },
+          {
+            "title": "Women Empowerment",
+            "iconName": "Sparkles",
+            "description": "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
+            "image": "6acefead9b2a7762c59e13ad",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefe89dddd9f49ad6c92bd"
+          },
+          {
+            "title": "Women Empowerment",
+            "iconName": "Sparkles",
+            "description": "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
+            "image": "6acefead9b2a7762c59e13ad",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefed0dddd9f49ad6c92bf"
+          },
+          {
+            "title": "Women Empowerment",
+            "iconName": "Sparkles",
+            "description": "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
+            "image": "6acefead9b2a7762c59e13ad",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefed3dddd9f49ad6c92c1"
+          },
+          {
+            "title": "Women Empowerment",
+            "iconName": "Sparkles",
+            "description": "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
+            "image": "6acefead9b2a7762c59e13ad",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefed8dddd9f49ad6c92c3"
+          },
+          {
+            "title": "Women Empowerment",
+            "iconName": "Sparkles",
+            "description": "When women have access to opportunities, knowledge, resources, and solidarity, entire families and neighborhoods prosper.",
+            "image": "6acefead9b2a7762c59e13ad",
+            "href": "/what-we-do",
+            "keyOutcomes": [],
+            "id": "6acefedadddd9f49ad6c92c5"
+          }
+        ],
+        "id": "6acefe3cdddd9f49ad6c92b9"
+      },
+      {
+        "blockType": "process",
+        "eyebrow": "How We Work",
+        "heading": "A Structured, Community-Led Path to Social Impact",
+        "subheading": "We believe lasting change requires clear strategy, deep community listening, disciplined execution, and transparent measurement.",
+        "steps": [
+          {
+            "step": "01",
+            "title": "Understand",
+            "description": "We spend time inside communities, holding open dialogue sessions to listen to local priorities, cultural contexts, and real bottlenecks.",
+            "phaseTag": "Phase 01",
+            "id": "6aceff2edddd9f49ad6c92c9"
+          },
+          {
+            "step": "02",
+            "title": "Plan",
+            "description": "Together with village elders, youth groups, and women's circles, we co-design targeted interventions with clear metrics and milestones.",
+            "phaseTag": "Phase 02",
+            "id": "6aceff55dddd9f49ad6c92cb"
+          },
+          {
+            "step": "03",
+            "title": "Implement",
+            "description": "Our ground coordinators, volunteers, and local champions roll out the activities with transparent resource allocation and daily support.",
+            "phaseTag": "Phase 03",
+            "id": "6aceff57dddd9f49ad6c92cd"
+          },
+          {
+            "step": "01",
+            "title": "Measure",
+            "description": "We track measurable outcomes—literacy gains, health screenings, livelihood income—and iterate to build long-term self-sufficiency.",
+            "phaseTag": "Phase 04",
+            "id": "6aceff59dddd9f49ad6c92cf"
+          }
+        ],
+        "id": "6aceff00dddd9f49ad6c92c7"
+      },
+      {
+        "blockType": "testimonials",
+        "eyebrow": "Voices From The Field",
+        "heading": "Stories of Dignity, Courage and Real Transformation",
+        "description": "Hear directly from the community members, students, and women whose lives are being transformed through community action.",
+        "theme": "darkGreen",
+        "items": [
+          {
+            "quote": "Before the foundation came to our village, our handicraft work had no market access. Today, 18 women in our group manage our own bank accounts, earn an independent income, and support our daughters' schooling.",
+            "name": "Sunita Devi",
+            "role": "Self-Help Group Leader & Artisan",
+            "location": "Rural Cluster",
+            "avatar": "6aceffdf9b2a7762c59e158b",
+            "id": "6aceffb7dddd9f49ad6c92d3"
+          },
+          {
+            "quote": "Before the foundation came to our village, our handicraft work had no market access. Today, 18 women in our group manage our own bank accounts, earn an independent income, and support our daughters' schooling.",
+            "name": "Sunita Devi",
+            "role": "Self-Help Group Leader & Artisan",
+            "location": "Rural Cluster",
+            "avatar": "6aceffdf9b2a7762c59e158b",
+            "id": "6aceffeddddd9f49ad6c92d5"
+          },
+          {
+            "quote": "Before the foundation came to our village, our handicraft work had no market access. Today, 18 women in our group manage our own bank accounts, earn an independent income, and support our daughters' schooling.",
+            "name": "Sunita Devi",
+            "role": "Self-Help Group Leader & Artisan",
+            "location": "Rural Cluster",
+            "avatar": "6aceffdf9b2a7762c59e158b",
+            "id": "6acefff0dddd9f49ad6c92d7"
+          }
+        ],
+        "id": "6aceffa7dddd9f49ad6c92d1"
+      },
+      {
+        "blockType": "faq",
+        "eyebrow": "Frequently Asked Questions",
+        "heading": "Everything You Need To Know About Arvishha Foundation",
+        "subheading": "Clear answers regarding our mission, funding utilization, volunteer opportunities, and governance.",
+        "contactLink": {
+          "label": "Don't Worry — We've Got Answers!",
+          "type": "custom",
+          "newTab": false,
+          "url": "/contact"
+        },
+        "items": [
+          {
+            "question": "What is the mission of Arvishha Foundation?",
+            "answer": "Arvishha Foundation is a non-governmental organization committed to human development, dignity, and sustainable social change. We work primarily in education, women empowerment, child welfare, preventive healthcare, rights awareness, and environmental protection.",
+            "id": "6acf004adddd9f49ad6c92db"
+          },
+          {
+            "question": "What is the mission of Arvishha Foundation?",
+            "answer": "Arvishha Foundation is a non-governmental organization committed to human development, dignity, and sustainable social change. We work primarily in education, women empowerment, child welfare, preventive healthcare, rights awareness, and environmental protection.",
+            "id": "6acf005cdddd9f49ad6c92dd"
+          },
+          {
+            "question": "What is the mission of Arvishha Foundation?",
+            "answer": "Arvishha Foundation is a non-governmental organization committed to human development, dignity, and sustainable social change. We work primarily in education, women empowerment, child welfare, preventive healthcare, rights awareness, and environmental protection.",
+            "id": "6acf0061dddd9f49ad6c92df"
+          },
+          {
+            "question": "What is the mission of Arvishha Foundation?",
+            "answer": "Arvishha Foundation is a non-governmental organization committed to human development, dignity, and sustainable social change. We work primarily in education, women empowerment, child welfare, preventive healthcare, rights awareness, and environmental protection.",
+            "id": "6acf0063dddd9f49ad6c92e1"
+          }
+        ],
+        "Ask a Question": {
+          "askQuestionHeading": "Don't Worry — We've Got Answers!",
+          "description": "We are here to help. If you didn't find the answer you were looking for, reach out to our team directly. We are happy to clarify any details.",
+          "cta": {
+            "link": {
+              "label": "Ask a Question",
+              "type": "custom",
+              "newTab": false,
+              "url": "/contact"
+            }
+          }
+        },
+        "id": "6acf0008dddd9f49ad6c92d9"
+      },
+      {
+        "blockType": "postsGrid",
+        "postType": "news",
+        "limit": 3,
+        "enableSearch": false,
+        "enablePagination": false,
+        "showCategoryFilter": false,
+        "variant": "grid",
+        "eyebrow": "Latest Updates & Stories",
+        "heading": "Articles That Inspire Action & Innovation",
+        "description": "Read our latest field reports, community achievements, and perspectives on grassroots social change.",
+        "viewAllLink": {
+          "label": "View All Articles",
+          "type": "custom",
+          "newTab": false,
+          "url": "/news"
+        },
+        "id": "6acf024563bf11a9df05ef88"
+      },
+      {
+        "blockType": "contact",
+        "eyebrow": "Get In Touch",
+        "heading": "Start The Dialogue. We're Listening.",
+        "subheading": "Have questions, want to volunteer, explore CSR collaborations, or learn more about our work? Reach out today.",
+        "form": "6acf0511686b476b0e65503e",
+        "sectionImage": "6acf0568686b476b0e6550b9",
+        "id": "6acf03a763bf11a9df05ef92"
+      },
+      {
+        "blockType": "cta",
+        "badge": "Join Hands With Arvishha",
+        "heading": "Together, We Can Create Lasting Change.",
+        "subheading": "Every child in school, every empowered woman, and every healthy community starts with a conscious decision to get involved.",
+        "theme": "darkGreen",
+        "primaryCta": {
+          "label": "Support Our Work",
+          "type": "custom",
+          "newTab": false,
+          "url": "/donate"
+        },
+        "secondaryCta": {
+          "label": "Become a Volunteer",
+          "type": "custom",
+          "newTab": false,
+          "url": "/get-involved"
+        },
+        "id": "6acf059863bf11a9df05ef94"
+      },
+      {
+        "blockType": "projects",
+        "eyebrow": "Our Work on the Ground",
+        "heading": "Grassroots Initiatives Driving Community Transformation",
+        "description": "Every project undertaken by Arvishha Foundation is built on partnerships with communities, rigorous local planning, and measurable outcomes.",
+        "viewAllLink": {
+          "label": "View All Projects",
+          "type": "custom",
+          "newTab": false,
+          "url": "/projects"
+        },
+        "items": [
+          {
+            "title": "Project Shiksha: Community Learning Centers",
+            "category": "Education",
+            "status": "Active",
+            "beneficiaries": "350+ Children",
+            "location": "Delhi NCR & Rural Haridwar",
+            "shortDescription": "After-school learning support, digital literacy classes, and textbook distribution for children in underserved settlements.",
+            "image": "6acf0633686b476b0e65520f",
+            "href": "/projects",
+            "id": "6acf05f363bf11a9df05ef98"
+          },
+          {
+            "title": "Project Shiksha: Community Learning Centers",
+            "category": "Education",
+            "status": "Active",
+            "beneficiaries": "350+ Children",
+            "location": "Delhi NCR & Rural Haridwar",
+            "shortDescription": "After-school learning support, digital literacy classes, and textbook distribution for children in underserved settlements.",
+            "image": "6acf0633686b476b0e65520f",
+            "href": "/projects",
+            "id": "6acf063b63bf11a9df05ef9e"
+          },
+          {
+            "title": "Project Shiksha: Community Learning Centers",
+            "category": "Education",
+            "status": "Active",
+            "beneficiaries": "350+ Children",
+            "location": "Delhi NCR & Rural Haridwar",
+            "shortDescription": "After-school learning support, digital literacy classes, and textbook distribution for children in underserved settlements.",
+            "image": "6acf0633686b476b0e65520f",
+            "href": "/projects",
+            "id": "6acf063a63bf11a9df05ef9c"
+          },
+          {
+            "title": "Project Shiksha: Community Learning Centers",
+            "category": "Education",
+            "status": "Active",
+            "beneficiaries": "350+ Children",
+            "location": "Delhi NCR & Rural Haridwar",
+            "shortDescription": "After-school learning support, digital literacy classes, and textbook distribution for children in underserved settlements.",
+            "image": "6acf0633686b476b0e65520f",
+            "href": "/projects",
+            "id": "6acf063863bf11a9df05ef9a"
+          }
+        ],
+        "id": "6acf05ca63bf11a9df05ef96"
+      },
+      {
+        "blockType": "values",
+        "eyebrow": "Our Principles",
+        "heading": "Core Values That Anchor Everything We Do",
+        "description": "Our commitment to ethical governance, compassionate intervention, and radical transparency guides our every move.",
+        "items": [],
+        "id": "6acf066d63bf11a9df05efa0"
+      }
+    ],
+    "publishedOn": "2026-10-11T14:49:16.567Z",
+    "slug": "home",
+    "title": "Home"
+  },
+  {
+    "_id": "6ad049ecb671d43567217bc3",
+    "createdAt": "2026-10-15T03:35:08.811Z",
+    "updatedAt": "2026-10-15T05:18:16.290Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "variant": "page",
+        "eyebrow": "Who We Are",
+        "heading": "Dedicated to Human Dignity, Community Growth & Lasting Change",
+        "subheading": "Arvishha Foundation is a non-governmental organization working at the grassroots to ensure every individual—regardless of circumstance—has access to education, economic self-reliance, good health, and constitutional dignity.",
+        "primaryCta": {
+          "label": "",
+          "type": "custom",
+          "newTab": false,
+          "url": "/about"
+        },
+        "secondaryCta": {
+          "type": "custom",
+          "newTab": false,
+          "url": "/get-involved"
+        },
+        "imageAlt": "Community members collaborating at Arvishha Foundation initiative",
+        "stats": [],
+        "floatingBadges": {
+          "communityFirstTitle": "Community First",
+          "communityFirstSubtitle": "Local action. Lasting change.",
+          "proofCount": "500+",
+          "proofText": "community members reached & empowered across grassroots initiatives"
+        },
+        "breadcrumbs": [
+          {
+            "label": "About",
+            "href": "/about",
+            "id": "6ad04a556576cf7a7b8045fb"
+          }
+        ],
+        "id": "6ad04a146576cf7a7b8045f9"
+      },
+      {
+        "blockType": "story",
+        "eyebrow": "Our Story & Purpose",
+        "heading": "From Grassroots Commitment to Systemic Change",
+        "paragraphs": [
+          {
+            "text": "Arvishha Foundation was established by a collective of educators, community workers, and social advocates who observed persistent gaps between developmental policies and grassroots realities.",
+            "id": "6ad05d2fdbc456004650b575"
+          },
+          {
+            "text": "In many underserved hamlets and urban informal settlements, families struggle to access foundational education for their children, basic preventive healthcare, and dignifying livelihood opportunities. Women, despite carrying entire households, frequently remain excluded from financial decision-making.",
+            "id": "6ad05d38dbc456004650b577"
+          },
+          {
+            "text": "Recognizing that real progress cannot be imposed from top-down directives, Arvishha Foundation was born with a simple yet uncompromising principle: Listen first, partner with the community, and create self-sustaining social solutions.",
+            "id": "6ad05d3ddbc456004650b579"
+          }
+        ],
+        "image": "6ad05d1bb671d43567217f82",
+        "imageUrl": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80",
+        "imageAlt": "Arvishha Foundation community gathering",
+        "id": "6ad05d0adbc456004650b573"
+      },
+      {
+        "blockType": "values",
+        "eyebrow": "Our Principles",
+        "heading": "Core Values That Anchor Everything We Do",
+        "description": "Our commitment to ethical governance, compassionate intervention, and radical transparency guides our every move.",
+        "items": [
+          {
+            "title": "Empathy & Active Listening",
+            "icon": "HeartHandshake",
+            "description": "Every project begins by sitting down with community members to understand their lived realities and priorities.\n\n",
+            "id": "6ad05e8cdbc456004650b597"
+          },
+          {
+            "title": "Inclusivity & Dignity",
+            "icon": "HeartHandshake",
+            "description": "\nWe uphold equal human dignity irrespective of gender, caste, creed, or economic status.",
+            "id": "6ad05e9adbc456004650b599"
+          },
+          {
+            "title": "Inclusivity & Dignity",
+            "icon": "HeartHandshake",
+            "description": "\nWe uphold equal human dignity irrespective of gender, caste, creed, or economic status.",
+            "id": "6ad05ea9dbc456004650b59b"
+          },
+          {
+            "title": "Inclusivity & Dignity",
+            "icon": "HeartHandshake",
+            "description": "\nWe uphold equal human dignity irrespective of gender, caste, creed, or economic status.",
+            "id": "6ad05eacdbc456004650b59d"
+          }
+        ],
+        "id": "6ad05e88dbc456004650b595"
+      },
+      {
+        "blockType": "transparency",
+        "eyebrow": "Accountability & Trust",
+        "heading": "Governed By Highest Standards of Non-Profit Ethics",
+        "description": "Every rupee entrusted to Arvishha Foundation is accounted for with complete transparency. We maintain public audit reports, adhere strictly to FCRA, 12A, and 80G frameworks, and undergo external evaluations.",
+        "stats": [
+          {
+            "value": "87%",
+            "label": "Program Expenditure",
+            "id": "6ad05d73dbc456004650b57d"
+          },
+          {
+            "value": "100%",
+            "label": "Community Reinvestment",
+            "id": "6ad05d7cdbc456004650b57f"
+          },
+          {
+            "value": "Annual",
+            "label": "Independent Audits",
+            "id": "6ad05d88dbc456004650b581"
+          }
+        ],
+        "ctaText": "Connect With Our Governance Team",
+        "ctaLink": "/contact",
+        "id": "6ad05d60dbc456004650b57b"
+      },
+      {
+        "blockType": "team",
+        "eyebrow": "Our Leadership",
+        "heading": "Guided by Experienced, Compassionate Change-Makers",
+        "description": "Our trustees, advisors, and field directors bring decades of grassroots activism, pedagogy, and governance experience.",
+        "members": [
+          {
+            "name": "Dr. Ananya Sharma",
+            "role": "Managing Trustee & Executive Director",
+            "bio": "15+ years of experience in community education and developmental sociology.",
+            "image": "6ad05e2db671d4356721817d",
+            "id": "6ad05df3dbc456004650b589"
+          },
+          {
+            "name": "Rajesh Varma",
+            "role": "Director of Programs & Field Operations",
+            "bio": "Former rural development fellow passionate about public health access and youth leadership.",
+            "image": "6ad05e17b671d43567218128",
+            "id": "6ad05e20dbc456004650b58b"
+          },
+          {
+            "name": "Rajesh Varma",
+            "role": "Director of Programs & Field Operations",
+            "bio": "Former rural development fellow passionate about public health access and youth leadership.",
+            "image": "6ad05e17b671d43567218128",
+            "id": "6ad05e56dbc456004650b58d"
+          },
+          {
+            "name": "Rajesh Varma",
+            "role": "Director of Programs & Field Operations",
+            "bio": "Former rural development fellow passionate about public health access and youth leadership.",
+            "image": "6ad05e17b671d43567218128",
+            "id": "6ad05e58dbc456004650b58f"
+          },
+          {
+            "name": "Rajesh Varma",
+            "role": "Director of Programs & Field Operations",
+            "bio": "Former rural development fellow passionate about public health access and youth leadership.",
+            "image": "6ad05e17b671d43567218128",
+            "id": "6ad05e5adbc456004650b591"
+          },
+          {
+            "name": "Rajesh Varma",
+            "role": "Director of Programs & Field Operations",
+            "bio": "Former rural development fellow passionate about public health access and youth leadership.",
+            "image": "6ad05e17b671d43567218128",
+            "id": "6ad05e5cdbc456004650b593"
+          }
+        ],
+        "id": "6ad05df0dbc456004650b587"
+      }
+    ],
+    "publishedOn": "2026-10-15T03:37:06.753Z",
+    "slug": "about",
+    "title": "About"
+  },
+  {
+    "_id": "6ad06232b671d435672183b4",
+    "createdAt": "2026-10-15T05:18:42.259Z",
+    "updatedAt": "2026-10-16T02:55:24.135Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "variant": "page",
+        "eyebrow": "Contact Us",
+        "heading": "Start The Dialogue. We're Listening.",
+        "subheading": "Have inquiries about our programs, wish to explore partnership avenues, or want to visit a project site? Reach out to our team today.",
+        "primaryCta": {
+          "type": "custom",
+          "newTab": false,
+          "url": "#"
+        },
+        "secondaryCta": {
+          "type": "custom",
+          "newTab": false,
+          "url": "#"
+        },
+        "imageAlt": "",
+        "stats": [],
+        "floatingBadges": {
+          "communityFirstTitle": "Community First",
+          "communityFirstSubtitle": "Local action. Lasting change.",
+          "proofCount": "500+",
+          "proofText": "community members reached & empowered across grassroots initiatives"
+        },
+        "breadcrumbs": [
+          {
+            "label": "Contact",
+            "href": "/contact",
+            "id": "6ad06285dbc456004650b5a1"
+          }
+        ],
+        "id": "6ad06239dbc456004650b59f"
+      },
+      {
+        "blockType": "contactPage",
+        "eyebrow": "Direct Channels",
+        "heading": "Reach Our Team",
+        "description": "We look forward to hearing from you. Select the most convenient channel below or submit the inquiry form.",
+        "phone": "+91 98765 43210",
+        "email": "contact@arvishhafoundation.org",
+        "registrationNumber": "NGO-REG-2024-9842",
+        "formHeading": "Send A Message",
+        "formDescription": "Fill in your details below and our team will get back to you within 24–48 hours.",
+        "form": "6acf0511686b476b0e65503e",
+        "showFaq": true,
+        "faqEyebrow": "Common Inquiries",
+        "faqHeading": "Questions Before Reaching Out?",
+        "faqItems": [],
+        "id": "6ad062badbc456004650b5a7"
+      }
+    ],
+    "publishedOn": "2026-10-15T05:20:11.778Z",
+    "slug": "contact",
+    "title": "Contact"
+  },
+  {
+    "_id": "6ad1995c2f2b463781c1c773",
+    "createdAt": "2026-10-16T03:27:28.208Z",
+    "updatedAt": "2026-10-16T03:34:53.153Z",
+    "meta": {
+      "title": "Get Involved — Volunteer & CSR Partnerships | Arvishha Foundation",
+      "description": "Join Arvishha Foundation as a volunteer, academic mentor, medical contributor, or corporate CSR partner."
+    },
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "variant": "page",
+        "eyebrow": "Join Our Mission",
+        "heading": "Be The Catalyst For Lasting Social Change",
+        "subheading": "Whether you can give your time, your professional skills, or partner with us institutionally, every contribution directly impacts a life on the ground.",
+        "primaryCta": {
+          "label": "Become a Volunteer",
+          "type": "custom",
+          "newTab": false,
+          "url": "#volunteer"
+        },
+        "secondaryCta": {
+          "label": "CSR Partnerships",
+          "type": "custom",
+          "newTab": false,
+          "url": "#partner"
+        },
+        "imageAlt": "Community members collaborating at Arvishha Foundation initiative",
+        "stats": [],
+        "floatingBadges": {
+          "communityFirstTitle": "Community First",
+          "communityFirstSubtitle": "Local action. Lasting change.",
+          "proofCount": "500+",
+          "proofText": "community members reached & empowered across grassroots initiatives"
+        },
+        "breadcrumbs": [
+          {
+            "label": "Get Involved",
+            "href": "/get-involved",
+            "id": "6ad199a0f39b318e3988afd1"
+          }
+        ],
+        "id": "6ad199a0f39b318e3988afd2"
+      },
+      {
+        "blockType": "volunteer",
+        "eyebrow": "Volunteer With Us",
+        "heading": "Ways You Can Share Your Passion & Skills",
+        "description": "We match volunteers with initiatives where their unique background—whether teaching, healthcare, arts, or communication—creates the highest positive impact.",
+        "roles": [
+          {
+            "title": "Teaching & Academic Mentoring",
+            "mode": "In-Person / Hybrid",
+            "commitment": "2–4 hours / week",
+            "description": "Tutor children in basic mathematics, English reading, science experiments, or digital skills at our Community Learning Centers.",
+            "id": "6ad199a0f39b318e3988afd3"
+          },
+          {
+            "title": "Medical & Health Camp Specialist",
+            "mode": "Field Trips",
+            "commitment": "Monthly camps (Saturdays/Sundays)",
+            "description": "Doctors, nurses, optometrists, and medical students providing diagnostic checkups and health counseling in rural camps.",
+            "id": "6ad199a0f39b318e3988afd4"
+          },
+          {
+            "title": "Content, Media & Storytelling",
+            "mode": "Virtual",
+            "commitment": "Flexible / Remote",
+            "description": "Help us document community impact stories, capture field photography, write articles, or design visual awareness materials.",
+            "id": "6ad199a0f39b318e3988afd5"
+          }
+        ],
+        "formHeading": "Apply to Volunteer",
+        "formDescription": "Share your details and tell us how you'd like to contribute.",
+        "form": "6ad195e62f2b463781c1c62c",
+        "id": "6ad199a0f39b318e3988afd6"
+      },
+      {
+        "blockType": "corporatePartnership",
+        "eyebrow": "Corporate Partnerships",
+        "heading": "Institutional & Corporate CSR Partnerships",
+        "description": "We collaborate with organizations committed to sustainable development goals (SDGs). We offer end-to-end project implementation, transparent statutory compliance, baseline/endline assessments, and employee engagement volunteering opportunities.",
+        "benefits": [
+          {
+            "benefit": "Customized CSR project design aligned with corporate priorities",
+            "id": "6ad199a0f39b318e3988afd7"
+          },
+          {
+            "benefit": "Full statutory compliance, regular field updates, and audited reporting",
+            "id": "6ad199a0f39b318e3988afd8"
+          },
+          {
+            "benefit": "Direct employee engagement through structured volunteering days",
+            "id": "6ad199a0f39b318e3988afd9"
+          },
+          {
+            "benefit": "High measurable impact with verified beneficiary tracking",
+            "id": "6ad199a0f39b318e3988afda"
+          }
+        ],
+        "ctaText": "Connect With Our CSR Desk",
+        "ctaLink": "/contact?type=csr",
+        "image": "6ad05e2db671d4356721817d",
+        "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
+        "id": "6ad199a0f39b318e3988afdb"
+      }
+    ],
+    "publishedOn": "2026-10-16T03:27:28.208Z",
+    "slug": "get-involved",
+    "title": "Get Involved"
+  },
+  {
+    "_id": "6ad1998d2f2b463781c1c7ee",
+    "createdAt": "2026-10-16T03:27:09.679Z",
+    "updatedAt": "2026-10-16T03:40:32.130Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "variant": "page",
+        "eyebrow": "What We Do",
+        "heading": "Targeted Interventions Built for Sustainable Social Impact",
+        "subheading": "From supporting first-generation learners to training women entrepreneurs and conducting preventive healthcare camps, our initiatives are tailored to address systemic challenges collaboratively.",
+        "primaryCta": {
+          "type": "custom",
+          "newTab": false,
+          "url": "/what-we-do"
+        },
+        "secondaryCta": {
+          "type": "custom",
+          "newTab": false,
+          "url": "/get-involved"
+        },
+        "imageAlt": "Community members collaborating at Arvishha Foundation initiative",
+        "stats": [],
+        "floatingBadges": {
+          "communityFirstTitle": "Community First",
+          "communityFirstSubtitle": "Local action. Lasting change.",
+          "proofCount": "500+",
+          "proofText": "community members reached & empowered across grassroots initiatives"
+        },
+        "breadcrumbs": [
+          {
+            "label": "What We Do",
+            "href": "/what-we-do",
+            "id": "6ad199a7cb0e2b607f57b796"
+          }
+        ],
+        "id": "6ad19993cb0e2b607f57b794"
+      },
+      {
+        "blockType": "pillars",
+        "eyebrow": "Our Core Pillars",
+        "heading": "Targeted Interventions Built for Sustainable Social Impact",
+        "description": "From supporting first-generation learners to training women entrepreneurs and conducting preventive healthcare camps, our initiatives are tailored to address systemic challenges collaboratively.",
+        "items": [
+          {
+            "id": "education",
+            "title": "Education & Youth Development",
+            "heading": "Igniting Curiosity, Expanding Capabilities",
+            "description": "We believe education is the most powerful catalyst for breaking cycles of poverty. Our educational interventions focus on holistic student success, foundational literacy, and digital preparedness.",
+            "image": "6ad19cad2f2b463781c1cda6",
+            "imageUrl": "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80",
+            "initiatives": [
+              {
+                "title": "Community Learning Centers (CLC)",
+                "desc": "After-school centers offering remedial tutoring, homework support, and reading circles for children in under-resourced schools.",
+                "id": "6ad19b6b3160ec5fcdc5233b"
+              },
+              {
+                "title": "Digital Literacy & STEM Exposure",
+                "desc": "Interactive computer labs and practical science experiment kits introducing modern technologies to rural youth.",
+                "id": "6ad19b6b3160ec5fcdc5233c"
+              }
+            ]
+          },
+          {
+            "id": "women",
+            "title": "Women Empowerment & Livelihoods",
+            "heading": "Fostering Financial Autonomy & Grassroots Leadership",
+            "description": "When women earn and lead, households experience better nutrition, higher school attendance for children, and improved community health. We invest directly in women's collective power.",
+            "image": "6ad19c942f2b463781c1cd2b",
+            "imageUrl": "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80",
+            "initiatives": [
+              {
+                "title": "Micro-Enterprise Skill Labs",
+                "desc": "Hands-on vocational courses in tailoring, organic food processing, handicrafts, and sustainable packaging.",
+                "id": "6ad19b6b3160ec5fcdc5233e"
+              },
+              {
+                "title": "Financial Literacy & Bank Linkage",
+                "desc": "Training on mobile banking, digital payments, government entitlement savings, and micro-credit management.",
+                "id": "6ad19b6b3160ec5fcdc5233f"
+              }
+            ]
+          },
+          {
+            "id": "healthcare",
+            "title": "Healthcare & Community Wellbeing",
+            "heading": "Accessible, Compassionate Preventive Healthcare",
+            "description": "Health crises are one of the leading causes of financial ruin in vulnerable families. We prioritize preventive health checkups, maternal wellbeing, and sanitation awareness.",
+            "image": "6ad19c762f2b463781c1ccb6",
+            "imageUrl": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+            "initiatives": [
+              {
+                "title": "Rural Health & Diagnostic Camps",
+                "desc": "Periodic multi-specialty camps offering free primary checkups, eye tests, diagnostic screenings, and essential medicines.",
+                "id": "6ad19b6b3160ec5fcdc52341"
+              },
+              {
+                "title": "Menstrual Health & Dignity",
+                "desc": "Breaking taboos, distributing biodegradable sanitary kits, and running adolescent reproductive health workshops.",
+                "id": "6ad19b6b3160ec5fcdc52342"
+              }
+            ]
+          },
+          {
+            "id": "rural",
+            "title": "Rural Development & Civic Rights",
+            "heading": "Connecting Communities to Rights, Entitlements & Public Resources",
+            "description": "Marginalized families often miss out on crucial public welfare schemes due to documentation barriers or lack of awareness. We bridge this information deficit.",
+            "image": "6ad19c542f2b463781c1cc8d",
+            "imageUrl": "https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=800&q=80",
+            "initiatives": [
+              {
+                "title": "Entitlement & Citizen Help Desks",
+                "desc": "Assisting citizens in obtaining ration cards, health cards, pension enrollments, and birth certificates.",
+                "id": "6ad19b6b3160ec5fcdc52344"
+              },
+              {
+                "title": "Clean Drinking Water & Village Sanitation",
+                "desc": "Community awareness drives promoting waste segregation, clean water storage, and drainage upkeep.",
+                "id": "6ad19b6b3160ec5fcdc52345"
+              }
+            ]
+          }
+        ],
+        "showCta": true,
+        "ctaHeading": "Help Us Expand These Programs To More Communities",
+        "ctaDescription": "Every donation and volunteer hour directly strengthens our classrooms, medical checkup camps, and livelihood training programs.",
+        "primaryCtaText": "Donate Today",
+        "primaryCtaLink": "/donate",
+        "secondaryCtaText": "Volunteer With Us",
+        "secondaryCtaLink": "/get-involved",
+        "id": "6ad19a87cb0e2b607f57b79a"
+      }
+    ],
+    "publishedOn": "2026-10-16T03:27:47.379Z",
+    "slug": "what-we-do",
+    "title": "What We Do"
+  },
+  {
+    "_id": "6ad19f6a2f2b463781c1cfa0",
+    "createdAt": "2026-10-16T03:52:10.543Z",
+    "updatedAt": "2026-10-16T03:52:41.703Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "content",
+        "content": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Cookies",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "containerWidth": "standard",
+        "backgroundColor": "white",
+        "id": "6ad19f7f04222662aa7582c9"
+      }
+    ],
+    "publishedOn": "2026-10-16T03:52:41.702Z",
+    "slug": "cookies",
+    "title": "Cookies"
+  },
+  {
+    "_id": "6ad19f912f2b463781c1d054",
+    "createdAt": "2026-10-16T03:52:49.721Z",
+    "updatedAt": "2026-10-16T03:53:07.585Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "content",
+        "content": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Privacy Policy",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "containerWidth": "standard",
+        "backgroundColor": "white",
+        "id": "6ad19f9c04222662aa7582cb"
+      }
+    ],
+    "publishedOn": "2026-10-16T03:53:07.583Z",
+    "slug": "privacy-policy",
+    "title": "Privacy Policy"
+  },
+  {
+    "_id": "6ad19f922f2b463781c1d05d",
+    "createdAt": "2026-10-16T03:52:50.468Z",
+    "updatedAt": "2026-10-16T03:53:39.471Z",
+    "meta": {},
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "content",
+        "content": {
+          "root": {
+            "children": [
+              {
+                "children": [
+                  {
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Terms",
+                    "type": "text",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "root",
+            "version": 1
+          }
+        },
+        "containerWidth": "standard",
+        "backgroundColor": "white",
+        "id": "6ad19fb304222662aa7582cd"
+      }
+    ],
+    "publishedOn": "2026-10-16T03:53:39.470Z",
+    "slug": "terms",
+    "title": "Terms"
+  },
+  {
+    "_id": "6ad19fcf2f2b463781c1d1c6",
+    "createdAt": "2026-10-16T03:53:51.034Z",
+    "updatedAt": "2026-10-16T05:09:42.643Z",
+    "meta": {
+      "title": "Projects & Ground Initiatives — Arvishha Foundation",
+      "description": "Explore Arvishha Foundation active field programs: Project Shiksha, Project Swavalamban, Arogya Chetna, and Project Prakriti."
+    },
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "eyebrow": "Our Ground Initiatives",
+        "heading": "Action on the Ground: Programs Making Real Impact",
+        "description": "Every project undertaken by Arvishha Foundation is built on partnerships with communities, rigorous local planning, and measurable outcomes.",
+        "id": "6ad1b1962113707bea8b1353"
+      },
+      {
+        "blockType": "postsGrid",
+        "postType": "projects",
+        "limit": 6,
+        "enableSearch": true,
+        "enablePagination": true,
+        "showCategoryFilter": true,
+        "variant": "grid",
+        "eyebrow": "Our Work on the Ground",
+        "heading": "Grassroots Initiatives Driving Community Transformation",
+        "description": "Explore ongoing field projects, grassroots achievements, and stories of community transformation across India.",
+        "id": "6ad1b1962113707bea8b1354"
+      }
+    ],
+    "publishedOn": "2026-10-16T05:09:42.643Z",
+    "slug": "projects",
+    "title": "Projects"
+  },
+  {
+    "_id": "6ad19fe32f2b463781c1d233",
+    "createdAt": "2026-10-16T03:54:11.500Z",
+    "updatedAt": "2026-10-16T05:09:42.643Z",
+    "meta": {
+      "title": "News & Community Stories — Arvishha Foundation",
+      "description": "Read the latest field updates, community milestones, educational initiatives, and stories from Arvishha Foundation."
+    },
+    "generateSlug": false,
+    "_status": "published",
+    "__v": 0,
+    "layout": [
+      {
+        "blockType": "hero",
+        "eyebrow": "News & Dispatches",
+        "heading": "Stories of Change, Field Updates & Perspectives",
+        "description": "Follow our journey across communities as we share grassroots milestones, beneficiary experiences, and developmental insights.",
+        "id": "6ad1b1962113707bea8b1355"
+      },
+      {
+        "blockType": "postsGrid",
+        "postType": "news",
+        "limit": 6,
+        "enableSearch": true,
+        "enablePagination": true,
+        "showCategoryFilter": true,
+        "variant": "grid",
+        "eyebrow": "News & Field Dispatches",
+        "heading": "Latest Updates From Our Grassroots Programs",
+        "description": "Follow our journey across communities as we share grassroots milestones, beneficiary experiences, and developmental insights.",
+        "id": "6ad1b1962113707bea8b1356"
+      }
+    ],
+    "publishedOn": "2026-10-16T05:09:42.643Z",
+    "slug": "news",
+    "title": "News & Stories"
+  }
+]

@@ -1,0 +1,408 @@
+[
+  {
+    "_id": "6acb96d1a0e2c80af74ff73c",
+    "createdAt": "2026-10-11T14:01:53.028Z",
+    "updatedAt": "2026-10-11T14:09:40.228Z",
+    "globalType": "header",
+    "branding": {
+      "logo": "6acb9471a0e2c80af74ff664",
+      "logoUrl": "/images/logo.png",
+      "logoAlt": "Arvishha Foundation Logo",
+      "logoLink": "/",
+      "siteTitle": "Arvishha Foundation",
+      "slogan": "विकास और सामाजिक कार्यों के लिए अग्रसर",
+      "mobileLogo": "6acb9471a0e2c80af74ff664"
+    },
+    "navigation": {
+      "items": [
+        {
+          "label": "Home",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb96d248acdc29af074f0e"
+        },
+        {
+          "label": "Who We Are",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/about"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb96d948acdc29af074f10"
+        },
+        {
+          "label": "What We Do",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/what-we-do"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb96e748acdc29af074f12"
+        },
+        {
+          "label": "Projects",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/projects"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb96fa48acdc29af074f14"
+        },
+        {
+          "label": "News & Stories",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/news"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb970748acdc29af074f16"
+        },
+        {
+          "label": "Get Involved",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/get-involved"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb971648acdc29af074f18"
+        },
+        {
+          "label": "Contact",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/contact"
+          },
+          "enabled": true,
+          "children": [],
+          "id": "6acb972448acdc29af074f1a"
+        }
+      ]
+    },
+    "actions": {
+      "primaryCta": {
+        "enabled": true,
+        "label": "Donate",
+        "url": "/donate",
+        "newTab": false,
+        "showIcon": true
+      },
+      "secondaryCta": {
+        "enabled": true,
+        "label": "Become a Volunteer",
+        "url": "/get-involved",
+        "newTab": false
+      }
+    },
+    "settings": {
+      "isSticky": true,
+      "showTopBar": true,
+      "topBarText": "Non-Profit Organization",
+      "phone": "+91 91100 87834",
+      "email": "info@arvishhafoundation.org"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "6acb9a3e107ca2b5e90fa12d",
+    "createdAt": "2026-10-11T14:16:30.846Z",
+    "updatedAt": "2026-10-11T14:44:42.311Z",
+    "globalType": "footer",
+    "branding": {
+      "logo": "6acb9471a0e2c80af74ff664",
+      "logoUrl": "/images/logo.png",
+      "logoAlt": "Arvishha Foundation Logo",
+      "siteTitle": "Arvishha Foundation",
+      "slogan": "विकास और सामाजिक कार्यों के लिए अग्रसर",
+      "description": "A dedicated non-governmental organization advancing child education, women empowerment, health awareness, and community dignity through grassroots action.",
+      "cta": {
+        "enabled": true,
+        "label": "Support Our Cause",
+        "url": "/donate",
+        "newTab": false
+      }
+    },
+    "newsletter": {
+      "enabled": true,
+      "badge": "Stay Connected With Our Work",
+      "heading": "Be The First To Know — Subscribe Today",
+      "description": "Get quarterly grassroots field updates, volunteer impact stories, and community achievements delivered directly to your inbox.",
+      "form": "6acb9f02107ca2b5e90fa1f1"
+    },
+    "navigation": {
+      "quickLinksTitle": "Quick Links",
+      "quickLinks": [
+        {
+          "label": "Home",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b48b"
+        },
+        {
+          "label": "Who We Are",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/about"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b48c"
+        },
+        {
+          "label": "What We Do",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/what-we-do"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b48d"
+        },
+        {
+          "label": "Projects",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/projects"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b48e"
+        },
+        {
+          "label": "News & Stories",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/news"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b48f"
+        },
+        {
+          "label": "Contact Us",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/contact"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b490"
+        }
+      ],
+      "supportLinksTitle": "Get Involved",
+      "supportLinks": [
+        {
+          "label": "Donate / Support",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/donate"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b491"
+        },
+        {
+          "label": "Become a Volunteer",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/get-involved#volunteer"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b492"
+        },
+        {
+          "label": "Partner With Us",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/get-involved#partner"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b493"
+        },
+        {
+          "label": "Community Chapters",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/what-we-do"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b494"
+        },
+        {
+          "label": "Annual Reports & Transparency",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/about#transparency"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b495"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Direct Contact",
+      "phone": "+91 95894 11413",
+      "email": "arvishhafoundation@gmail.com",
+      "showBanner": true,
+      "bannerHelpLabel": "Need Any Help?",
+      "bannerEmailLabel": "E-Mail Now"
+    },
+    "legal": {
+      "copyrightText": "© 2026 Arvishha Foundation. All Rights Reserved.",
+      "legalLinks": [
+        {
+          "label": "Privacy Policy",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/privacy-policy"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b496"
+        },
+        {
+          "label": "Terms & Conditions",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/terms"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b497"
+        },
+        {
+          "label": "Cookie Policy",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/cookie-policy"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b498"
+        },
+        {
+          "label": "Sitemap",
+          "link": {
+            "type": "custom",
+            "newTab": false,
+            "url": "/sitemap"
+          },
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b499"
+        }
+      ],
+      "socialLinks": [
+        {
+          "platform": "instagram",
+          "label": "Instagram",
+          "url": "https://instagram.com/arvishhafoundation",
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b49a"
+        },
+        {
+          "platform": "youtube",
+          "label": "YouTube",
+          "url": "https://youtube.com/@arvishhafoundation",
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b49b"
+        },
+        {
+          "platform": "x",
+          "label": "X",
+          "url": "https://x.com/arvishha03",
+          "enabled": true,
+          "id": "6acb9a3e8c0a88fb5085b49c"
+        }
+      ]
+    },
+    "__v": 0
+  },
+  {
+    "_id": "6ad1d0072f2b463781c1f893",
+    "createdAt": "2026-10-16T07:19:35.497Z",
+    "updatedAt": "2026-10-16T08:12:17.511Z",
+    "globalType": "site-settings",
+    "siteName": "Arvishha Foundation",
+    "tagline": "विकास और सामाजिक कार्यों के लिए अग्रसर",
+    "contactEmail": "arvishhafoundation@gmail.com",
+    "phone": "+91 95894 11413",
+    "address": "Baloda Bazar, Chhattisgarh, India - 493332",
+    "socialLinks": [
+      {
+        "platform": "facebook",
+        "url": "https://facebook.com/arvishhafoundation",
+        "id": "6ad1d007ef54f23f44d061c9"
+      },
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/arvishhafoundation",
+        "id": "6ad1d007ef54f23f44d061ca"
+      },
+      {
+        "platform": "linkedin",
+        "url": "https://linkedin.com/company/arvishhafoundation",
+        "id": "6ad1d007ef54f23f44d061cb"
+      },
+      {
+        "platform": "youtube",
+        "url": "https://youtube.com/@arvishhafoundation",
+        "id": "6ad1d007ef54f23f44d061cc"
+      },
+      {
+        "platform": "x",
+        "url": "https://x.com/arvishha03",
+        "id": "6ad1d007ef54f23f44d061cd"
+      }
+    ],
+    "footerCopyright": "© 2026 Arvishha Foundation. All Rights Reserved.",
+    "maintenanceMode": false,
+    "__v": 0,
+    "favicon": "6acb9471a0e2c80af74ff664",
+    "logo": "6acb9471a0e2c80af74ff664"
+  },
+  {
+    "_id": "6ad1d47d2f2b463781c1ff3e",
+    "createdAt": "2026-10-16T07:38:37.474Z",
+    "updatedAt": "2026-10-16T07:38:37.474Z",
+    "globalType": "seo-settings",
+    "defaultTitle": "Arvishha Foundation — विकास और सामाजिक कार्यों के लिए अग्रसर",
+    "titleTemplate": "%s | Arvishha Foundation",
+    "defaultDescription": "Arvishha Foundation is a dedicated non-governmental organization working towards inclusive education, youth development, women empowerment, healthcare access, rights awareness, and community growth.",
+    "defaultKeywords": "Arvishha Foundation, NGO India, child education, women empowerment, rural healthcare, community welfare, Baloda Bazar NGO, Chhattisgarh social organization",
+    "siteUrl": "https://arvishhafoundation.org",
+    "robots": {
+      "index": true,
+      "follow": true,
+      "noarchive": false
+    },
+    "verification": {
+      "google": "",
+      "bing": ""
+    },
+    "additionalHeadTags": [],
+    "__v": 0
+  }
+]
