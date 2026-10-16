@@ -69,6 +69,17 @@ export const ContactPageBlock: Block = {
               defaultValue:
                 "Fill in your details below and our team will get back to you within 24–48 hours.",
             },
+            {
+              name: "form",
+              type: "relationship",
+              relationTo: "forms",
+              label: "Form",
+              admin: {
+                description:
+                  "Select a form configured in the Form Builder plugin. If omitted, the default contact inquiry form is rendered.",
+              },
+              required: false,
+            },
           ],
         },
         {

@@ -2,7 +2,7 @@ import React from "react";
 import { Phone, Mail, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
-import { ContactForm } from "@/components/forms/ContactForm";
+import { DynamicForm } from "@/components/forms/DynamicForm";
 import {
   Accordion,
   AccordionItem,
@@ -33,7 +33,11 @@ export function ContactPageComponent(
   const registrationNumber =
     block.registrationNumber || contactData.info.registrationNumber;
 
-  const formHeading = block.formHeading || "Send A Message";
+  const dynamicFormTitle =
+    typeof block.form === "object" && block.form && "title" in block.form
+      ? block.form.title
+      : undefined;
+  const formHeading = block.formHeading || dynamicFormTitle || "Send A Message";
   const formDescription =
     block.formDescription ||
     "Fill in your details below and our team will get back to you within 24–48 hours.";
@@ -122,7 +126,7 @@ export function ContactPageComponent(
                 </p>
               </div>
 
-              <ContactForm />
+              <DynamicForm form={block.form} />
             </div>
           </div>
         </Container>

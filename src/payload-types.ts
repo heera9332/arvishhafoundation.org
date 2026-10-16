@@ -821,6 +821,10 @@ export interface ContactPageBlock {
   registrationNumber?: string | null;
   formHeading?: string | null;
   formDescription?: string | null;
+  /**
+   * Select a form configured in the Form Builder plugin. If omitted, the default contact inquiry form is rendered.
+   */
+  form?: (string | null) | Form;
   showFaq?: boolean | null;
   faqEyebrow?: string | null;
   faqHeading?: string | null;
@@ -1763,6 +1767,7 @@ export interface ContactPageBlockSelect<T extends boolean = true> {
   registrationNumber?: T;
   formHeading?: T;
   formDescription?: T;
+  form?: T;
   showFaq?: T;
   faqEyebrow?: T;
   faqHeading?: T;
