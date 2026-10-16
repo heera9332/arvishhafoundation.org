@@ -5,8 +5,6 @@ import { defaultFooterData } from "./defaults";
 import { getSiteSettings } from "@/global/site-settings";
 import type { SiteSettingsData } from "@/global/site-settings";
 
-// In-memory flag so auto-seeding is only attempted once per server lifetime
-let isSeededOrChecked = false;
 
 interface RawMediaObject {
   url?: string | null;
@@ -224,7 +222,7 @@ function formatFooterData(raw: RawFooterDoc, siteSettings?: SiteSettingsData): F
 }
 
 /**
- * Fetch Footer global from Payload CMS with safe auto-seeding and resilient defaults.
+ * Fetch Footer global from Payload CMS with resilient defaults.
  */
 export async function getFooterData(): Promise<FooterData> {
   const siteSettings = await getSiteSettings();
@@ -238,79 +236,6 @@ export async function getFooterData(): Promise<FooterData> {
       depth: 1,
     })) as RawFooterDoc;
 
-    const hasContent =
-      Array.isArray(footerDoc?.navigation?.quickLinks) &&
-      footerDoc.navigation.quickLinks.length > 0;
-
-    if (!hasContent && !isSeededOrChecked) {
-      isSeededOrChecked = true;
-      try {
-        await payload.updateGlobal({
-          slug: "footer",
-          data: {
-            branding: {
-              logoUrl: defaultFooterData.branding.logoUrl,
-              logoAlt: defaultFooterData.branding.logoAlt,
-              siteTitle: defaultFooterData.branding.siteTitle,
-              slogan: defaultFooterData.branding.slogan,
-              description: defaultFooterData.branding.description,
-              cta: {
-                enabled: defaultFooterData.branding.cta.enabled,
-                label: defaultFooterData.branding.cta.label,
-                url: defaultFooterData.branding.cta.href,
-                newTab: false,
-              },
-            },
-            newsletter: {
-              enabled: defaultFooterData.newsletter.enabled,
-              badge: defaultFooterData.newsletter.badge,
-              heading: defaultFooterData.newsletter.heading,
-              description: defaultFooterData.newsletter.description,
-            },
-            navigation: {
-              quickLinksTitle: defaultFooterData.navigation.quickLinksTitle,
-              quickLinks: defaultFooterData.navigation.quickLinks.map((item) => ({
-                label: item.label,
-                link: { type: "custom" as const, url: item.href, newTab: false },
-                enabled: true,
-              })),
-              supportLinksTitle: defaultFooterData.navigation.supportLinksTitle,
-              supportLinks: defaultFooterData.navigation.supportLinks.map((item) => ({
-                label: item.label,
-                link: { type: "custom" as const, url: item.href, newTab: false },
-                enabled: true,
-              })),
-            },
-            contact: {
-              title: defaultFooterData.contact.title,
-              phone: defaultFooterData.contact.phone,
-              email: defaultFooterData.contact.email,
-              showBanner: defaultFooterData.contact.showBanner,
-              bannerHelpLabel: defaultFooterData.contact.bannerHelpLabel,
-              bannerEmailLabel: defaultFooterData.contact.bannerEmailLabel,
-            },
-            legal: {
-              copyrightText: defaultFooterData.legal.copyrightText,
-              legalLinks: defaultFooterData.legal.legalLinks.map((item) => ({
-                label: item.label,
-                link: { type: "custom" as const, url: item.href, newTab: false },
-                enabled: true,
-              })),
-              socialLinks: defaultFooterData.legal.socialLinks.map((item) => ({
-                platform: item.platform,
-                label: item.label,
-                url: item.url,
-                enabled: true,
-              })),
-            },
-          },
-        });
-      } catch (seedErr) {
-        console.warn("[Footer API] Auto-seeding skipped:", seedErr);
-      }
-      return defaultFooterData;
-    }
-
     let linkedForm = footerDoc?.newsletter?.form;
     if (!linkedForm) {
       try {
@@ -320,22 +245,13 @@ export async function getFooterData(): Promise<FooterData> {
         });
         if (formsResult.docs.length > 0) {
           linkedForm = formsResult.docs[0] as unknown as RawFormDoc;
-          await payload.updateGlobal({
-            slug: "footer",
-            data: {
-              newsletter: {
-                ...footerDoc?.newsletter,
-                form: formsResult.docs[0].id,
-              },
-            },
-          });
         }
       } catch (fErr) {
         console.warn("[Footer API] Fallback form discovery skipped:", fErr);
       }
     }
 
-    if (hasContent) {
+    if (footerDoc) {
       return formatFooterData(
         {
           ...footerDoc,

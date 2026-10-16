@@ -5,8 +5,6 @@ import { defaultHeaderData } from "./defaults";
 import { getSiteSettings } from "@/global/site-settings";
 import type { SiteSettingsData } from "@/global/site-settings";
 
-// In-memory flag so auto-seeding is only attempted once per server lifetime
-let isSeededOrChecked = false;
 
 interface RawMediaObject {
   url?: string | null;
@@ -181,7 +179,7 @@ function formatHeaderData(raw: RawHeaderDoc, siteSettings?: SiteSettingsData): H
 }
 
 /**
- * Fetch Header global from Payload CMS with safe auto-seeding and resilient defaults.
+ * Fetch Header global from Payload CMS with resilient defaults.
  */
 export async function getHeaderData(): Promise<HeaderData> {
   const siteSettings = await getSiteSettings();
@@ -195,66 +193,7 @@ export async function getHeaderData(): Promise<HeaderData> {
       depth: 1,
     })) as RawHeaderDoc;
 
-    // Check if initial content needs to be created safely once
-    const hasItems =
-      Array.isArray(headerDoc?.navigation?.items) &&
-      headerDoc.navigation.items.length > 0;
-
-    if (!hasItems && !isSeededOrChecked) {
-      isSeededOrChecked = true;
-      try {
-        await payload.updateGlobal({
-          slug: "header",
-          data: {
-            branding: {
-              logoUrl: defaultHeaderData.branding.logoUrl,
-              logoAlt: defaultHeaderData.branding.logoAlt,
-              logoLink: defaultHeaderData.branding.logoLink,
-              siteTitle: defaultHeaderData.branding.siteTitle,
-              slogan: defaultHeaderData.branding.slogan,
-            },
-            navigation: {
-              items: defaultHeaderData.navigation.items.map((item) => ({
-                label: item.label,
-                link: {
-                  type: "custom" as const,
-                  url: item.href,
-                  newTab: false,
-                },
-                enabled: true,
-              })),
-            },
-            actions: {
-              primaryCta: {
-                enabled: defaultHeaderData.actions.primaryCta.enabled,
-                label: defaultHeaderData.actions.primaryCta.label,
-                url: defaultHeaderData.actions.primaryCta.href,
-                newTab: false,
-                showIcon: true,
-              },
-              secondaryCta: {
-                enabled: defaultHeaderData.actions.secondaryCta.enabled,
-                label: defaultHeaderData.actions.secondaryCta.label,
-                url: defaultHeaderData.actions.secondaryCta.href,
-                newTab: false,
-              },
-            },
-            settings: {
-              isSticky: defaultHeaderData.settings.isSticky,
-              showTopBar: defaultHeaderData.settings.showTopBar,
-              topBarText: defaultHeaderData.settings.topBarText,
-              phone: defaultHeaderData.settings.phone,
-              email: defaultHeaderData.settings.email,
-            },
-          },
-        });
-      } catch (seedErr) {
-        console.warn("[Header API] Auto-seeding skipped:", seedErr);
-      }
-      return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
-    }
-
-    if (hasItems) {
+    if (headerDoc) {
       return formatHeaderData(headerDoc, siteSettings);
     }
 
