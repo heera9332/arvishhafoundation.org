@@ -15,6 +15,7 @@ import {
   Globe,
   MapPin,
   ChevronDown,
+  HeartHandshake,
 } from "lucide-react";
 import type { Form } from "@/payload-types";
 import { LexicalRenderer, type LexicalNode } from "@/blocks/shared/LexicalRenderer";
@@ -40,6 +41,21 @@ export interface DynamicFormProps {
   form?: (string | null) | Form;
   className?: string;
   fallback?: React.ReactNode;
+  defaultFormTitle?: string;
+}
+
+/**
+ * Format field labels nicely, converting snake_case or lowercase into title case.
+ */
+function formatFieldLabel(label?: string | null, name?: string | null): string {
+  const raw = (label || name || "").trim();
+  if (!raw) return "";
+  if (raw === raw.toLowerCase()) {
+    return raw
+      .replace(/[_-]/g, " ")
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  }
+  return raw;
 }
 
 /**
@@ -66,13 +82,27 @@ function getFieldIcon(field: FormField) {
   if (field.blockType === "textarea") return MessageSquare;
 
   const name = ("name" in field ? field.name : "").toLowerCase();
-  if (name.includes("phone") || name.includes("mobile") || name.includes("tel")) {
+  const label = ("label" in field && typeof field.label === "string" ? field.label : "").toLowerCase();
+
+  if (
+    name.includes("phone") ||
+    name.includes("mobile") ||
+    name.includes("tel") ||
+    label.includes("phone") ||
+    label.includes("mobile")
+  ) {
     return Phone;
   }
-  if (name.includes("name") || name.includes("user")) {
+  if (name.includes("name") || name.includes("user") || label.includes("name")) {
     return User;
   }
-  if (name.includes("subject") || name.includes("topic") || name.includes("title")) {
+  if (
+    name.includes("subject") ||
+    name.includes("topic") ||
+    name.includes("title") ||
+    label.includes("subject") ||
+    label.includes("topic")
+  ) {
     return Tag;
   }
   return null;
@@ -126,7 +156,7 @@ function FormRenderer({
 
       const val = formData[field.name];
       const isRequired = Boolean(field.required);
-      const label = field.label || field.name;
+      const label = formatFieldLabel(field.label, field.name);
 
       if (isRequired) {
         if (field.blockType === "checkbox") {
@@ -264,6 +294,7 @@ function FormRenderer({
 
             // Checkbox Block
             if (field.blockType === "checkbox") {
+              const label = formatFieldLabel(field.label, field.name);
               return (
                 <div key={fieldKey} className={cn("flex flex-col space-y-1.5", colSpan)}>
                   <label className="flex items-start gap-3 cursor-pointer select-none">
@@ -277,7 +308,7 @@ function FormRenderer({
                       className="mt-1 h-4 w-4 rounded border-slate-300 text-[#083827] focus:ring-[#083827]"
                     />
                     <span className="text-xs sm:text-sm text-slate-700 font-medium">
-                      {field.label || field.name}
+                      {label}
                       {field.required && <span className="text-red-500 font-bold ml-1">*</span>}
                     </span>
                   </label>
@@ -290,13 +321,14 @@ function FormRenderer({
 
             // Textarea Block
             if (field.blockType === "textarea") {
+              const label = formatFieldLabel(field.label, field.name);
               return (
                 <div key={fieldKey} className={cn("space-y-1.5", colSpan)}>
                   <label
                     htmlFor={`form-${field.name}`}
                     className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
                   >
-                    {field.label || field.name}
+                    {label}
                     {field.required && <span className="text-red-500 font-bold ml-1">*</span>}
                   </label>
                   <div className="relative">
@@ -314,7 +346,7 @@ function FormRenderer({
                         ("placeholder" in field &&
                           typeof field.placeholder === "string" &&
                           field.placeholder) ||
-                        "Tell us how we can help or collaborate..."
+                        "Share details here..."
                       }
                       className={cn(
                         "w-full min-h-[125px] sm:min-h-[135px] pr-4 pt-3 pb-3 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#083827]/20 focus:border-[#083827] transition-all resize-y disabled:opacity-50 disabled:cursor-not-allowed",
@@ -332,13 +364,14 @@ function FormRenderer({
 
             // Select Block
             if (field.blockType === "select") {
+              const label = formatFieldLabel(field.label, field.name);
               return (
                 <div key={fieldKey} className={cn("space-y-1.5", colSpan)}>
                   <label
                     htmlFor={`form-${field.name}`}
                     className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
                   >
-                    {field.label || field.name}
+                    {label}
                     {field.required && <span className="text-red-500 font-bold ml-1">*</span>}
                   </label>
                   <div className="relative">
@@ -371,13 +404,14 @@ function FormRenderer({
 
             // Country Block
             if (field.blockType === "country") {
+              const label = formatFieldLabel(field.label, "Country");
               return (
                 <div key={fieldKey} className={cn("space-y-1.5", colSpan)}>
                   <label
                     htmlFor={`form-${field.name}`}
                     className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
                   >
-                    {field.label || "Country"}
+                    {label}
                     {field.required && <span className="text-red-500 font-bold ml-1">*</span>}
                   </label>
                   <div className="relative">
@@ -410,11 +444,20 @@ function FormRenderer({
             }
 
             // Standard Inputs (text, email, number, state)
+            const nameLower = ("name" in field ? field.name : "").toLowerCase();
+            const labelLower = ("label" in field && typeof field.label === "string" ? field.label : "").toLowerCase();
+
             const isPhoneField =
-              "name" in field &&
-              (field.name.toLowerCase().includes("phone") ||
-                field.name.toLowerCase().includes("mobile") ||
-                field.name.toLowerCase().includes("tel"));
+              nameLower.includes("phone") ||
+              nameLower.includes("mobile") ||
+              nameLower.includes("tel") ||
+              labelLower.includes("phone") ||
+              labelLower.includes("mobile");
+
+            const isNameField =
+              nameLower.includes("name") ||
+              nameLower.includes("user") ||
+              labelLower.includes("name");
 
             const inputType =
               field.blockType === "email"
@@ -440,13 +483,15 @@ function FormRenderer({
                   ? "+91 98765 43210"
                   : field.blockType === "state"
                     ? "e.g. Maharashtra, Delhi"
-                    : "name" in field && field.name.toLowerCase().includes("name")
+                    : isNameField
                       ? "e.g. John Doe"
-                      : "name" in field &&
-                          (field.name.toLowerCase().includes("subject") ||
-                            field.name.toLowerCase().includes("topic"))
+                      : nameLower.includes("subject") ||
+                          nameLower.includes("topic") ||
+                          labelLower.includes("subject")
                         ? "e.g. CSR Partnership / General Inquiry"
                         : "");
+
+            const label = formatFieldLabel(field.label, field.name);
 
             return (
               <div key={fieldKey} className={cn("space-y-1.5", colSpan)}>
@@ -454,7 +499,7 @@ function FormRenderer({
                   htmlFor={`form-${field.name}`}
                   className="text-xs sm:text-sm font-semibold text-slate-800 flex items-center"
                 >
-                  {field.label || field.name}
+                  {label}
                   {field.required && <span className="text-red-500 font-bold ml-1">*</span>}
                 </label>
                 <div className="relative flex items-center">
@@ -499,7 +544,12 @@ function FormRenderer({
             ) : (
               <>
                 <span>{formDoc.submitButtonLabel || "Send Message"}</span>
-                <Send className="h-4 w-4 ml-0.5" />
+                {formDoc.title?.toLowerCase().includes("volunteer") ||
+                formDoc.submitButtonLabel?.toLowerCase().includes("volunteer") ? (
+                  <HeartHandshake className="h-4 w-4 ml-0.5 text-amber-300" />
+                ) : (
+                  <Send className="h-4 w-4 ml-0.5" />
+                )}
               </>
             )}
           </button>
@@ -514,7 +564,12 @@ function FormRenderer({
  * Handles dynamic API fetching when form is an ID or not provided,
  * and renders FormRenderer when form data is available.
  */
-export function DynamicForm({ form, className, fallback }: DynamicFormProps) {
+export function DynamicForm({
+  form,
+  className,
+  fallback,
+  defaultFormTitle = "contact",
+}: DynamicFormProps) {
   const isFormObject = Boolean(
     form && typeof form === "object" && "fields" in form && Array.isArray(form.fields)
   );
@@ -543,8 +598,11 @@ export function DynamicForm({ form, className, fallback }: DynamicFormProps) {
           }
         }
 
-        // 2. Fetch the contact inquiry form by title from /api/forms
-        const queryRes = await fetch(`/api/forms?where[title][like]=contact&limit=1`);
+        // 2. Fetch the form by defaultFormTitle from /api/forms
+        const searchTitle = defaultFormTitle || "contact";
+        const queryRes = await fetch(
+          `/api/forms?where[title][like]=${encodeURIComponent(searchTitle)}&limit=1`
+        );
         if (queryRes.ok) {
           const listData = await queryRes.json();
           if (
@@ -584,7 +642,7 @@ export function DynamicForm({ form, className, fallback }: DynamicFormProps) {
     return () => {
       isMounted = false;
     };
-  }, [form, isFormObject]);
+  }, [form, isFormObject, defaultFormTitle]);
 
   // Loading state while resolving from API
   if (isLoading) {

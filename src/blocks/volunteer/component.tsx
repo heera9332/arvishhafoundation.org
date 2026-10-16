@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { VolunteerForm } from "@/components/forms/VolunteerForm";
+import { DynamicForm } from "@/components/forms/DynamicForm";
 import { getInvolvedData } from "@/data/page-get-involved";
 import type { VolunteerBlock } from "@/payload-types";
 
@@ -25,6 +26,17 @@ export function VolunteerComponent(
     block.roles && block.roles.length > 0
       ? block.roles
       : getInvolvedData.volunteerRoles;
+
+  const dynamicFormTitle =
+    typeof block.form === "object" && block.form && "title" in block.form
+      ? block.form.title
+      : undefined;
+
+  const formHeading =
+    block.formHeading || dynamicFormTitle || "Apply to Volunteer";
+  const formDescription =
+    block.formDescription ||
+    "Share your details and tell us how you'd like to contribute.";
 
   return (
     <section id="volunteer" className="py-20 sm:py-28 bg-white scroll-mt-32">
@@ -71,9 +83,24 @@ export function VolunteerComponent(
             </div>
           </div>
 
-          {/* Volunteer Form */}
+          {/* Volunteer Form Card */}
           <div className="lg:col-span-6">
-            <VolunteerForm />
+            <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-md">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-slate-900 leading-snug">
+                  {formHeading}
+                </h3>
+                <p className="mt-1 text-sm text-slate-600">
+                  {formDescription}
+                </p>
+              </div>
+
+              <DynamicForm
+                form={block.form}
+                defaultFormTitle="volunteer"
+                fallback={<VolunteerForm />}
+              />
+            </div>
           </div>
         </div>
       </Container>

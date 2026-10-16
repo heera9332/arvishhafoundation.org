@@ -1041,6 +1041,12 @@ export interface VolunteerBlock {
         id?: string | null;
       }[]
     | null;
+  formHeading?: string | null;
+  formDescription?: string | null;
+  /**
+   * Select a volunteer application form created in the Form Builder plugin. If omitted, the default volunteer form will be loaded dynamically.
+   */
+  form?: (string | null) | Form;
   id?: string | null;
   blockName?: string | null;
   blockType: 'volunteer';
@@ -1061,6 +1067,10 @@ export interface CorporatePartnershipBlock {
     | null;
   ctaText?: string | null;
   ctaLink?: string | null;
+  /**
+   * Optionally select a dedicated CSR or partnership inquiry form. If selected, the form will be rendered dynamically.
+   */
+  form?: (string | null) | Form;
   image?: (string | null) | Media;
   imageUrl?: string | null;
   id?: string | null;
@@ -2068,6 +2078,9 @@ export interface VolunteerBlockSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  formHeading?: T;
+  formDescription?: T;
+  form?: T;
   id?: T;
   blockName?: T;
 }
@@ -2087,6 +2100,7 @@ export interface CorporatePartnershipBlockSelect<T extends boolean = true> {
       };
   ctaText?: T;
   ctaLink?: T;
+  form?: T;
   image?: T;
   imageUrl?: T;
   id?: T;

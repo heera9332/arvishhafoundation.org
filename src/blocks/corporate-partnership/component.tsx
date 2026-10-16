@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
 import { Button } from "@/components/ui/button";
+import { DynamicForm } from "@/components/forms/DynamicForm";
 import { getMediaUrl } from "@/blocks/shared/getMediaUrl";
 import { getInvolvedData } from "@/data/page-get-involved";
 import type { CorporatePartnershipBlock } from "@/payload-types";
@@ -59,15 +60,21 @@ export function CorporatePartnershipComponent(
               ))}
             </div>
 
-            {ctaText && (
-              <div className="pt-4">
-                <Button
-                  asChild
-                  className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-8 py-3.5 h-auto text-base"
-                >
-                  <Link href={ctaLink}>{ctaText}</Link>
-                </Button>
+            {block.form ? (
+              <div className="pt-6">
+                <DynamicForm form={block.form} defaultFormTitle="csr" />
               </div>
+            ) : (
+              ctaText && (
+                <div className="pt-4">
+                  <Button
+                    asChild
+                    className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-8 py-3.5 h-auto text-base"
+                  >
+                    <Link href={ctaLink}>{ctaText}</Link>
+                  </Button>
+                </div>
+              )
             )}
           </div>
 
