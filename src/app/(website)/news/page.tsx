@@ -1,16 +1,10 @@
 import React from "react";
-import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
-import { Calendar, Clock, ArrowRight, User } from "lucide-react";
-import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/common/PageHero";
-import { Badge } from "@/components/ui/badge";
-import { homeData } from "@/data/page-home";
 import { getPageBySlug } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
-import { getPosts, formatPostToArticleItem } from "@/lib/posts";
-import { wordpressApi } from "@/lib/wordpress";
+import { PostsGridComponent } from "@/blocks/posts-grid";
+import { getPosts, formatPostToGridItem } from "@/lib/posts";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
 
 export const revalidate = 300; // ISR revalidation every 5 minutes
@@ -66,12 +60,7 @@ export default async function NewsPage() {
 
   // Fetch dynamic news posts from Payload CMS
   const { docs: payloadPosts } = await getPosts({ postType: "news", limit: 50 });
-  const dynamicArticles =
-    payloadPosts.length > 0 ? payloadPosts.map(formatPostToArticleItem) : null;
-
-  // Fallback to WordPress posts if Payload has none
-  const wpPosts = !dynamicArticles ? await wordpressApi.getPosts({ perPage: 12 }) : null;
-  const hasWpPosts = wpPosts && wpPosts.length > 0;
+  const dynamicArticles = payloadPosts.map(formatPostToGridItem);
 
   return (
     <>
@@ -87,218 +76,17 @@ export default async function NewsPage() {
         breadcrumbs={[{ label: "News & Stories" }]}
       />
 
-      <section className="py-20 sm:py-28 bg-[#faf9f5]">
-        <Container>
-          {dynamicArticles ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {dynamicArticles.map((article) => (
-                <article
-                  key={article.id}
-                  className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
-                >
-                  <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-[#03452c] text-white border-0 text-xs font-semibold">
-                        {article.category}
-                      </Badge>
-                    </div>
-                  </div>
-
-                  <div className="p-7 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                          <span>{article.date}</span>
-                        </span>
-                        {article.readTime && (
-                          <>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="h-3.5 w-3.5 text-emerald-800" />
-                              <span>{article.readTime}</span>
-                            </span>
-                          </>
-                        )}
-                        {article.author && (
-                          <>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <User className="h-3.5 w-3.5 text-emerald-800" />
-                              <span>{article.author}</span>
-                            </span>
-                          </>
-                        )}
-                      </div>
-
-                      <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors leading-snug">
-                        {article.title}
-                      </h2>
-
-                      <p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-100">
-                      <Link
-                        href={`/news/${article.slug}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors"
-                      >
-                        <span>Read Full Story</span>
-                        <ArrowRight className="h-3.5 w-3.5 -rotate-45 group-hover:rotate-0 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : hasWpPosts ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {wpPosts.map((post) => {
-                const featuredMedia =
-                  post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-                  "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80";
-                const authorName =
-                  post._embedded?.author?.[0]?.name || "Arvishha Foundation";
-                const dateFormatted = new Date(post.date).toLocaleDateString(
-                  "en-US",
-                  { month: "short", day: "numeric", year: "numeric" }
-                );
-
-                return (
-                  <article
-                    key={post.id}
-                    className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
-                  >
-                    <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-                      <Image
-                        src={featuredMedia}
-                        alt={post.title.rendered}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-[#03452c] text-white border-0 text-xs">
-                          Updates
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <div className="p-7 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                            <span>{dateFormatted}</span>
-                          </span>
-                          <span>•</span>
-                          <span className="flex items-center gap-1">
-                            <User className="h-3.5 w-3.5 text-emerald-800" />
-                            <span>{authorName}</span>
-                          </span>
-                        </div>
-
-                        <h2
-                          className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors leading-snug"
-                          dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                        />
-
-                        <div
-                          className="mt-3 text-sm text-slate-600 line-clamp-3 leading-relaxed"
-                          dangerouslySetInnerHTML={{
-                            __html: post.excerpt.rendered.replace(/<[^>]+>/g, ""),
-                          }}
-                        />
-                      </div>
-
-                      <div className="pt-4 border-t border-slate-100">
-                        <Link
-                          href={`/news/${post.slug}`}
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors"
-                        >
-                          <span>Read Full Story</span>
-                          <ArrowRight className="h-3.5 w-3.5 -rotate-45 group-hover:rotate-0 transition-transform" />
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {homeData.news.staticArticles.map((article) => (
-                <article
-                  key={article.id}
-                  className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
-                >
-                  <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-                    <Image
-                      src={article.image}
-                      alt={article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-[#03452c] text-white border-0 text-xs">
-                        {article.category}
-                      </Badge>
-                    </div>
-                  </div>
-
-                  <div className="p-7 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                          <span>{article.date}</span>
-                        </span>
-                        {article.readTime && (
-                          <>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <Clock className="h-3.5 w-3.5 text-emerald-800" />
-                              <span>{article.readTime}</span>
-                            </span>
-                          </>
-                        )}
-                      </div>
-
-                      <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors leading-snug">
-                        {article.title}
-                      </h2>
-
-                      <p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">
-                        {article.excerpt}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-slate-100">
-                      <Link
-                        href={`/news/${article.slug}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors"
-                      >
-                        <span>Read Full Story</span>
-                        <ArrowRight className="h-3.5 w-3.5 -rotate-45 group-hover:rotate-0 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </Container>
-      </section>
+      <PostsGridComponent
+        postType="news"
+        limit={6}
+        enableSearch={true}
+        enablePagination={true}
+        showCategoryFilter={true}
+        eyebrow="News & Field Dispatches"
+        heading="Latest Updates From Our Grassroots Programs"
+        description="Follow our journey across communities as we share grassroots milestones, beneficiary experiences, and developmental insights."
+        initialPosts={dynamicArticles}
+      />
     </>
   );
 }

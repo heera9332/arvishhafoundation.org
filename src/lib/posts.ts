@@ -194,3 +194,77 @@ export function formatPostToArticleItem(post: Post): ArticleItem {
     readTime: post.readTime || undefined,
   };
 }
+
+export interface PostGridItem {
+  id: string;
+  slug: string;
+  title: string;
+  postType: "news" | "projects";
+  category: string;
+  excerpt: string;
+  image: string;
+  href: string;
+  publishedOn?: string | null;
+  date?: string | null;
+  author?: string | null;
+  readTime?: string | null;
+  location?: string | null;
+  year?: string | null;
+  status?: string | null;
+  beneficiaries?: string | null;
+}
+
+/**
+ * Helper to convert a Post document into a PostGridItem for PostsGrid listing component.
+ */
+export function formatPostToGridItem(post: Post): PostGridItem {
+  const mediaUrl =
+    typeof post.image === "object" && post.image && "url" in post.image
+      ? (post.image.url as string)
+      : post.imageUrl ||
+        "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80";
+
+  const categoryTitle =
+    typeof post.category === "object" && post.category && "title" in post.category
+      ? (post.category.title as string)
+      : post.categoryCustom || (post.postType === "projects" ? "Initiative" : "Updates");
+
+  const formattedDate = post.publishedOn
+    ? new Date(post.publishedOn).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : post.createdAt
+    ? new Date(post.createdAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Recent";
+
+  const href =
+    post.href ||
+    (post.postType === "projects"
+      ? `/projects/${post.slug || post.id}`
+      : `/news/${post.slug || post.id}`);
+
+  return {
+    id: post.id,
+    slug: post.slug || post.id,
+    title: post.title,
+    postType: post.postType || "news",
+    category: categoryTitle,
+    excerpt: post.excerpt || post.shortDescription || "",
+    image: mediaUrl,
+    href,
+    publishedOn: post.publishedOn || null,
+    date: formattedDate,
+    author: post.author || "Arvishha Foundation",
+    readTime: post.readTime || null,
+    location: post.location || null,
+    year: post.year || null,
+    status: post.status || (post.postType === "projects" ? "Active" : null),
+    beneficiaries: post.beneficiaries || null,
+  };
+}

@@ -34,6 +34,7 @@ import {
   VolunteerBlock,
   CorporatePartnershipBlock,
   PillarsBlock,
+  PostsGridBlock,
 } from "@/blocks";
 
 export const Pages: CollectionConfig = {
@@ -118,6 +119,7 @@ export const Pages: CollectionConfig = {
                 VolunteerBlock,
                 CorporatePartnershipBlock,
                 PillarsBlock,
+                PostsGridBlock,
               ],
               required: true,
               admin: {

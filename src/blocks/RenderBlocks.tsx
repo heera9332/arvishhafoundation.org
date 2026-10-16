@@ -26,6 +26,7 @@ import { TransparencyComponent } from "./transparency/component";
 import { VolunteerComponent } from "./volunteer/component";
 import { CorporatePartnershipComponent } from "./corporate-partnership/component";
 import { PillarsComponent } from "./pillars/component";
+import { PostsGridComponent } from "./posts-grid/component";
 
 // Shared utilities
 export { getMediaUrl } from "./shared/getMediaUrl";
@@ -63,6 +64,7 @@ export const blockComponents: Record<
   volunteer: VolunteerComponent,
   corporatePartnership: CorporatePartnershipComponent,
   pillars: PillarsComponent,
+  postsGrid: PostsGridComponent,
 };
 
 export interface RenderBlocksProps {
@@ -93,6 +95,8 @@ export const RenderBlocks: React.FC<RenderBlocksProps> = ({
           blockComponents[blockType] ||
           ((blockType as string) === "whatWeDo" || (blockType as string) === "what-we-do"
             ? PillarsComponent
+            : (blockType as string) === "posts-grid" || (blockType as string) === "postsGrid"
+            ? PostsGridComponent
             : undefined);
         const key = block.id || `${blockType}-${index}`;
 

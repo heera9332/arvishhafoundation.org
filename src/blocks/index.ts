@@ -23,5 +23,7 @@ export { VolunteerBlock, VolunteerComponent } from "./volunteer";
 export { CorporatePartnershipBlock, CorporatePartnershipComponent } from "./corporate-partnership";
 export { PillarsBlock, PillarsComponent } from "./pillars";
 export { PillarsBlock as WhatWeDoBlock, PillarsComponent as WhatWeDoComponent } from "./pillars";
+export { PostsGridBlock, PostsGridComponent, PostsGridClient } from "./posts-grid";
+export type { PostsGridComponentProps } from "./posts-grid";
 export { RenderBlocks, blockComponents } from "./RenderBlocks";
 export type { PageBlock, BlockType } from "./RenderBlocks";

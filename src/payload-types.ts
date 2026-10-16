@@ -257,6 +257,7 @@ export interface Page {
     | VolunteerBlock
     | CorporatePartnershipBlock
     | PillarsBlock
+    | PostsGridBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1112,6 +1113,48 @@ export interface PillarsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsGridBlock".
+ */
+export interface PostsGridBlock {
+  /**
+   * Choose to display news articles, ground projects, or both.
+   */
+  postType: 'all' | 'news' | 'projects';
+  /**
+   * Number of items per page (or max items when pagination is disabled).
+   */
+  limit: number;
+  /**
+   * Allow visitors to search in real time by title, description, and keywords.
+   */
+  enableSearch?: boolean | null;
+  /**
+   * Enable page numbers and navigation when posts exceed the limit.
+   */
+  enablePagination?: boolean | null;
+  /**
+   * Show interactive category tabs (e.g., Education, Healthcare, Empowerment).
+   */
+  showCategoryFilter?: boolean | null;
+  /**
+   * Visual card presentation style.
+   */
+  variant?: ('grid' | 'detailed') | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  viewAllLink: {
+    label?: string | null;
+    type?: ('custom' | 'external') | null;
+    newTab?: boolean | null;
+    url: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'postsGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
@@ -1495,6 +1538,7 @@ export interface PagesSelect<T extends boolean = true> {
         volunteer?: T | VolunteerBlockSelect<T>;
         corporatePartnership?: T | CorporatePartnershipBlockSelect<T>;
         pillars?: T | PillarsBlockSelect<T>;
+        postsGrid?: T | PostsGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -2132,6 +2176,31 @@ export interface PillarsBlockSelect<T extends boolean = true> {
   primaryCtaLink?: T;
   secondaryCtaText?: T;
   secondaryCtaLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsGridBlock_select".
+ */
+export interface PostsGridBlockSelect<T extends boolean = true> {
+  postType?: T;
+  limit?: T;
+  enableSearch?: T;
+  enablePagination?: T;
+  showCategoryFilter?: T;
+  variant?: T;
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  viewAllLink?:
+    | T
+    | {
+        label?: T;
+        type?: T;
+        newTab?: T;
+        url?: T;
+      };
   id?: T;
   blockName?: T;
 }

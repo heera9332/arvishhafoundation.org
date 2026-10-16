@@ -5,8 +5,8 @@ import { projectsData } from "@/data/page-projects";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
 import { getPageBySlug } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
-import { ProjectsComponent } from "@/blocks/projects/component";
-import { getPosts, formatPostToProjectItem } from "@/lib/posts";
+import { PostsGridComponent } from "@/blocks/posts-grid";
+import { getPosts, formatPostToGridItem } from "@/lib/posts";
 
 export const revalidate = 300; // 5 min ISR
 
@@ -61,8 +61,7 @@ export default async function ProjectsPage() {
 
   // Fetch dynamic project posts from Payload CMS
   const { docs } = await getPosts({ postType: "projects", limit: 50 });
-  const dynamicProjects =
-    docs.length > 0 ? docs.map(formatPostToProjectItem) : projectsData.projects;
+  const dynamicProjects = docs.map(formatPostToGridItem);
 
   return (
     <>
@@ -78,12 +77,16 @@ export default async function ProjectsPage() {
         breadcrumbs={[{ label: "Projects" }]}
       />
 
-      <ProjectsComponent
-        variant="list"
-        items={dynamicProjects as any}
+      <PostsGridComponent
+        postType="projects"
+        limit={6}
+        enableSearch={true}
+        enablePagination={true}
+        showCategoryFilter={true}
         eyebrow={projectsData.hero.eyebrow}
         heading={projectsData.hero.heading}
         description={projectsData.hero.description}
+        initialPosts={dynamicProjects}
       />
     </>
   );
