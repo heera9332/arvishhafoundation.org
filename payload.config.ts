@@ -7,6 +7,7 @@ import { buildConfig } from "payload";
 
 import { Media } from "@/collections/media";
 import { Pages } from "@/collections/pages";
+import { Posts } from "@/collections/posts";
 import { Categories } from "@/collections/categories";
 import { Tags } from "@/collections/tags";
 import { Header } from "@/global/header/schema";
@@ -35,7 +36,7 @@ export default buildConfig({
   editor: lexicalEditor(),
 
   // Define and configure your collections in this array
-  collections: [Media, Pages, Categories, Tags],
+  collections: [Media, Pages, Posts, Categories, Tags],
 
   // Define and configure your Globals in this array
   globals: [Header, Footer],

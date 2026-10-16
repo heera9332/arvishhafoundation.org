@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     media: Media;
     pages: Page;
+    posts: Post;
     categories: Category;
     tags: Tag;
     forms: Form;
@@ -88,6 +89,7 @@ export interface Config {
   collectionsSelect: {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -1103,6 +1105,110 @@ export interface PillarsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  /**
+   * Title of the news story or project initiative.
+   */
+  title: string;
+  /**
+   * Select whether this entry is a News Story or a Field Project. Default is News.
+   */
+  postType: 'news' | 'projects';
+  /**
+   * Scheduled or actual publication date and time.
+   */
+  publishedOn?: string | null;
+  /**
+   * Author, team, or coordinator attribution.
+   */
+  author?: string | null;
+  /**
+   * Thematic taxonomy category (Education, Healthcare, Empowerment, etc.).
+   */
+  category?: (string | null) | Category;
+  /**
+   * Custom label if you prefer not linking to a relational category document.
+   */
+  categoryCustom?: string | null;
+  /**
+   * Associated taxonomy tags for filtering and badges.
+   */
+  tags?: (string | Tag)[] | null;
+  /**
+   * Summary shown on cards, archive listings, and search results. Serves as shortDescription for projects and excerpt for news.
+   */
+  excerpt: string;
+  /**
+   * Full rich-text story narrative, project background, or ground report.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (string | null) | Media;
+  /**
+   * Direct URL fallback if media document is not uploaded.
+   */
+  imageUrl?: string | null;
+  status?: ('Active' | 'Ongoing' | 'Completed') | null;
+  year?: string | null;
+  location?: string | null;
+  beneficiaries?: string | null;
+  /**
+   * Optional override for the card short description. If left blank, the main Excerpt is automatically used.
+   */
+  shortDescription?: string | null;
+  /**
+   * Comprehensive plaintext project narrative, matching the fullDescription field used on the projects page.
+   */
+  fullDescription?: string | null;
+  /**
+   * Key milestones or measurable impact points achieved by this project.
+   */
+  keyOutcomes?:
+    | {
+        outcome: string;
+        id?: string | null;
+      }[]
+    | null;
+  href?: string | null;
+  /**
+   * Estimated reading time shown on story cards and headers.
+   */
+  readTime?: string | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -1222,6 +1328,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
       } | null)
     | ({
         relationTo: 'categories';
@@ -2016,6 +2126,49 @@ export interface PillarsBlockSelect<T extends boolean = true> {
   secondaryCtaLink?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  postType?: T;
+  publishedOn?: T;
+  author?: T;
+  category?: T;
+  categoryCustom?: T;
+  tags?: T;
+  excerpt?: T;
+  content?: T;
+  image?: T;
+  imageUrl?: T;
+  status?: T;
+  year?: T;
+  location?: T;
+  beneficiaries?: T;
+  shortDescription?: T;
+  fullDescription?: T;
+  keyOutcomes?:
+    | T
+    | {
+        outcome?: T;
+        id?: T;
+      };
+  href?: T;
+  readTime?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
