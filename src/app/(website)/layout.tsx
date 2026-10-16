@@ -10,7 +10,7 @@ import { getSEOSettings } from "@/global/seo-settings";
 import { constructMetadata } from "@/lib/seo";
 import { MaintenanceSync } from "@/components/common/MaintenanceSync";
 import { BYPASS_COOKIE_NAME } from "@/proxy";
-import MaintenancePage from "@/app/(website)/static/maintenance/page";
+import MaintenancePage from "@/app/(website)/maintenance/page";
 
 const inter = Inter({
   subsets: ["latin"],

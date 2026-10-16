@@ -6,27 +6,17 @@ export const BYPASS_COOKIE_NAME = 'maintenance_bypass';
 export function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
 
-  // 1. Never intercept static assets, images, Next.js internal files, or API routes
+  // 1. Never intercept static assets, images, Next.js internal files, Payload admin, or API routes
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/admin') ||
     pathname.startsWith('/images') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     pathname === '/sitemap.xml' ||
     /\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff2?|ttf|eot)$/i.test(pathname)
   ) {
-    return NextResponse.next();
-  }
-
-  // Check if maintenance mode is enabled (default: true)
-  const isMaintenanceActive = process.env.MAINTENANCE_MODE !== 'false';
-
-  // If maintenance mode is explicitly turned off via env var, let all traffic through
-  if (!isMaintenanceActive) {
-    if (pathname === '/maintenance') {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
     return NextResponse.next();
   }
 
@@ -79,18 +69,18 @@ export function proxy(request: NextRequest) {
   const bypassCookie = request.cookies.get(BYPASS_COOKIE_NAME)?.value;
   const isBypassed = bypassCookie === 'true';
 
-  if (isBypassed) {
-    return NextResponse.next();
+  // 4. If environment variable explicitly forces maintenance mode (emergency hard lock)
+  const isEnvHardLocked = process.env.MAINTENANCE_MODE === 'true';
+  if (isEnvHardLocked && !isBypassed) {
+    if (pathname === '/maintenance') {
+      return NextResponse.next();
+    }
+    const rewriteUrl = new URL('/maintenance', request.url);
+    return NextResponse.rewrite(rewriteUrl);
   }
 
-  // 4. If request is directly to /maintenance, allow rendering the page
-  if (pathname === '/maintenance') {
-    return NextResponse.next();
-  }
-
-  // 5. Default: rewrite all user routes to the maintenance page
-  const rewriteUrl = new URL('/maintenance', request.url);
-  return NextResponse.rewrite(rewriteUrl);
+  // 5. Otherwise allow through; RootLayout handles CMS SiteSettings.maintenanceMode dynamically
+  return NextResponse.next();
 }
 
 export const config = {
@@ -98,10 +88,11 @@ export const config = {
     /*
      * Match all request paths except for:
      * - api routes
+     * - admin routes
      * - _next/static, _next/image
      * - favicon.ico, robots.txt, sitemap.xml
      * - static file extensions (.png, .jpg, .svg, etc.)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff2?|ttf|eot)$).*)',
+    '/((?!api|admin|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|woff2?|ttf|eot)$).*)',
   ],
 };

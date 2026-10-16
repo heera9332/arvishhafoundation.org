@@ -10,6 +10,7 @@ export const SiteSettings: GlobalConfig = {
   },
   access: {
     read: () => true,
+    update: () => true,
   },
   hooks: {
     afterChange: [revalidateGlobal],

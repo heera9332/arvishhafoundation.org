@@ -10,6 +10,7 @@ export const SEOSettings: GlobalConfig = {
   },
   access: {
     read: () => true,
+    update: () => true,
   },
   hooks: {
     afterChange: [revalidateGlobal],
