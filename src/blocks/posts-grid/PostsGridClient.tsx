@@ -15,6 +15,7 @@ import {
   Users,
   ArrowRight,
   Filter,
+  Loader2,
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/common/SectionLabel";
@@ -56,61 +57,69 @@ export function PostsGridClient({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiResults, setApiResults] = useState<PostGridItem[] | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isFirstMount = useRef(true);
 
-  // If initialPosts was empty on mount, fetch from /api/posts as client fallback
+  // Sync posts when initialPosts change (SSR)
   useEffect(() => {
     if (initialPosts.length > 0) {
       setPosts(initialPosts);
+    }
+  }, [initialPosts]);
+
+  // Read URL query params on mount for initial search / filter
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const initialQ = params.get("q") || params.get("search");
+    const initialCat = params.get("category");
+    if (initialQ) setSearchQuery(initialQ);
+    if (initialCat) setSelectedCategory(initialCat);
+  }, []);
+
+  // Sync search state back to URL query parameters
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
       return;
     }
+    if (typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (searchQuery.trim()) {
+      url.searchParams.set("q", searchQuery.trim());
+    } else {
+      url.searchParams.delete("q");
+      url.searchParams.delete("search");
+    }
+    if (selectedCategory && selectedCategory !== "All") {
+      url.searchParams.set("category", selectedCategory);
+    } else {
+      url.searchParams.delete("category");
+    }
+    window.history.replaceState({}, "", url.toString());
+  }, [searchQuery, selectedCategory]);
+
+  // Client-side fallback if initialPosts was empty on mount
+  useEffect(() => {
+    if (initialPosts.length > 0) return;
 
     let isMounted = true;
     async function fetchPosts() {
       try {
-        const query = postType !== "all" ? `?where[postType][equals]=${postType}&limit=100` : "?limit=100";
-        const res = await fetch(`/api/posts${query}`);
+        const query =
+          postType !== "all"
+            ? `?postType=${postType}&limit=100`
+            : "?limit=100";
+        const res = await fetch(`/api/posts-search${query}`);
         if (!res.ok) return;
         const data = await res.json();
         if (isMounted && data?.docs) {
-          const mapped: PostGridItem[] = data.docs.map((doc: any) => ({
-            id: doc.id,
-            slug: doc.slug || doc.id,
-            title: doc.title,
-            postType: doc.postType || "news",
-            category:
-              typeof doc.category === "object" && doc.category?.title
-                ? doc.category.title
-                : doc.categoryCustom || (doc.postType === "projects" ? "Initiative" : "Updates"),
-            excerpt: doc.excerpt || doc.shortDescription || "",
-            image:
-              (typeof doc.image === "object" && doc.image?.url) ||
-              doc.imageUrl ||
-              "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
-            href:
-              doc.href ||
-              (doc.postType === "projects"
-                ? `/projects/${doc.slug || doc.id}`
-                : `/news/${doc.slug || doc.id}`),
-            publishedOn: doc.publishedOn || null,
-            date: doc.publishedOn
-              ? new Date(doc.publishedOn).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              : "Recent",
-            author: doc.author || "Arvishha Foundation",
-            readTime: doc.readTime || null,
-            location: doc.location || null,
-            year: doc.year || null,
-            status: doc.status || (doc.postType === "projects" ? "Active" : null),
-            beneficiaries: doc.beneficiaries || null,
-          }));
-          setPosts(mapped);
+          setPosts(data.docs);
         }
       } catch (err) {
-        console.warn("[PostsGridClient] Client fetch warning:", err);
+        console.warn("[PostsGridClient] Initial fallback fetch warning:", err);
       }
     }
 
@@ -120,46 +129,82 @@ export function PostsGridClient({
     };
   }, [initialPosts, postType]);
 
-  // Extract unique categories from current posts
+  // Extract unique categories from all posts (keeps tabs visible even when searching)
   const categories = useMemo(() => {
     const set = new Set<string>();
-    posts.forEach((p) => {
+    const baseList = initialPosts.length > 0 ? initialPosts : posts;
+    baseList.forEach((p) => {
       if (p.category) set.add(p.category);
     });
     return ["All", ...Array.from(set)];
-  }, [posts]);
+  }, [initialPosts, posts]);
 
-  // Filter posts based on postType, search query, and category
+  // Debounced API Search when user enters a search query
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setApiResults(null);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    const abortController = new AbortController();
+
+    const handler = setTimeout(async () => {
+      try {
+        const params = new URLSearchParams();
+        params.set("q", searchQuery.trim());
+        if (postType !== "all") {
+          params.set("postType", postType);
+        }
+        if (selectedCategory && selectedCategory !== "All") {
+          params.set("category", selectedCategory);
+        }
+        params.set("limit", "100");
+
+        const res = await fetch(`/api/posts-search?${params.toString()}`, {
+          signal: abortController.signal,
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.docs)) {
+            setApiResults(data.docs);
+          }
+        }
+      } catch (err: any) {
+        if (err.name !== "AbortError") {
+          console.warn("[PostsGridClient] API search error:", err);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+      abortController.abort();
+    };
+  }, [searchQuery, selectedCategory, postType]);
+
+  // Filter posts: Use API results when search query is active; otherwise use SSR initial posts
   const filteredPosts = useMemo(() => {
+    if (apiResults !== null) {
+      return apiResults;
+    }
+
     return posts.filter((post) => {
-      // 1. Post type filter
       if (postType !== "all" && post.postType !== postType) {
         return false;
       }
-
-      // 2. Category filter
       if (selectedCategory !== "All" && post.category !== selectedCategory) {
         return false;
       }
-
-      // 3. Search query filter
-      if (searchQuery.trim()) {
-        const query = searchQuery.toLowerCase().trim();
-        const matchesTitle = post.title?.toLowerCase().includes(query);
-        const matchesExcerpt = post.excerpt?.toLowerCase().includes(query);
-        const matchesCategory = post.category?.toLowerCase().includes(query);
-        const matchesLocation = post.location?.toLowerCase().includes(query);
-        const matchesAuthor = post.author?.toLowerCase().includes(query);
-        return Boolean(
-          matchesTitle || matchesExcerpt || matchesCategory || matchesLocation || matchesAuthor
-        );
-      }
-
       return true;
     });
-  }, [posts, postType, selectedCategory, searchQuery]);
+  }, [apiResults, posts, postType, selectedCategory]);
 
-  // Reset page when search or category changes
+  // Reset page when search query or category changes
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, selectedCategory]);
@@ -183,9 +228,18 @@ export function PostsGridClient({
     }
   };
 
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setApiResults(null);
+    setIsLoading(false);
+    setCurrentPage(1);
+  };
+
   const handleResetFilters = () => {
     setSearchQuery("");
     setSelectedCategory("All");
+    setApiResults(null);
+    setIsLoading(false);
     setCurrentPage(1);
   };
 
@@ -238,7 +292,11 @@ export function PostsGridClient({
               {/* Search Bar */}
               {enableSearch && (
                 <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  {isLoading ? (
+                    <Loader2 className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#03452c] animate-spin" />
+                  ) : (
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  )}
                   <input
                     type="text"
                     value={searchQuery}
@@ -248,7 +306,8 @@ export function PostsGridClient({
                   />
                   {searchQuery && (
                     <button
-                      onClick={() => setSearchQuery("")}
+                      type="button"
+                      onClick={handleClearSearch}
                       className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
                       title="Clear search"
                     >
@@ -260,17 +319,38 @@ export function PostsGridClient({
 
               {/* Status counter */}
               <div className="text-xs sm:text-sm text-slate-500 flex items-center gap-1.5 self-center">
-                <span>Showing</span>
-                <strong className="text-slate-800">
-                  {filteredPosts.length === 0
-                    ? 0
-                    : enablePagination
-                    ? `${startIndex}–${endIndex}`
-                    : displayedPosts.length}
-                </strong>
-                <span>of</span>
-                <strong className="text-slate-800">{filteredPosts.length}</strong>
-                <span>{postType === "projects" ? "initiatives" : postType === "news" ? "articles" : "posts"}</span>
+                {isLoading ? (
+                  <span className="inline-flex items-center gap-1.5 text-slate-600 font-medium">
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-[#03452c]" />
+                    Searching via API...
+                  </span>
+                ) : searchQuery.trim() ? (
+                  <>
+                    <span>Found</span>
+                    <strong className="text-slate-800">{filteredPosts.length}</strong>
+                    <span>results for &ldquo;{searchQuery.trim()}&rdquo;</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Showing</span>
+                    <strong className="text-slate-800">
+                      {filteredPosts.length === 0
+                        ? 0
+                        : enablePagination
+                        ? `${startIndex}–${endIndex}`
+                        : displayedPosts.length}
+                    </strong>
+                    <span>of</span>
+                    <strong className="text-slate-800">{filteredPosts.length}</strong>
+                    <span>
+                      {postType === "projects"
+                        ? "initiatives"
+                        : postType === "news"
+                        ? "articles"
+                        : "posts"}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
 
@@ -303,7 +383,17 @@ export function PostsGridClient({
         )}
 
         {/* Posts Grid */}
-        {displayedPosts.length > 0 ? (
+        {isLoading ? (
+          <div className="py-24 text-center bg-white rounded-3xl border border-slate-200/60 p-8 shadow-xs">
+            <Loader2 className="h-8 w-8 text-[#03452c] animate-spin mx-auto mb-3" />
+            <h3 className="text-base font-bold text-slate-800 mb-1">
+              Searching...
+            </h3>
+            <p className="text-xs text-slate-500">
+              Fetching matching {postType === "projects" ? "initiatives" : postType === "news" ? "articles" : "posts"} from API
+            </p>
+          </div>
+        ) : displayedPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {displayedPosts.map((post) => {
               const isProject = post.postType === "projects";

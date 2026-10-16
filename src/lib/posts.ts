@@ -12,9 +12,11 @@ export async function getPosts(options: {
   limit?: number;
   page?: number;
   categorySlug?: string;
+  categoryTitle?: string;
+  search?: string;
   draft?: boolean;
 } = {}): Promise<{ docs: Post[]; totalDocs: number; totalPages: number }> {
-  const { postType, limit = 10, page = 1, categorySlug, draft } = options;
+  const { postType, limit = 10, page = 1, categorySlug, categoryTitle, search, draft } = options;
 
   try {
     const payload = await getPayload({ config: configPromise });
@@ -29,15 +31,45 @@ export async function getPosts(options: {
       }
     }
 
-    const where: Where = {};
+    const andConditions: Where[] = [];
 
     if (postType) {
-      where.postType = { equals: postType };
+      andConditions.push({ postType: { equals: postType } });
     }
 
     if (categorySlug) {
-      where["category.slug"] = { equals: categorySlug };
+      andConditions.push({ "category.slug": { equals: categorySlug } });
     }
+
+    if (categoryTitle && categoryTitle !== "All") {
+      andConditions.push({
+        or: [
+          { "category.title": { equals: categoryTitle } },
+          { categoryCustom: { equals: categoryTitle } },
+        ],
+      });
+    }
+
+    if (search && search.trim()) {
+      const q = search.trim();
+      andConditions.push({
+        or: [
+          { title: { like: q } },
+          { excerpt: { like: q } },
+          { shortDescription: { like: q } },
+          { categoryCustom: { like: q } },
+          { location: { like: q } },
+          { author: { like: q } },
+        ],
+      });
+    }
+
+    const where: Where =
+      andConditions.length === 1
+        ? andConditions[0]
+        : andConditions.length > 1
+        ? { and: andConditions }
+        : {};
 
     const result = await payload.find({
       collection: "posts",

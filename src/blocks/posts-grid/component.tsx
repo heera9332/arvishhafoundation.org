@@ -1,6 +1,6 @@
 import React from "react";
 import { PostsGridClient } from "./PostsGridClient";
-import type { PostGridItem } from "@/lib/posts";
+import { getPosts, formatPostToGridItem, type PostGridItem } from "@/lib/posts";
 import type { PostsGridBlock } from "@/payload-types";
 import { staticProjectPosts, staticNewsPosts } from "@/lib/seed-posts";
 
@@ -66,7 +66,7 @@ const staticGridPosts: PostGridItem[] = [
   })),
 ];
 
-export function PostsGridComponent(
+export async function PostsGridComponent(
   props?: (PostsGridComponentProps & Record<string, unknown>) | Record<string, unknown>
 ) {
   const block = (("data" in (props || {}) && (props as PostsGridComponentProps)?.data
@@ -123,11 +123,26 @@ export function PostsGridComponent(
       ? staticGridPosts
       : staticGridPosts.filter((p) => p.postType === postType);
 
-  const initialPosts =
-    (props as PostsGridComponentProps)?.initialPosts &&
-    (props as PostsGridComponentProps).initialPosts!.length > 0
-      ? (props as PostsGridComponentProps).initialPosts
-      : relevantStaticPosts;
+  let initialPosts = (props as PostsGridComponentProps)?.initialPosts;
+
+  // SSR fetch live posts from Payload CMS when not explicitly passed
+  if (!initialPosts || initialPosts.length === 0) {
+    try {
+      const { docs } = await getPosts({
+        postType: postType === "all" ? undefined : postType,
+        limit: 100,
+      });
+      if (docs && docs.length > 0) {
+        initialPosts = docs.map(formatPostToGridItem);
+      }
+    } catch (err) {
+      console.warn("[PostsGridComponent] SSR fetch error:", err);
+    }
+  }
+
+  if (!initialPosts || initialPosts.length === 0) {
+    initialPosts = relevantStaticPosts;
+  }
 
   return (
     <PostsGridClient
