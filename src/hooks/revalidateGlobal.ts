@@ -10,6 +10,7 @@ export const revalidateGlobal: GlobalAfterChangeHook = ({ doc, req }) => {
   try {
     // Revalidating "/" layout triggers re-rendering of root layout, header, and footer
     revalidatePath("/", "layout");
+    revalidatePath("/");
     revalidatePath("/sitemap.xml");
   } catch (err) {
     console.warn("[revalidateGlobal] Error revalidating root layout:", err);

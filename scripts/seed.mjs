@@ -2,7 +2,8 @@
  * Master Database Seeder from Snapshot Data
  *
  * Usage:
- *   node --env-file=.env.local scripts/seed.mjs           # Seed all (globals, media, forms, pages, posts)
+ *   node --env-file=.env.local scripts/seed.mjs           # Seed all (users, media, forms, pages, posts, globals)
+ *   node --env-file=.env.local scripts/seed.mjs --users   # Seed users only
  *   node --env-file=.env.local scripts/seed.mjs --globals # Seed globals only (header, footer, etc.)
  *   node --env-file=.env.local scripts/seed.mjs --header  # Seed header only
  *   node --env-file=.env.local scripts/seed.mjs --footer  # Seed footer only
@@ -12,6 +13,7 @@
 
 import path from "path";
 import fs from "fs/promises";
+import crypto from "crypto";
 import { fileURLToPath } from "url";
 
 const filename = fileURLToPath(import.meta.url);
@@ -36,6 +38,39 @@ async function loadSnapshot(file) {
   }
 }
 
+async function resolvePasswordCredentials(user) {
+  const { password, salt: existingSalt, hash: existingHash } = user;
+  let salt = existingSalt;
+  let hash = existingHash;
+
+  if (password) {
+    if (salt && hash) {
+      const derived = await new Promise((resolve, reject) => {
+        crypto.pbkdf2(password, salt, 600000, 32, "sha256", (err, key) => {
+          if (err) reject(err);
+          else resolve(key);
+        });
+      });
+      const expectedHash = `pbkdf2-sha256-v1:${derived.toString("hex")}`;
+      if (expectedHash !== hash) {
+        hash = expectedHash;
+      }
+    } else {
+      const saltBuffer = crypto.randomBytes(32);
+      salt = saltBuffer.toString("hex");
+      const derived = await new Promise((resolve, reject) => {
+        crypto.pbkdf2(password, salt, 600000, 32, "sha256", (err, key) => {
+          if (err) reject(err);
+          else resolve(key);
+        });
+      });
+      hash = `pbkdf2-sha256-v1:${derived.toString("hex")}`;
+    }
+  }
+
+  return { salt, hash };
+}
+
 async function runSeed() {
   const uri = process.env.DATABASE_URL;
   if (!uri) {
@@ -44,12 +79,14 @@ async function runSeed() {
   }
 
   const args = process.argv.slice(2);
+  const seedUsersOnly = args.includes("--users");
   const seedGlobalsOnly = args.includes("--globals");
   const seedHeaderOnly = args.includes("--header");
   const seedFooterOnly = args.includes("--footer");
   const seedPostsOnly = args.includes("--posts");
   const seedPagesOnly = args.includes("--pages");
   const seedAll =
+    !seedUsersOnly &&
     !seedGlobalsOnly &&
     !seedHeaderOnly &&
     !seedFooterOnly &&
@@ -65,7 +102,50 @@ async function runSeed() {
   const db = client.db();
   console.log("[seed] Connected to MongoDB database.");
 
-  // --- 1. SEED MEDIA ---
+  // --- 1. SEED USERS ---
+  if (seedAll || seedUsersOnly) {
+    const users = await loadSnapshot("users.json");
+    if (Array.isArray(users) && users.length > 0) {
+      console.log(`\n[seed:users] Seeding ${users.length} users...`);
+      for (const u of users) {
+        const { _id, createdAt, updatedAt, password, sessions, ...rest } = u;
+        const { salt, hash } = await resolvePasswordCredentials(u);
+        const now = new Date();
+
+        const updateData = {
+          ...rest,
+          ...(salt ? { salt } : {}),
+          ...(hash ? { hash } : {}),
+          updatedAt: new Date(updatedAt || now),
+        };
+
+        const existing = await db.collection("users").findOne({
+          $or: [
+            { email: rest.email },
+            ...(_id ? [{ _id: new ObjectId(_id) }] : []),
+          ],
+        });
+
+        if (existing) {
+          await db.collection("users").updateOne(
+            { _id: existing._id },
+            { $set: updateData }
+          );
+        } else {
+          await db.collection("users").insertOne({
+            ...(_id ? { _id: new ObjectId(_id) } : {}),
+            ...updateData,
+            createdAt: new Date(createdAt || now),
+            loginAttempts: rest.loginAttempts ?? 0,
+          });
+        }
+        console.log(`  ✓ User: ${rest.email}`);
+      }
+      console.log(`[seed:users] ✓ ${users.length} users verified.`);
+    }
+  }
+
+  // --- 2. SEED MEDIA ---
   if (seedAll) {
     const media = await loadSnapshot("media.json");
     if (Array.isArray(media) && media.length > 0) {
@@ -85,7 +165,7 @@ async function runSeed() {
     }
   }
 
-  // --- 2. SEED FORMS ---
+  // --- 3. SEED FORMS ---
   if (seedAll) {
     const forms = await loadSnapshot("forms.json");
     if (Array.isArray(forms) && forms.length > 0) {
@@ -105,7 +185,7 @@ async function runSeed() {
     }
   }
 
-  // --- 3. SEED PAGES ---
+  // --- 4. SEED PAGES ---
   if (seedAll || seedPagesOnly) {
     const pages = await loadSnapshot("pages.json");
     if (Array.isArray(pages) && pages.length > 0) {
@@ -139,7 +219,7 @@ async function runSeed() {
     }
   }
 
-  // --- 4. SEED POSTS ---
+  // --- 5. SEED POSTS ---
   if (seedAll || seedPostsOnly) {
     const posts = await loadSnapshot("posts.json");
     if (Array.isArray(posts) && posts.length > 0) {
@@ -173,7 +253,7 @@ async function runSeed() {
     }
   }
 
-  // --- 5. SEED GLOBALS ---
+  // --- 6. SEED GLOBALS ---
   if (seedAll || seedGlobalsOnly || seedHeaderOnly || seedFooterOnly) {
     const globals = await loadSnapshot("globals.json");
     if (Array.isArray(globals) && globals.length > 0) {

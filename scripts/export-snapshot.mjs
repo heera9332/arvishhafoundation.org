@@ -100,6 +100,31 @@ async function exportSnapshot() {
   );
   console.log(`  ✓ Post versions exported: ${postsVersions.length}`);
 
+  // 7. Export Users
+  const users = await db.collection("users").find({}).toArray();
+  let existingUsersJson = [];
+  try {
+    const raw = await fs.readFile(path.join(outDir, "users.json"), "utf-8");
+    existingUsersJson = JSON.parse(raw);
+  } catch {}
+  const passwordMap = new Map(
+    existingUsersJson
+      .filter((u) => u && u.email && u.password)
+      .map((u) => [u.email, u.password])
+  );
+
+  const exportedUsers = users.map(({ sessions, ...u }) => ({
+    ...u,
+    ...(passwordMap.has(u.email) ? { password: passwordMap.get(u.email) } : {}),
+  }));
+
+  await fs.writeFile(
+    path.join(outDir, "users.json"),
+    JSON.stringify(exportedUsers, null, 2),
+    "utf-8"
+  );
+  console.log(`  ✓ Users exported: ${exportedUsers.length}`);
+
   await client.close();
   console.log("\n==========================================");
   console.log("   ✅ Snapshot Saved in data/seed/        ");

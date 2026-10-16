@@ -27,6 +27,16 @@ export const SiteSettings: GlobalConfig = {
       type: "text",
     },
     {
+      name: "homePage",
+      label: "Home Page",
+      type: "relationship",
+      relationTo: "pages",
+      admin: {
+        description:
+          "Select which page should be displayed dynamically as the website homepage (/). If left empty, defaults to the page with slug 'home'.",
+      },
+    },
+    {
       name: "logo",
       type: "upload",
       relationTo: "media",

@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { getPageBySlug, getAllPageSlugs } from "@/lib/pages";
+import { getPageBySlug, getAllPageSlugs, getHomePageSlug } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
@@ -24,13 +24,14 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const [page, settings, seoSettings] = await Promise.all([
+  const [homeSlug, page, settings, seoSettings] = await Promise.all([
+    getHomePageSlug(),
     getPageBySlug(slug),
     getSiteSettings(),
     getSEOSettings(),
   ]);
 
-  if (slug === "home") {
+  if (slug === "home" || slug === homeSlug) {
     return constructMetadata({
       canonical: "/",
       siteName: settings.siteName,
@@ -72,9 +73,10 @@ export async function generateMetadata({
 
 export default async function DynamicSlugPage({ params }: PageProps) {
   const { slug } = await params;
+  const homeSlug = await getHomePageSlug();
 
-  // The root path "/" handles the "home" slug
-  if (slug === "home") {
+  // The root path "/" handles the dynamic homepage
+  if (slug === "home" || slug === homeSlug) {
     redirect("/");
   }
 

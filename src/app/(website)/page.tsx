@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getPageBySlug } from "@/lib/pages";
+import { getHomePage } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { constructMetadata, generateOrganizationSchema } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
@@ -9,7 +9,7 @@ import { getSEOSettings } from "@/global/seo-settings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [page, settings, seoSettings] = await Promise.all([
-    getPageBySlug("home"),
+    getHomePage(),
     getSiteSettings(),
     getSEOSettings(),
   ]);
@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function DynamicHomePage() {
   const [page, settings] = await Promise.all([
-    getPageBySlug("home"),
+    getHomePage(),
     getSiteSettings(),
   ]);
 

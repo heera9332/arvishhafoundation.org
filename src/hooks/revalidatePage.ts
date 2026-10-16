@@ -7,6 +7,7 @@ const revalidatePagePaths = (slug?: string | null) => {
 
   try {
     revalidatePath(path);
+    revalidatePath("/");
     if (slug !== "home") {
       revalidatePath(`/static/${slug}`);
     }

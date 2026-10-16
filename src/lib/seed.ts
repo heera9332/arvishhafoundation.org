@@ -83,6 +83,48 @@ export async function seedSeoSettings(payload: Payload) {
   return { success: true, doc };
 }
 
+export async function seedUsers(payload: Payload) {
+  const users = loadSnapshot<
+    Array<{
+      email: string;
+      password?: string;
+      [key: string]: unknown;
+    }>
+  >("users.json");
+
+  if (!Array.isArray(users) || users.length === 0) {
+    return { success: true, count: 0, users: [] };
+  }
+
+  const results = [];
+  for (const user of users) {
+    const existing = await payload.find({
+      collection: "users",
+      where: {
+        email: {
+          equals: user.email,
+        },
+      },
+      limit: 1,
+    });
+
+    if (existing.docs.length === 0) {
+      const created = await payload.create({
+        collection: "users",
+        data: {
+          email: user.email,
+          password: user.password || "arvishhafoundation",
+        },
+      });
+      results.push({ email: created.email, id: created.id, action: "created" });
+    } else {
+      results.push({ email: existing.docs[0].email, id: existing.docs[0].id, action: "exists" });
+    }
+  }
+
+  return { success: true, count: results.length, users: results };
+}
+
 export async function seedGlobals(payload: Payload) {
   const header = await seedHeader(payload);
   const footer = await seedFooter(payload);
@@ -101,10 +143,13 @@ export async function seedGlobals(payload: Payload) {
 }
 
 export async function seedAll(payload: Payload) {
+  const usersRes = await seedUsers(payload);
   const globalsRes = await seedGlobals(payload);
 
   return {
-    success: globalsRes.success,
+    success: usersRes.success && globalsRes.success,
+    users: usersRes,
     globals: globalsRes,
   };
 }
+

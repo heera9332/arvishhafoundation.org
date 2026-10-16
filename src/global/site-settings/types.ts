@@ -1,3 +1,5 @@
+import type { Page } from "@/payload-types";
+
 export type SocialPlatform =
   | "facebook"
   | "instagram"
@@ -22,6 +24,8 @@ export interface MediaObject {
 export interface SiteSettingsData {
   siteName: string;
   tagline?: string;
+  homePage?: Page | string | null;
+  homePageSlug?: string | null;
   logo?: MediaObject | string | null;
   logoUrl: string;
   favicon?: MediaObject | string | null;

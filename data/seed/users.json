@@ -1,0 +1,13 @@
+[
+  {
+    "_id": "6ad23087a92670a75a94e872",
+    "createdAt": "2026-10-16T14:11:19.883Z",
+    "updatedAt": "2026-10-16T14:11:19.884Z",
+    "email": "arvishhafoundation@gmail.com",
+    "salt": "249c778d85de8b0537dd99322e1f95c7f83e3ad055e4823f16eebb0fd4e840ef",
+    "hash": "pbkdf2-sha256-v1:7c89e63aaa2b1017a27375e2dcf39fe829f6965af5db99ed3adf4c8cb24796f1",
+    "loginAttempts": 0,
+    "__v": 0,
+    "password": "arvishhafoundation"
+  }
+]

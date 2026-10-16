@@ -79,6 +79,20 @@ export default buildConfig({
       },
     },
     {
+      path: "/seed-users",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const { seedUsers } = await import("@/lib/seed");
+          const result = await seedUsers(req.payload);
+          return Response.json(result);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed users error";
+          return Response.json({ success: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
       path: "/seed-header",
       method: "get",
       handler: async (req) => {

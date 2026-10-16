@@ -4,6 +4,8 @@ import { siteConfig } from "@/lib/seo";
 export const defaultSiteSettingsData: SiteSettingsData = {
   siteName: siteConfig.name || "Arvishha Foundation",
   tagline: siteConfig.slogan || "विकास और सामाजिक कार्यों के लिए अग्रसर",
+  homePage: null,
+  homePageSlug: "home",
   logo: null,
   logoUrl: "/images/logo.png",
   favicon: null,

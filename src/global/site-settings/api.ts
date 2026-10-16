@@ -3,12 +3,14 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import type { SiteSettingsData, MediaObject, SocialPlatform } from "./types";
 import { defaultSiteSettingsData } from "./defaults";
+import type { Page } from "@/payload-types";
 
 let isSeededOrChecked = false;
 
 interface RawSiteSettingsDoc {
   siteName?: string | null;
   tagline?: string | null;
+  homePage?: Page | string | null;
   logo?: MediaObject | string | null;
   favicon?: MediaObject | string | null;
   contactEmail?: string | null;
@@ -45,9 +47,23 @@ function formatSiteSettings(raw?: RawSiteSettingsDoc | null): SiteSettingsData {
         }))
       : defaultSiteSettingsData.socialLinks;
 
+  let homePage: Page | string | null = null;
+  let homePageSlug: string | null = null;
+
+  if (raw.homePage) {
+    if (typeof raw.homePage === "object" && raw.homePage !== null) {
+      homePage = raw.homePage as Page;
+      homePageSlug = (raw.homePage as { slug?: string }).slug || null;
+    } else if (typeof raw.homePage === "string") {
+      homePage = raw.homePage;
+    }
+  }
+
   return {
     siteName: raw.siteName || defaultSiteSettingsData.siteName,
     tagline: raw.tagline || defaultSiteSettingsData.tagline,
+    homePage,
+    homePageSlug: homePageSlug || defaultSiteSettingsData.homePageSlug,
     logo: typeof raw.logo === "object" ? raw.logo : null,
     logoUrl,
     favicon: typeof raw.favicon === "object" ? raw.favicon : null,
@@ -71,7 +87,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettingsData> => {
 
     const doc = (await (payload.findGlobal as any)({
       slug: "site-settings",
-      depth: 1,
+      depth: 2,
     })) as RawSiteSettingsDoc | null;
 
     const hasData = Boolean(

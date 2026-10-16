@@ -2706,6 +2706,10 @@ export interface SiteSetting {
   id: string;
   siteName: string;
   tagline?: string | null;
+  /**
+   * Select which page should be displayed dynamically as the website homepage (/). If left empty, defaults to the page with slug 'home'.
+   */
+  homePage?: (string | null) | Page;
   logo?: (string | null) | Media;
   favicon?: (string | null) | Media;
   contactEmail?: string | null;
@@ -2978,6 +2982,7 @@ export interface FooterSelect<T extends boolean = true> {
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
   tagline?: T;
+  homePage?: T;
   logo?: T;
   favicon?: T;
   contactEmail?: T;

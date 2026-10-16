@@ -10,6 +10,7 @@
     "lint": "eslint",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "seed:users": "node --env-file=.env.local scripts/seed.mjs --users",
     "seed:snapshot": "node --env-file=.env.local scripts/export-snapshot.mjs",
     "seed:posts": "node --env-file=.env.local scripts/seed-posts.mjs"
   },
