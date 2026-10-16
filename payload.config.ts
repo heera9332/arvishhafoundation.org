@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
+import { revalidatePath } from "next/cache";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
@@ -40,6 +41,27 @@ export default buildConfig({
 
   // Define and configure your Globals in this array
   globals: [Header, Footer],
+
+  // Custom endpoints for on-demand revalidation
+  endpoints: [
+    {
+      path: "/revalidate",
+      method: "get",
+      handler: async (req) => {
+        const url = new URL(req.url || "", "http://localhost:3000");
+        const pathParam = url.searchParams.get("path") || "/";
+        try {
+          revalidatePath(pathParam, "layout");
+          revalidatePath(pathParam);
+          revalidatePath("/sitemap.xml");
+          return Response.json({ revalidated: true, path: pathParam, now: Date.now() });
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Revalidation error";
+          return Response.json({ revalidated: false, error: message }, { status: 500 });
+        }
+      },
+    },
+  ],
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET || "",

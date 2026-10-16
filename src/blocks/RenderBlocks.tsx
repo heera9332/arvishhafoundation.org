@@ -89,7 +89,11 @@ export const RenderBlocks: React.FC<RenderBlocksProps> = ({
         if (!block || !block.blockType) return null;
 
         const { blockType } = block;
-        const BlockComponent = blockComponents[blockType];
+        const BlockComponent =
+          blockComponents[blockType] ||
+          ((blockType as string) === "whatWeDo" || (blockType as string) === "what-we-do"
+            ? PillarsComponent
+            : undefined);
         const key = block.id || `${blockType}-${index}`;
 
         if (BlockComponent) {

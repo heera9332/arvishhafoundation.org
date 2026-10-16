@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { createLinkField } from "@/fields/link";
+import { revalidateGlobal } from "@/hooks/revalidateGlobal";
 
 export const Header: GlobalConfig = {
   slug: "header",
@@ -11,6 +12,9 @@ export const Header: GlobalConfig = {
   admin: {
     group: "Navigation",
     description: "Manage website header branding, navigation menus, actions, and announcement settings.",
+  },
+  hooks: {
+    afterChange: [revalidateGlobal],
   },
   fields: [
     {

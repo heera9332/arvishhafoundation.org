@@ -29,7 +29,8 @@ interface PillarItem {
 }
 
 export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
-  const block = (("data" in props && props.data ? props.data : props) || {}) as Partial<PillarsBlock>;
+  const block = (("data" in props && props.data ? props.data : props) ||
+    {}) as Partial<PillarsBlock>;
 
   const pillars = (
     block.items && block.items.length > 0 ? block.items : whatWeDoData.pillars
@@ -56,7 +57,9 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
               const isEven = idx % 2 === 1;
               const pillarId = pillar.id || `pillar-${idx}`;
               const imgSrc =
-                getMediaUrl(pillar.image as string | Media | null | undefined) ||
+                getMediaUrl(
+                  pillar.image as string | Media | null | undefined,
+                ) ||
                 pillar.imageUrl ||
                 "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80";
 
@@ -87,19 +90,21 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
 
                     {pillar.initiatives && pillar.initiatives.length > 0 && (
                       <div className="space-y-4 pt-2">
-                        {pillar.initiatives.map((init: PillarInitiative, iIdx: number) => (
-                          <div
-                            key={iIdx}
-                            className="bg-[#faf9f5] border border-slate-200/80 rounded-2xl p-5 hover:border-emerald-800/40 transition-colors"
-                          >
-                            <h4 className="text-base font-bold text-[#03452c] mb-1">
-                              {init.title}
-                            </h4>
-                            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                              {init.desc}
-                            </p>
-                          </div>
-                        ))}
+                        {pillar.initiatives.map(
+                          (init: PillarInitiative, iIdx: number) => (
+                            <div
+                              key={iIdx}
+                              className="bg-[#faf9f5] border border-slate-200/80 rounded-2xl p-5 hover:border-emerald-800/40 transition-colors"
+                            >
+                              <h4 className="text-base font-bold text-[#03452c] mb-1">
+                                {init.title}
+                              </h4>
+                              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                {init.desc}
+                              </p>
+                            </div>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
@@ -147,7 +152,10 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
                     asChild
                     className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-3.5 h-auto rounded-full"
                   >
-                    <Link href={primaryCtaLink} className="inline-flex items-center gap-2">
+                    <Link
+                      href={primaryCtaLink}
+                      className="inline-flex items-center gap-2"
+                    >
                       <Heart className="h-5 w-5 fill-slate-950 text-slate-950" />
                       <span>{primaryCtaText}</span>
                     </Link>

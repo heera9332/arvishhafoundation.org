@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { createLinkField } from "@/fields/link";
+import { revalidateGlobal } from "@/hooks/revalidateGlobal";
 
 export const Footer: GlobalConfig = {
   slug: "footer",
@@ -11,6 +12,9 @@ export const Footer: GlobalConfig = {
   admin: {
     group: "Navigation",
     description: "Manage global website footer branding, navigation columns, newsletter info, direct contact, and copyright.",
+  },
+  hooks: {
+    afterChange: [revalidateGlobal],
   },
   fields: [
     {

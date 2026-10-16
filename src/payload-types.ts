@@ -1082,9 +1082,6 @@ export interface CorporatePartnershipBlock {
  * via the `definition` "PillarsBlock".
  */
 export interface PillarsBlock {
-  eyebrow?: string | null;
-  heading?: string | null;
-  description?: string | null;
   items?:
     | {
         id?: string | null;
@@ -2111,9 +2108,6 @@ export interface CorporatePartnershipBlockSelect<T extends boolean = true> {
  * via the `definition` "PillarsBlock_select".
  */
 export interface PillarsBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  heading?: T;
-  description?: T;
   items?:
     | T
     | {
