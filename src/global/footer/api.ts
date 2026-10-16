@@ -1,101 +1,15 @@
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import type { Footer } from "@/payload-types";
 import type { FooterData, FooterFormData, FooterLinkItem, FooterSocialItem } from "./types";
 import { defaultFooterData } from "./defaults";
 import { getSiteSettings } from "@/global/site-settings";
 import type { SiteSettingsData } from "@/global/site-settings";
 
-
-interface RawMediaObject {
-  url?: string | null;
-  alt?: string | null;
-}
-
-interface RawLinkGroup {
-  type?: "custom" | "external" | null;
-  url?: string | null;
-  newTab?: boolean | null;
-}
-
-interface RawFooterLinkItem {
-  id?: string | null;
-  label?: string | null;
-  link?: RawLinkGroup | null;
-  url?: string | null;
-  enabled?: boolean | null;
-}
-
-interface RawFooterSocialItem {
-  id?: string | null;
-  platform?: string | null;
-  label?: string | null;
-  url?: string | null;
-  enabled?: boolean | null;
-}
-
-interface RawFormDoc {
-  id?: string;
-  _id?: string;
-  title?: string;
-  submitButtonLabel?: string;
-  confirmationType?: "message" | "redirect";
-  confirmationMessage?: unknown;
-  redirect?: {
-    type?: "custom" | "reference";
-    url?: string;
-  };
-  fields?: Array<{
-    blockType: string;
-    name: string;
-    label?: string;
-    required?: boolean;
-  }>;
-}
-
-interface RawFooterDoc {
-  branding?: {
-    logo?: RawMediaObject | string | null;
-    logoUrl?: string | null;
-    logoAlt?: string | null;
-    siteTitle?: string | null;
-    slogan?: string | null;
-    description?: string | null;
-    cta?: {
-      enabled?: boolean | null;
-      label?: string | null;
-      url?: string | null;
-      newTab?: boolean | null;
-    } | null;
-  } | null;
-  newsletter?: {
-    enabled?: boolean | null;
-    badge?: string | null;
-    heading?: string | null;
-    description?: string | null;
-    form?: RawFormDoc | string | null;
-  } | null;
-  navigation?: {
-    quickLinksTitle?: string | null;
-    quickLinks?: RawFooterLinkItem[] | null;
-    supportLinksTitle?: string | null;
-    supportLinks?: RawFooterLinkItem[] | null;
-  } | null;
-  contact?: {
-    title?: string | null;
-    phone?: string | null;
-    email?: string | null;
-    showBanner?: boolean | null;
-    bannerHelpLabel?: string | null;
-    bannerEmailLabel?: string | null;
-  } | null;
-  legal?: {
-    copyrightText?: string | null;
-    legalLinks?: RawFooterLinkItem[] | null;
-    socialLinks?: RawFooterSocialItem[] | null;
-  } | null;
-}
-
-function mapLinks(raw?: RawFooterLinkItem[] | null, fallback: FooterLinkItem[] = []): FooterLinkItem[] {
+function mapLinks(
+  raw?: NonNullable<Footer["navigation"]>["quickLinks"],
+  fallback: FooterLinkItem[] = []
+): FooterLinkItem[] {
   if (!Array.isArray(raw) || raw.length === 0) {
     return fallback;
   }
@@ -104,14 +18,14 @@ function mapLinks(raw?: RawFooterLinkItem[] | null, fallback: FooterLinkItem[] =
     .map((item) => ({
       id: item.id,
       label: item.label || "",
-      href: item.link?.url || item.url || "/",
+      href: item.link?.url || "/",
       newTab: Boolean(item.link?.newTab),
       enabled: item.enabled !== false,
     }));
 }
 
 function mapSocials(
-  raw?: RawFooterSocialItem[] | null,
+  raw?: NonNullable<Footer["legal"]>["socialLinks"],
   fallback: FooterSocialItem[] = []
 ): FooterSocialItem[] {
   if (!Array.isArray(raw) || raw.length === 0) {
@@ -128,7 +42,45 @@ function mapSocials(
     }));
 }
 
-function formatFooterData(raw: RawFooterDoc, siteSettings?: SiteSettingsData): FooterData {
+function formatFooterData(raw?: Footer | null, siteSettings?: SiteSettingsData): FooterData {
+  const fallbackSocials: FooterSocialItem[] =
+    siteSettings?.socialLinks && siteSettings.socialLinks.length > 0
+      ? siteSettings.socialLinks.map((s) => ({
+          platform: s.platform,
+          label: s.platform.charAt(0).toUpperCase() + s.platform.slice(1),
+          url: s.url,
+          enabled: true,
+        }))
+      : defaultFooterData.legal.socialLinks;
+
+  if (!raw) {
+    return {
+      branding: {
+        logoUrl: siteSettings?.logoUrl || defaultFooterData.branding.logoUrl,
+        logoAlt: defaultFooterData.branding.logoAlt,
+        siteTitle: siteSettings?.siteName || defaultFooterData.branding.siteTitle,
+        slogan: siteSettings?.tagline || defaultFooterData.branding.slogan,
+        description: defaultFooterData.branding.description,
+        cta: defaultFooterData.branding.cta,
+      },
+      newsletter: defaultFooterData.newsletter,
+      navigation: defaultFooterData.navigation,
+      contact: {
+        title: defaultFooterData.contact.title,
+        phone: siteSettings?.phone || defaultFooterData.contact.phone,
+        email: siteSettings?.contactEmail || defaultFooterData.contact.email,
+        showBanner: defaultFooterData.contact.showBanner,
+        bannerHelpLabel: defaultFooterData.contact.bannerHelpLabel,
+        bannerEmailLabel: defaultFooterData.contact.bannerEmailLabel,
+      },
+      legal: {
+        copyrightText: siteSettings?.footerCopyright || defaultFooterData.legal.copyrightText,
+        legalLinks: defaultFooterData.legal.legalLinks,
+        socialLinks: fallbackSocials,
+      },
+    };
+  }
+
   const branding = raw.branding;
   const newsletter = raw.newsletter;
   const navigation = raw.navigation;
@@ -143,16 +95,6 @@ function formatFooterData(raw: RawFooterDoc, siteSettings?: SiteSettingsData): F
     logoUrl = branding.logoUrl;
   }
 
-  const fallbackSocials: FooterSocialItem[] =
-    siteSettings?.socialLinks && siteSettings.socialLinks.length > 0
-      ? siteSettings.socialLinks.map((s) => ({
-          platform: s.platform,
-          label: s.platform.charAt(0).toUpperCase() + s.platform.slice(1),
-          url: s.url,
-          enabled: true,
-        }))
-      : defaultFooterData.legal.socialLinks;
-
   let form: FooterFormData | string | null = null;
   if (newsletter?.form) {
     if (typeof newsletter.form === "string") {
@@ -160,13 +102,13 @@ function formatFooterData(raw: RawFooterDoc, siteSettings?: SiteSettingsData): F
     } else if (typeof newsletter.form === "object" && newsletter.form !== null) {
       const f = newsletter.form;
       form = {
-        id: String(f.id || f._id || ""),
+        id: String(f.id || ""),
         title: f.title || "Newsletter",
         submitButtonLabel: f.submitButtonLabel || "Subscribe",
-        confirmationType: f.confirmationType || "message",
+        confirmationType: (f.confirmationType as "message" | "redirect") || "message",
         confirmationMessage: f.confirmationMessage,
         redirect: f.redirect,
-        fields: f.fields,
+        fields: f.fields as FooterFormData["fields"],
       };
     }
   }
@@ -231,10 +173,10 @@ export async function getFooterData(): Promise<FooterData> {
     const payload = await getPayload({ config: configPromise });
 
     // Fetch existing footer global
-    const footerDoc = (await payload.findGlobal({
+    const footerDoc = await payload.findGlobal({
       slug: "footer",
       depth: 1,
-    })) as RawFooterDoc;
+    });
 
     let linkedForm = footerDoc?.newsletter?.form;
     if (!linkedForm) {
@@ -244,7 +186,7 @@ export async function getFooterData(): Promise<FooterData> {
           limit: 1,
         });
         if (formsResult.docs.length > 0) {
-          linkedForm = formsResult.docs[0] as unknown as RawFormDoc;
+          linkedForm = formsResult.docs[0];
         }
       } catch (fErr) {
         console.warn("[Footer API] Fallback form discovery skipped:", fErr);
@@ -256,7 +198,7 @@ export async function getFooterData(): Promise<FooterData> {
         {
           ...footerDoc,
           newsletter: {
-            ...footerDoc?.newsletter,
+            ...footerDoc.newsletter,
             form: linkedForm,
           },
         },
@@ -264,12 +206,12 @@ export async function getFooterData(): Promise<FooterData> {
       );
     }
 
-    return formatFooterData(defaultFooterData as unknown as RawFooterDoc, siteSettings);
+    return formatFooterData(null, siteSettings);
   } catch (error) {
     console.warn(
       "[Footer API] CMS unavailable, using default footer configuration:",
       error
     );
-    return formatFooterData(defaultFooterData as unknown as RawFooterDoc, siteSettings);
+    return formatFooterData(null, siteSettings);
   }
 }

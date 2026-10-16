@@ -1,81 +1,37 @@
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import type { Header } from "@/payload-types";
 import type { HeaderData, HeaderNavItem, HeaderNavChildItem } from "./types";
 import { defaultHeaderData } from "./defaults";
 import { getSiteSettings } from "@/global/site-settings";
 import type { SiteSettingsData } from "@/global/site-settings";
 
-
-interface RawMediaObject {
-  url?: string | null;
-  alt?: string | null;
-}
-
-interface RawLinkGroup {
-  type?: "custom" | "external" | null;
-  url?: string | null;
-  newTab?: boolean | null;
-}
-
-interface RawChildItem {
-  id?: string | null;
-  label?: string | null;
-  link?: RawLinkGroup | null;
-  url?: string | null;
-  description?: string | null;
-  enabled?: boolean | null;
-}
-
-interface RawNavItem {
-  id?: string | null;
-  label?: string | null;
-  link?: RawLinkGroup | null;
-  url?: string | null;
-  enabled?: boolean | null;
-  children?: RawChildItem[] | null;
-}
-
-interface RawHeaderDoc {
-  branding?: {
-    logo?: RawMediaObject | string | null;
-    logoUrl?: string | null;
-    logoAlt?: string | null;
-    logoLink?: string | null;
-    siteTitle?: string | null;
-    slogan?: string | null;
-    mobileLogo?: RawMediaObject | string | null;
-  } | null;
-  navigation?: {
-    items?: RawNavItem[] | null;
-  } | null;
-  actions?: {
-    primaryCta?: {
-      enabled?: boolean | null;
-      label?: string | null;
-      url?: string | null;
-      newTab?: boolean | null;
-      showIcon?: boolean | null;
-    } | null;
-    secondaryCta?: {
-      enabled?: boolean | null;
-      label?: string | null;
-      url?: string | null;
-      newTab?: boolean | null;
-    } | null;
-  } | null;
-  settings?: {
-    isSticky?: boolean | null;
-    showTopBar?: boolean | null;
-    topBarText?: string | null;
-    phone?: string | null;
-    email?: string | null;
-  } | null;
-}
-
 /**
- * Format raw Payload Global document into typed HeaderData with complete fallback preservation.
+ * Format Payload Header global document into typed HeaderData with complete fallback preservation.
  */
-function formatHeaderData(raw: RawHeaderDoc, siteSettings?: SiteSettingsData): HeaderData {
+function formatHeaderData(raw?: Header | null, siteSettings?: SiteSettingsData): HeaderData {
+  if (!raw) {
+    return {
+      branding: {
+        logoUrl: siteSettings?.logoUrl || defaultHeaderData.branding.logoUrl,
+        logoAlt: defaultHeaderData.branding.logoAlt,
+        logoLink: defaultHeaderData.branding.logoLink,
+        siteTitle: siteSettings?.siteName || defaultHeaderData.branding.siteTitle,
+        slogan: siteSettings?.tagline || defaultHeaderData.branding.slogan,
+        mobileLogoUrl: null,
+      },
+      navigation: defaultHeaderData.navigation,
+      actions: defaultHeaderData.actions,
+      settings: {
+        isSticky: defaultHeaderData.settings.isSticky,
+        showTopBar: defaultHeaderData.settings.showTopBar,
+        topBarText: defaultHeaderData.settings.topBarText,
+        phone: siteSettings?.phone || defaultHeaderData.settings.phone,
+        email: siteSettings?.contactEmail || defaultHeaderData.settings.email,
+      },
+    };
+  }
+
   const branding = raw.branding;
   const navigation = raw.navigation;
   const actions = raw.actions;
@@ -107,7 +63,7 @@ function formatHeaderData(raw: RawHeaderDoc, siteSettings?: SiteSettingsData): H
     items = rawItems
       .filter((item) => item?.enabled !== false && Boolean(item?.label))
       .map((item) => {
-        const href = item.link?.url || item.url || "/";
+        const href = item.link?.url || "/";
         const newTab = Boolean(item.link?.newTab);
 
         const children: HeaderNavChildItem[] = Array.isArray(item.children)
@@ -118,7 +74,7 @@ function formatHeaderData(raw: RawHeaderDoc, siteSettings?: SiteSettingsData): H
               .map((child) => ({
                 id: child.id,
                 label: child.label || "",
-                href: child.link?.url || child.url || "/",
+                href: child.link?.url || "/",
                 description: child.description || null,
                 newTab: Boolean(child.link?.newTab),
                 enabled: child.enabled !== false,
@@ -188,21 +144,17 @@ export async function getHeaderData(): Promise<HeaderData> {
     const payload = await getPayload({ config: configPromise });
 
     // Fetch existing header global
-    const headerDoc = (await payload.findGlobal({
+    const headerDoc = await payload.findGlobal({
       slug: "header",
       depth: 1,
-    })) as RawHeaderDoc;
+    });
 
-    if (headerDoc) {
-      return formatHeaderData(headerDoc, siteSettings);
-    }
-
-    return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
+    return formatHeaderData(headerDoc, siteSettings);
   } catch (error) {
     console.warn(
       "[Header API] CMS unavailable, using default header configuration:",
       error
     );
-    return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
+    return formatHeaderData(null, siteSettings);
   }
 }
