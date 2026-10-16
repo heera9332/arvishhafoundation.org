@@ -13,6 +13,7 @@ import { Categories } from "@/collections/categories";
 import { Tags } from "@/collections/tags";
 import { Header } from "@/global/header/schema";
 import { Footer } from "@/global/footer/schema";
+import { seedPosts } from "@/lib/seed-posts";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { seoPlugin } from "@payloadcms/plugin-seo";
 import { formBuilderPlugin } from "@payloadcms/plugin-form-builder";
@@ -58,6 +59,19 @@ export default buildConfig({
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : "Revalidation error";
           return Response.json({ revalidated: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
+      path: "/seed-posts",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const result = await seedPosts(req.payload);
+          return Response.json(result);
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed posts error";
+          return Response.json({ success: false, error: message }, { status: 500 });
         }
       },
     },

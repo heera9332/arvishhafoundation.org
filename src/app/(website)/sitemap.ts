@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
 import { homeData } from "@/data/page-home";
+import { projectsData } from "@/data/page-projects";
 import { wordpressApi } from "@/lib/wordpress";
+import { getPosts } from "@/lib/posts";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url.replace(/\/+$/, "");
@@ -91,6 +93,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
+  // Project routes from static fallback
+  const staticProjectRoutes: MetadataRoute.Sitemap =
+    projectsData.projects.map((proj) => ({
+      url: `${baseUrl}/projects/${proj.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }));
+
+  // Dynamic CMS post routes
+  let cmsPostRoutes: MetadataRoute.Sitemap = [];
+  try {
+    const { docs: cmsDocs } = await getPosts({ limit: 100 });
+    cmsPostRoutes = cmsDocs.map((post) => ({
+      url: `${baseUrl}/${post.postType === "projects" ? "projects" : "news"}/${post.slug}`,
+      lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }));
+  } catch {
+    cmsPostRoutes = [];
+  }
+
   let wpArticleRoutes: MetadataRoute.Sitemap = [];
   try {
     const wpPosts = await wordpressApi.getPosts({ perPage: 50 });
@@ -106,7 +131,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Deduplicate all routes by URL
-  const allRoutes = [...staticRoutes, ...staticArticleRoutes, ...wpArticleRoutes];
+  const allRoutes = [
+    ...staticRoutes,
+    ...staticArticleRoutes,
+    ...staticProjectRoutes,
+    ...cmsPostRoutes,
+    ...wpArticleRoutes,
+  ];
   const uniqueRoutesMap = new Map<string, MetadataRoute.Sitemap[number]>();
   for (const route of allRoutes) {
     uniqueRoutesMap.set(route.url, route);
