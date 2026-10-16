@@ -2,6 +2,8 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import type { FooterData, FooterFormData, FooterLinkItem, FooterSocialItem } from "./types";
 import { defaultFooterData } from "./defaults";
+import { getSiteSettings } from "@/global/site-settings";
+import type { SiteSettingsData } from "@/global/site-settings";
 
 // In-memory flag so auto-seeding is only attempted once per server lifetime
 let isSeededOrChecked = false;
@@ -128,7 +130,7 @@ function mapSocials(
     }));
 }
 
-function formatFooterData(raw: RawFooterDoc): FooterData {
+function formatFooterData(raw: RawFooterDoc, siteSettings?: SiteSettingsData): FooterData {
   const branding = raw.branding;
   const newsletter = raw.newsletter;
   const navigation = raw.navigation;
@@ -136,12 +138,22 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
   const legal = raw.legal;
 
   // Resolve logo URL
-  let logoUrl = defaultFooterData.branding.logoUrl;
+  let logoUrl = siteSettings?.logoUrl || defaultFooterData.branding.logoUrl;
   if (branding?.logo && typeof branding.logo === "object" && branding.logo.url) {
     logoUrl = branding.logo.url;
   } else if (branding?.logoUrl) {
     logoUrl = branding.logoUrl;
   }
+
+  const fallbackSocials: FooterSocialItem[] =
+    siteSettings?.socialLinks && siteSettings.socialLinks.length > 0
+      ? siteSettings.socialLinks.map((s) => ({
+          platform: s.platform,
+          label: s.platform.charAt(0).toUpperCase() + s.platform.slice(1),
+          url: s.url,
+          enabled: true,
+        }))
+      : defaultFooterData.legal.socialLinks;
 
   let form: FooterFormData | string | null = null;
   if (newsletter?.form) {
@@ -165,8 +177,8 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
     branding: {
       logoUrl,
       logoAlt: branding?.logoAlt || defaultFooterData.branding.logoAlt,
-      siteTitle: branding?.siteTitle || defaultFooterData.branding.siteTitle,
-      slogan: branding?.slogan || defaultFooterData.branding.slogan,
+      siteTitle: branding?.siteTitle || siteSettings?.siteName || defaultFooterData.branding.siteTitle,
+      slogan: branding?.slogan || siteSettings?.tagline || defaultFooterData.branding.slogan,
       description: branding?.description || defaultFooterData.branding.description,
       cta: {
         enabled: branding?.cta?.enabled !== false,
@@ -195,8 +207,8 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
     },
     contact: {
       title: contact?.title || defaultFooterData.contact.title,
-      phone: contact?.phone || defaultFooterData.contact.phone,
-      email: contact?.email || defaultFooterData.contact.email,
+      phone: contact?.phone || siteSettings?.phone || defaultFooterData.contact.phone,
+      email: contact?.email || siteSettings?.contactEmail || defaultFooterData.contact.email,
       showBanner: contact?.showBanner !== false,
       bannerHelpLabel:
         contact?.bannerHelpLabel || defaultFooterData.contact.bannerHelpLabel,
@@ -204,9 +216,9 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
         contact?.bannerEmailLabel || defaultFooterData.contact.bannerEmailLabel,
     },
     legal: {
-      copyrightText: legal?.copyrightText || defaultFooterData.legal.copyrightText,
+      copyrightText: legal?.copyrightText || siteSettings?.footerCopyright || defaultFooterData.legal.copyrightText,
       legalLinks: mapLinks(legal?.legalLinks, defaultFooterData.legal.legalLinks),
-      socialLinks: mapSocials(legal?.socialLinks, defaultFooterData.legal.socialLinks),
+      socialLinks: mapSocials(legal?.socialLinks, fallbackSocials),
     },
   };
 }
@@ -215,6 +227,8 @@ function formatFooterData(raw: RawFooterDoc): FooterData {
  * Fetch Footer global from Payload CMS with safe auto-seeding and resilient defaults.
  */
 export async function getFooterData(): Promise<FooterData> {
+  const siteSettings = await getSiteSettings();
+
   try {
     const payload = await getPayload({ config: configPromise });
 
@@ -322,21 +336,24 @@ export async function getFooterData(): Promise<FooterData> {
     }
 
     if (hasContent) {
-      return formatFooterData({
-        ...footerDoc,
-        newsletter: {
-          ...footerDoc?.newsletter,
-          form: linkedForm,
+      return formatFooterData(
+        {
+          ...footerDoc,
+          newsletter: {
+            ...footerDoc?.newsletter,
+            form: linkedForm,
+          },
         },
-      });
+        siteSettings
+      );
     }
 
-    return defaultFooterData;
+    return formatFooterData(defaultFooterData as unknown as RawFooterDoc, siteSettings);
   } catch (error) {
     console.warn(
       "[Footer API] CMS unavailable, using default footer configuration:",
       error
     );
-    return defaultFooterData;
+    return formatFooterData(defaultFooterData as unknown as RawFooterDoc, siteSettings);
   }
 }

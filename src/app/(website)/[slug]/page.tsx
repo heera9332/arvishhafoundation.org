@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getPageBySlug, getAllPageSlugs } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
+import { getSiteSettings } from "@/global/site-settings";
 
 interface PageProps {
   params: Promise<{
@@ -22,19 +23,27 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const [page, settings] = await Promise.all([
+    getPageBySlug(slug),
+    getSiteSettings(),
+  ]);
 
   if (slug === "home") {
     return constructMetadata({
       canonical: "/",
+      siteName: settings.siteName,
+      tagline: settings.tagline,
+      favicon: settings.faviconUrl,
     });
   }
-
-  const page = await getPageBySlug(slug);
 
   if (!page) {
     return constructMetadata({
       title: "Page Not Found",
       noIndex: true,
+      siteName: settings.siteName,
+      tagline: settings.tagline,
+      favicon: settings.faviconUrl,
     });
   }
 
@@ -50,6 +59,9 @@ export async function generateMetadata({
     description: metaDesc,
     image: metaImg,
     canonical: `/${slug}`,
+    siteName: settings.siteName,
+    tagline: settings.tagline,
+    favicon: settings.faviconUrl,
   });
 }
 

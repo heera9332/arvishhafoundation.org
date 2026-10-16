@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { siteConfig } from "@/lib/seo";
+import { getSiteSettings } from "@/global/site-settings";
 import { MaintenanceActions } from "@/components/common/MaintenanceActions";
 
 export const metadata: Metadata = {
@@ -22,7 +23,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MaintenancePage() {
+export default async function MaintenancePage() {
+  const settings = await getSiteSettings();
+  const phoneDigits = settings.phone ? settings.phone.replace(/[^0-9]/g, "") : siteConfig.contact.phoneRaw;
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-[#021b11] text-slate-100 flex flex-col justify-between selection:bg-amber-400 selection:text-slate-950 font-sans">
       {/* Decorative background glows */}
@@ -39,8 +43,8 @@ export default function MaintenancePage() {
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-xl bg-white/10 p-1.5 border border-white/20 backdrop-blur-xs flex items-center justify-center shadow-inner">
               <Image
-                src="/images/logo.png"
-                alt="Arvishha Foundation Logo"
+                src={settings.logoUrl || "/images/logo.png"}
+                alt={settings.siteName ? `${settings.siteName} Logo` : "Logo"}
                 width={40}
                 height={40}
                 className="object-contain"
@@ -49,10 +53,10 @@ export default function MaintenancePage() {
             </div>
             <div>
               <span className="text-base sm:text-lg font-bold tracking-tight text-white block">
-                {siteConfig.name}
+                {settings.siteName || siteConfig.name}
               </span>
               <span className="text-[11px] text-amber-300 font-medium block">
-                विकास और सामाजिक कार्यों के लिए अग्रसर
+                {settings.tagline || siteConfig.slogan}
               </span>
             </div>
           </div>
@@ -134,20 +138,24 @@ export default function MaintenancePage() {
 
           {/* Quick Contact Bar */}
           <div className="p-4 sm:p-5 rounded-2xl bg-[#01140c]/90 border border-emerald-900/80 flex flex-wrap items-center justify-around gap-4 text-xs text-emerald-200">
-            <a
-              href={`tel:${siteConfig.contact.phoneRaw}`}
-              className="flex items-center gap-2 hover:text-white transition-colors"
-            >
-              <Phone className="w-4 h-4 text-amber-400" />
-              <span className="font-medium">{siteConfig.contact.phone}</span>
-            </a>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="flex items-center gap-2 hover:text-white transition-colors"
-            >
-              <Mail className="w-4 h-4 text-amber-400" />
-              <span className="font-medium">{siteConfig.contact.email}</span>
-            </a>
+            {settings.phone && (
+              <a
+                href={`tel:${phoneDigits}`}
+                className="flex items-center gap-2 hover:text-white transition-colors"
+              >
+                <Phone className="w-4 h-4 text-amber-400" />
+                <span className="font-medium">{settings.phone}</span>
+              </a>
+            )}
+            {settings.contactEmail && (
+              <a
+                href={`mailto:${settings.contactEmail}`}
+                className="flex items-center gap-2 hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4 text-amber-400" />
+                <span className="font-medium">{settings.contactEmail}</span>
+              </a>
+            )}
           </div>
 
           {/* Interactive Bypass & Preview Controls */}
@@ -158,32 +166,48 @@ export default function MaintenancePage() {
       {/* Footer */}
       <footer className="relative z-10 w-full border-t border-emerald-900/50 bg-[#01140c]/90 py-5 text-center text-xs text-emerald-400/80">
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <p>{settings.footerCopyright || `© ${new Date().getFullYear()} ${settings.siteName || siteConfig.name}. All rights reserved.`}</p>
           <div className="flex items-center gap-5 text-xs">
-            <a
-              href={siteConfig.socials.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Instagram
-            </a>
-            <a
-              href={siteConfig.socials.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              YouTube
-            </a>
-            <a
-              href={siteConfig.socials.x}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              X
-            </a>
+            {settings.socialLinks && settings.socialLinks.length > 0 ? (
+              settings.socialLinks.map((s) => (
+                <a
+                  key={s.platform + s.url}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors capitalize font-medium"
+                >
+                  {s.platform}
+                </a>
+              ))
+            ) : (
+              <>
+                <a
+                  href={siteConfig.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Instagram
+                </a>
+                <a
+                  href={siteConfig.socials.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  YouTube
+                </a>
+                <a
+                  href={siteConfig.socials.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  X
+                </a>
+              </>
+            )}
           </div>
         </div>
       </footer>

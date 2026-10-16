@@ -108,10 +108,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'site-settings': SiteSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2693,6 +2695,33 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Manage global website branding, logos, contact info, social links, and maintenance mode.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  siteName: string;
+  tagline?: string | null;
+  logo?: (string | null) | Media;
+  favicon?: (string | null) | Media;
+  contactEmail?: string | null;
+  phone?: string | null;
+  address?: string | null;
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'x';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  footerCopyright?: string | null;
+  maintenanceMode?: boolean | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -2879,6 +2908,31 @@ export interface FooterSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  tagline?: T;
+  logo?: T;
+  favicon?: T;
+  contactEmail?: T;
+  phone?: T;
+  address?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  footerCopyright?: T;
+  maintenanceMode?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

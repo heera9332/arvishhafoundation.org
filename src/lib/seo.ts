@@ -28,19 +28,30 @@ export const siteConfig = {
 export function constructMetadata({
   title,
   description = siteConfig.description,
-  image = siteConfig.ogImage,
+  image,
   canonical,
   noIndex = false,
+  siteName,
+  tagline,
+  favicon,
 }: {
   title?: string;
   description?: string;
   image?: string;
   canonical?: string;
   noIndex?: boolean;
+  siteName?: string;
+  tagline?: string;
+  favicon?: string;
 } = {}): Metadata {
+  const currentSiteName = siteName || siteConfig.name;
+  const currentTagline = tagline || siteConfig.slogan;
+  const currentImage = image || siteConfig.ogImage;
+  const currentFavicon = favicon || "/images/logo.png";
+
   const fullTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : `${siteConfig.name} — ${siteConfig.slogan}`;
+    ? `${title} | ${currentSiteName}`
+    : `${currentSiteName} — ${currentTagline}`;
 
   const canonicalUrl = canonical
     ? `${siteConfig.url}${canonical.startsWith("/") ? canonical : `/${canonical}`}`
@@ -57,13 +68,13 @@ export function constructMetadata({
       title: fullTitle,
       description,
       url: canonicalUrl || siteConfig.url,
-      siteName: siteConfig.name,
+      siteName: currentSiteName,
       images: [
         {
-          url: image,
+          url: currentImage,
           width: 1200,
           height: 630,
-          alt: siteConfig.name,
+          alt: currentSiteName,
         },
       ],
       type: "website",
@@ -73,7 +84,7 @@ export function constructMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [image],
+      images: [currentImage],
       creator: `@${SOCIAL_HANDLES.x}`,
     },
     robots: {
@@ -88,25 +99,42 @@ export function constructMetadata({
       },
     },
     icons: {
-      icon: "/images/logo.png",
-      apple: "/images/logo.png",
+      icon: currentFavicon,
+      apple: currentFavicon,
     },
   };
 }
 
-export function generateOrganizationSchema() {
+export function generateOrganizationSchema(settings?: {
+  siteName?: string | null;
+  tagline?: string | null;
+  logoUrl?: string | null;
+  phone?: string | null;
+  contactEmail?: string | null;
+  socialLinks?: Array<{ url: string }> | null;
+}) {
+  const name = settings?.siteName || siteConfig.name;
+  const slogan = settings?.tagline || siteConfig.slogan;
+  const logo = settings?.logoUrl || `${siteConfig.url}/images/logo.png`;
+  const telephone = settings?.phone || siteConfig.contact.phone;
+  const email = settings?.contactEmail || siteConfig.contact.email;
+  const sameAs =
+    settings?.socialLinks && settings.socialLinks.length > 0
+      ? settings.socialLinks.map((s) => s.url)
+      : Object.values(siteConfig.socials);
+
   return {
     "@context": "https://schema.org",
     "@type": "NGO",
-    name: siteConfig.name,
+    name,
     alternateName: "Arvishha Social Foundation",
     url: siteConfig.url,
-    logo: `${siteConfig.url}/images/logo.png`,
+    logo,
     description: siteConfig.description,
-    slogan: siteConfig.slogan,
-    telephone: siteConfig.contact.phone,
-    email: siteConfig.contact.email,
-    sameAs: Object.values(siteConfig.socials),
+    slogan,
+    telephone,
+    email,
+    sameAs,
   };
 }
 

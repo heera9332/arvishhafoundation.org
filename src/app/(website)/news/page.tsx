@@ -6,15 +6,19 @@ import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { PostsGridComponent } from "@/blocks/posts-grid";
 import { getPosts, formatPostToGridItem } from "@/lib/posts";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
+import { getSiteSettings } from "@/global/site-settings";
 
 export const revalidate = 300; // ISR revalidation every 5 minutes
 
 export async function generateMetadata(): Promise<Metadata> {
-  const page = await getPageBySlug("news");
+  const [page, settings] = await Promise.all([
+    getPageBySlug("news"),
+    getSiteSettings(),
+  ]);
 
   if (page) {
     const metaTitle =
-      page.meta?.title || page.title || "News & Community Stories — Arvishha Foundation";
+      page.meta?.title || page.title || `News & Community Stories — ${settings.siteName}`;
     const metaDesc =
       page.meta?.description ||
       "Read the latest field updates, community milestones, educational initiatives, and stories from Arvishha Foundation.";
@@ -28,14 +32,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description: metaDesc,
       image: metaImg,
       canonical: "/news",
+      siteName: settings.siteName,
+      tagline: settings.tagline,
+      favicon: settings.faviconUrl,
     });
   }
 
   return constructMetadata({
-    title: "News & Community Stories — Arvishha Foundation",
+    title: `News & Community Stories — ${settings.siteName}`,
     description:
       "Read the latest field updates, community milestones, educational initiatives, and stories from Arvishha Foundation.",
     canonical: "/news",
+    siteName: settings.siteName,
+    tagline: settings.tagline,
+    favicon: settings.faviconUrl,
   });
 }
 

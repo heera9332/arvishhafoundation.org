@@ -10,15 +10,18 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { contactData } from "@/data/page-contact";
+import { getSiteSettings } from "@/global/site-settings";
 import type { ContactPageBlock } from "@/payload-types";
 
 export interface ContactPageComponentProps {
   data?: ContactPageBlock | Record<string, unknown>;
 }
 
-export function ContactPageComponent(
+export async function ContactPageComponent(
   props: ContactPageComponentProps | ContactPageBlock
 ) {
+  const settings = await getSiteSettings();
+
   // Support both direct block props (<ContactPageComponent {...block} />)
   // and wrapped data prop (<ContactPageComponent data={block} />)
   const block = (("data" in props && props.data ? props.data : props) || {}) as Partial<ContactPageBlock>;
@@ -28,8 +31,8 @@ export function ContactPageComponent(
   const description =
     block.description ||
     "We look forward to hearing from you. Select the most convenient channel below or submit the inquiry form.";
-  const phone = block.phone || contactData.info.phone;
-  const email = block.email || contactData.info.email;
+  const phone = block.phone || settings.phone || contactData.info.phone;
+  const email = block.email || settings.contactEmail || contactData.info.email;
   const registrationNumber =
     block.registrationNumber || contactData.info.registrationNumber;
 

@@ -2,6 +2,8 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import type { HeaderData, HeaderNavItem, HeaderNavChildItem } from "./types";
 import { defaultHeaderData } from "./defaults";
+import { getSiteSettings } from "@/global/site-settings";
+import type { SiteSettingsData } from "@/global/site-settings";
 
 // In-memory flag so auto-seeding is only attempted once per server lifetime
 let isSeededOrChecked = false;
@@ -75,14 +77,14 @@ interface RawHeaderDoc {
 /**
  * Format raw Payload Global document into typed HeaderData with complete fallback preservation.
  */
-function formatHeaderData(raw: RawHeaderDoc): HeaderData {
+function formatHeaderData(raw: RawHeaderDoc, siteSettings?: SiteSettingsData): HeaderData {
   const branding = raw.branding;
   const navigation = raw.navigation;
   const actions = raw.actions;
   const settings = raw.settings;
 
   // Resolve logo URL
-  let logoUrl = defaultHeaderData.branding.logoUrl;
+  let logoUrl = siteSettings?.logoUrl || defaultHeaderData.branding.logoUrl;
   if (branding?.logo && typeof branding.logo === "object" && branding.logo.url) {
     logoUrl = branding.logo.url;
   } else if (branding?.logoUrl) {
@@ -141,8 +143,8 @@ function formatHeaderData(raw: RawHeaderDoc): HeaderData {
       logoUrl,
       logoAlt: branding?.logoAlt || defaultHeaderData.branding.logoAlt,
       logoLink: branding?.logoLink || defaultHeaderData.branding.logoLink,
-      siteTitle: branding?.siteTitle || defaultHeaderData.branding.siteTitle,
-      slogan: branding?.slogan || defaultHeaderData.branding.slogan,
+      siteTitle: branding?.siteTitle || siteSettings?.siteName || defaultHeaderData.branding.siteTitle,
+      slogan: branding?.slogan || siteSettings?.tagline || defaultHeaderData.branding.slogan,
       mobileLogoUrl,
     },
     navigation: {
@@ -172,8 +174,8 @@ function formatHeaderData(raw: RawHeaderDoc): HeaderData {
       showTopBar: settings?.showTopBar !== false,
       topBarText:
         settings?.topBarText || defaultHeaderData.settings.topBarText,
-      phone: settings?.phone || defaultHeaderData.settings.phone,
-      email: settings?.email || defaultHeaderData.settings.email,
+      phone: settings?.phone || siteSettings?.phone || defaultHeaderData.settings.phone,
+      email: settings?.email || siteSettings?.contactEmail || defaultHeaderData.settings.email,
     },
   };
 }
@@ -182,6 +184,8 @@ function formatHeaderData(raw: RawHeaderDoc): HeaderData {
  * Fetch Header global from Payload CMS with safe auto-seeding and resilient defaults.
  */
 export async function getHeaderData(): Promise<HeaderData> {
+  const siteSettings = await getSiteSettings();
+
   try {
     const payload = await getPayload({ config: configPromise });
 
@@ -247,19 +251,19 @@ export async function getHeaderData(): Promise<HeaderData> {
       } catch (seedErr) {
         console.warn("[Header API] Auto-seeding skipped:", seedErr);
       }
-      return defaultHeaderData;
+      return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
     }
 
     if (hasItems) {
-      return formatHeaderData(headerDoc);
+      return formatHeaderData(headerDoc, siteSettings);
     }
 
-    return defaultHeaderData;
+    return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
   } catch (error) {
     console.warn(
       "[Header API] CMS unavailable, using default header configuration:",
       error
     );
-    return defaultHeaderData;
+    return formatHeaderData(defaultHeaderData as unknown as RawHeaderDoc, siteSettings);
   }
 }

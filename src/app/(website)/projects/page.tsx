@@ -7,15 +7,19 @@ import { getPageBySlug } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { PostsGridComponent } from "@/blocks/posts-grid";
 import { getPosts, formatPostToGridItem } from "@/lib/posts";
+import { getSiteSettings } from "@/global/site-settings";
 
 export const revalidate = 300; // 5 min ISR
 
 export async function generateMetadata(): Promise<Metadata> {
-  const page = await getPageBySlug("projects");
+  const [page, settings] = await Promise.all([
+    getPageBySlug("projects"),
+    getSiteSettings(),
+  ]);
 
   if (page) {
     const metaTitle =
-      page.meta?.title || page.title || "Projects & Ground Initiatives — Arvishha Foundation";
+      page.meta?.title || page.title || `Projects & Ground Initiatives — ${settings.siteName}`;
     const metaDesc =
       page.meta?.description ||
       "Explore Arvishha Foundation's active field programs: Project Shiksha, Project Swavalamban, Arogya Chetna, and Project Prakriti.";
@@ -29,14 +33,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description: metaDesc,
       image: metaImg,
       canonical: "/projects",
+      siteName: settings.siteName,
+      tagline: settings.tagline,
+      favicon: settings.faviconUrl,
     });
   }
 
   return constructMetadata({
-    title: "Projects & Ground Initiatives — Arvishha Foundation",
+    title: `Projects & Ground Initiatives — ${settings.siteName}`,
     description:
       "Explore Arvishha Foundation's active field programs: Project Shiksha, Project Swavalamban, Arogya Chetna, and Project Prakriti.",
     canonical: "/projects",
+    siteName: settings.siteName,
+    tagline: settings.tagline,
+    favicon: settings.faviconUrl,
   });
 }
 
