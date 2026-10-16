@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/global/header/component";
 import { Footer } from "@/global/footer/component";
 import { getSiteSettings } from "@/global/site-settings";
+import { getSEOSettings } from "@/global/seo-settings";
 import { constructMetadata } from "@/lib/seo";
 import { MaintenanceSync } from "@/components/common/MaintenanceSync";
 import { BYPASS_COOKIE_NAME } from "@/proxy";
@@ -25,12 +26,17 @@ const lora = Lora({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSiteSettings();
+  const [settings, seoSettings] = await Promise.all([
+    getSiteSettings(),
+    getSEOSettings(),
+  ]);
+
   return constructMetadata({
     siteName: settings.siteName,
     tagline: settings.tagline,
     favicon: settings.faviconUrl,
-    image: settings.logoUrl,
+    image: settings.logoUrl || seoSettings.defaultImageUrl,
+    seoSettings,
   });
 }
 

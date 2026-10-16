@@ -8,13 +8,15 @@ import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { PostsGridComponent } from "@/blocks/posts-grid";
 import { getPosts, formatPostToGridItem } from "@/lib/posts";
 import { getSiteSettings } from "@/global/site-settings";
+import { getSEOSettings } from "@/global/seo-settings";
 
 export const revalidate = 300; // 5 min ISR
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [page, settings] = await Promise.all([
+  const [page, settings, seoSettings] = await Promise.all([
     getPageBySlug("projects"),
     getSiteSettings(),
+    getSEOSettings(),
   ]);
 
   if (page) {
@@ -36,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: settings.siteName,
       tagline: settings.tagline,
       favicon: settings.faviconUrl,
+      seoSettings,
     });
   }
 
@@ -47,6 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
     siteName: settings.siteName,
     tagline: settings.tagline,
     favicon: settings.faviconUrl,
+    seoSettings,
   });
 }
 

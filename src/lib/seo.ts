@@ -25,15 +25,19 @@ export const siteConfig = {
   socials: SOCIAL_URLS,
 };
 
+import type { SEOSettingsData } from "@/global/seo-settings/types";
+
 export function constructMetadata({
   title,
-  description = siteConfig.description,
+  description,
   image,
   canonical,
   noIndex = false,
   siteName,
   tagline,
   favicon,
+  keywords,
+  seoSettings,
 }: {
   title?: string;
   description?: string;
@@ -43,31 +47,69 @@ export function constructMetadata({
   siteName?: string;
   tagline?: string;
   favicon?: string;
+  keywords?: string;
+  seoSettings?: Partial<SEOSettingsData>;
 } = {}): Metadata {
   const currentSiteName = siteName || siteConfig.name;
   const currentTagline = tagline || siteConfig.slogan;
-  const currentImage = image || siteConfig.ogImage;
   const currentFavicon = favicon || "/images/logo.png";
+  const siteUrl = seoSettings?.siteUrl || siteConfig.url;
 
-  const fullTitle = title
-    ? `${title} | ${currentSiteName}`
-    : `${currentSiteName} — ${currentTagline}`;
+  // Format page title using titleTemplate when available
+  let fullTitle: string;
+  if (title) {
+    if (seoSettings?.titleTemplate && seoSettings.titleTemplate.includes("%s")) {
+      fullTitle = seoSettings.titleTemplate.replace(/%s/g, title);
+    } else {
+      fullTitle = `${title} | ${currentSiteName}`;
+    }
+  } else {
+    fullTitle =
+      seoSettings?.defaultTitle || `${currentSiteName} — ${currentTagline}`;
+  }
+
+  const effectiveDescription =
+    description || seoSettings?.defaultDescription || siteConfig.description;
+
+  const effectiveKeywords =
+    keywords || seoSettings?.defaultKeywords || undefined;
+
+  const currentImage =
+    image || seoSettings?.defaultImageUrl || siteConfig.ogImage;
 
   const canonicalUrl = canonical
-    ? `${siteConfig.url}${canonical.startsWith("/") ? canonical : `/${canonical}`}`
+    ? `${siteUrl}${canonical.startsWith("/") ? canonical : `/${canonical}`}`
     : undefined;
+
+  const indexRobots = !noIndex && seoSettings?.robots?.index !== false;
+  const followRobots = !noIndex && seoSettings?.robots?.follow !== false;
+  const noarchiveRobots = Boolean(seoSettings?.robots?.noarchive);
+
+  // Additional custom head tags or Bing verification
+  const otherMeta: Record<string, string> = {};
+  if (seoSettings?.verification?.bing) {
+    otherMeta["msvalidate.01"] = seoSettings.verification.bing;
+  }
+  if (Array.isArray(seoSettings?.additionalHeadTags)) {
+    for (const tag of seoSettings.additionalHeadTags) {
+      if (tag.name && tag.content) {
+        otherMeta[tag.name] = tag.content;
+      }
+    }
+  }
 
   return {
     title: fullTitle,
-    description,
-    metadataBase: new URL(siteConfig.url),
+    description: effectiveDescription,
+    keywords: effectiveKeywords,
+    metadataBase: new URL(siteUrl),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
       title: fullTitle,
-      description,
-      url: canonicalUrl || siteConfig.url,
+      description: effectiveDescription,
+      url: canonicalUrl || siteUrl,
       siteName: currentSiteName,
       images: [
         {
@@ -83,25 +125,33 @@ export function constructMetadata({
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
-      description,
+      description: effectiveDescription,
       images: [currentImage],
       creator: `@${SOCIAL_HANDLES.x}`,
     },
     robots: {
-      index: !noIndex,
-      follow: !noIndex,
+      index: indexRobots,
+      follow: followRobots,
+      ...(noarchiveRobots ? { noarchive: true } : {}),
       googleBot: {
-        index: !noIndex,
-        follow: !noIndex,
+        index: indexRobots,
+        follow: followRobots,
+        ...(noarchiveRobots ? { noarchive: true } : {}),
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
       },
     },
+    verification: {
+      ...(seoSettings?.verification?.google
+        ? { google: seoSettings.verification.google }
+        : {}),
+    },
     icons: {
       icon: currentFavicon,
       apple: currentFavicon,
     },
+    ...(Object.keys(otherMeta).length > 0 ? { other: otherMeta } : {}),
   };
 }
 

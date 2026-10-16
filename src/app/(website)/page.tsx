@@ -5,34 +5,36 @@ import { getPageBySlug } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { constructMetadata, generateOrganizationSchema } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
+import { getSEOSettings } from "@/global/seo-settings";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [page, settings] = await Promise.all([
+  const [page, settings, seoSettings] = await Promise.all([
     getPageBySlug("home"),
     getSiteSettings(),
+    getSEOSettings(),
   ]);
 
   if (!page) {
     return constructMetadata({
-      title: `${settings.siteName} — ${settings.tagline || "Development. Dignity. Social Change."}`,
-      description:
-        "Arvishha Foundation is a modern non-governmental organization working on education, women empowerment, child welfare, preventive healthcare, rights awareness, and sustainable development.",
+      title: seoSettings.defaultTitle || `${settings.siteName} — ${settings.tagline || "Development. Dignity. Social Change."}`,
+      description: seoSettings.defaultDescription,
       canonical: "/",
       siteName: settings.siteName,
       tagline: settings.tagline,
       favicon: settings.faviconUrl,
-      image: settings.logoUrl,
+      image: settings.logoUrl || seoSettings.defaultImageUrl,
+      seoSettings,
     });
   }
 
   const metaTitle = page.meta?.title || page.title;
   const metaDesc =
     page.meta?.description ||
-    "Arvishha Foundation is a modern non-governmental organization working on education, women empowerment, child welfare, preventive healthcare, rights awareness, and sustainable development.";
+    seoSettings.defaultDescription;
   const metaImg =
     typeof page.meta?.image === "object" && page.meta?.image?.url
       ? page.meta.image.url
-      : settings.logoUrl;
+      : settings.logoUrl || seoSettings.defaultImageUrl;
 
   return constructMetadata({
     title: metaTitle,
@@ -42,6 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
     siteName: settings.siteName,
     tagline: settings.tagline,
     favicon: settings.faviconUrl,
+    seoSettings,
   });
 }
 

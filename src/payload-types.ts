@@ -109,11 +109,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     'site-settings': SiteSetting;
+    'seo-settings': SeoSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'seo-settings': SeoSettingsSelect<false> | SeoSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2722,6 +2724,63 @@ export interface SiteSetting {
   createdAt?: string | null;
 }
 /**
+ * Manage default SEO settings for the entire website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo-settings".
+ */
+export interface SeoSetting {
+  id: string;
+  /**
+   * Default title used when a page has no SEO title.
+   */
+  defaultTitle: string;
+  /**
+   * Use %s as the page title placeholder.
+   */
+  titleTemplate?: string | null;
+  defaultDescription?: string | null;
+  /**
+   * Optional comma-separated keywords.
+   */
+  defaultKeywords?: string | null;
+  /**
+   * Default Open Graph and social sharing image.
+   */
+  defaultImage?: (string | null) | Media;
+  /**
+   * Canonical website origin, e.g. https://example.com
+   */
+  siteUrl: string;
+  robots?: {
+    index?: boolean | null;
+    follow?: boolean | null;
+    noarchive?: boolean | null;
+  };
+  verification?: {
+    /**
+     * Google Search Console verification token.
+     */
+    google?: string | null;
+    /**
+     * Bing Webmaster Tools verification token.
+     */
+    bing?: string | null;
+  };
+  /**
+   * Optional custom metadata name/content pairs.
+   */
+  additionalHeadTags?:
+    | {
+        name: string;
+        content: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -2933,6 +2992,41 @@ export interface SiteSettingsSelect<T extends boolean = true> {
       };
   footerCopyright?: T;
   maintenanceMode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo-settings_select".
+ */
+export interface SeoSettingsSelect<T extends boolean = true> {
+  defaultTitle?: T;
+  titleTemplate?: T;
+  defaultDescription?: T;
+  defaultKeywords?: T;
+  defaultImage?: T;
+  siteUrl?: T;
+  robots?:
+    | T
+    | {
+        index?: T;
+        follow?: T;
+        noarchive?: T;
+      };
+  verification?:
+    | T
+    | {
+        google?: T;
+        bing?: T;
+      };
+  additionalHeadTags?:
+    | T
+    | {
+        name?: T;
+        content?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

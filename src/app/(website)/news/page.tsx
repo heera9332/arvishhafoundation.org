@@ -7,13 +7,15 @@ import { PostsGridComponent } from "@/blocks/posts-grid";
 import { getPosts, formatPostToGridItem } from "@/lib/posts";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
+import { getSEOSettings } from "@/global/seo-settings";
 
 export const revalidate = 300; // ISR revalidation every 5 minutes
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [page, settings] = await Promise.all([
+  const [page, settings, seoSettings] = await Promise.all([
     getPageBySlug("news"),
     getSiteSettings(),
+    getSEOSettings(),
   ]);
 
   if (page) {
@@ -35,6 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: settings.siteName,
       tagline: settings.tagline,
       favicon: settings.faviconUrl,
+      seoSettings,
     });
   }
 
@@ -46,6 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
     siteName: settings.siteName,
     tagline: settings.tagline,
     favicon: settings.faviconUrl,
+    seoSettings,
   });
 }
 

@@ -5,6 +5,7 @@ import { getPageBySlug, getAllPageSlugs } from "@/lib/pages";
 import { RenderBlocks } from "@/blocks/RenderBlocks";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
+import { getSEOSettings } from "@/global/seo-settings";
 
 interface PageProps {
   params: Promise<{
@@ -23,9 +24,10 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const [page, settings] = await Promise.all([
+  const [page, settings, seoSettings] = await Promise.all([
     getPageBySlug(slug),
     getSiteSettings(),
+    getSEOSettings(),
   ]);
 
   if (slug === "home") {
@@ -34,6 +36,7 @@ export async function generateMetadata({
       siteName: settings.siteName,
       tagline: settings.tagline,
       favicon: settings.faviconUrl,
+      seoSettings,
     });
   }
 
@@ -44,6 +47,7 @@ export async function generateMetadata({
       siteName: settings.siteName,
       tagline: settings.tagline,
       favicon: settings.faviconUrl,
+      seoSettings,
     });
   }
 
@@ -62,6 +66,7 @@ export async function generateMetadata({
     siteName: settings.siteName,
     tagline: settings.tagline,
     favicon: settings.faviconUrl,
+    seoSettings,
   });
 }
 

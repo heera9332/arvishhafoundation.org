@@ -14,6 +14,7 @@ import { Tags } from "@/collections/tags";
 import { Header } from "@/global/header/schema";
 import { Footer } from "@/global/footer/schema";
 import { SiteSettings } from "@/global/site-settings/schema";
+import { SEOSettings } from "@/global/seo-settings/schema";
 import { seedPosts } from "@/lib/seed-posts";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { seoPlugin } from "@payloadcms/plugin-seo";
@@ -42,7 +43,7 @@ export default buildConfig({
   collections: [Media, Pages, Posts, Categories, Tags],
 
   // Define and configure your Globals in this array
-  globals: [Header, Footer, SiteSettings],
+  globals: [Header, Footer, SiteSettings, SEOSettings],
 
   // Custom endpoints for on-demand revalidation
   endpoints: [
@@ -101,6 +102,32 @@ export default buildConfig({
           return Response.json({ success: true, doc: updated });
         } catch (err: unknown) {
           const message = err instanceof Error ? err.message : "Seed site-settings error";
+          return Response.json({ success: false, error: message }, { status: 500 });
+        }
+      },
+    },
+    {
+      path: "/seed-seo-settings",
+      method: "get",
+      handler: async (req) => {
+        try {
+          const { defaultSEOSettingsData } = await import("@/global/seo-settings/defaults");
+          const updated = await (req.payload.updateGlobal as any)({
+            slug: "seo-settings",
+            data: {
+              defaultTitle: defaultSEOSettingsData.defaultTitle,
+              titleTemplate: defaultSEOSettingsData.titleTemplate,
+              defaultDescription: defaultSEOSettingsData.defaultDescription,
+              defaultKeywords: defaultSEOSettingsData.defaultKeywords,
+              siteUrl: defaultSEOSettingsData.siteUrl,
+              robots: defaultSEOSettingsData.robots,
+              verification: defaultSEOSettingsData.verification,
+              additionalHeadTags: defaultSEOSettingsData.additionalHeadTags,
+            },
+          });
+          return Response.json({ success: true, doc: updated });
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Seed seo-settings error";
           return Response.json({ success: false, error: message }, { status: 500 });
         }
       },

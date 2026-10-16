@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
+import { getSEOSettings } from "@/global/seo-settings";
 import { homeData } from "@/data/page-home";
 import { projectsData } from "@/data/page-projects";
 import { wordpressApi } from "@/lib/wordpress";
 import { getPosts } from "@/lib/posts";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = siteConfig.url.replace(/\/+$/, "");
+  const seo = await getSEOSettings();
+  const baseUrl = (seo.siteUrl || siteConfig.url).replace(/\/+$/, "");
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
