@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { CheckCircle2, Heart } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -61,9 +59,6 @@ export function MissionSection({ data }: MissionSectionProps) {
         }))
       : homeData.missionApproach.tabs;
 
-  const [activeTab, setActiveTab] = useState(tabs[0]?.id || "vision");
-  const [leftImgError, setLeftImgError] = useState(false);
-
   return (
     <section className="py-20 sm:py-28 bg-white border-b border-slate-100">
       <Container>
@@ -95,20 +90,13 @@ export function MissionSection({ data }: MissionSectionProps) {
             </div>
 
             <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden shadow-lg border border-slate-100 bg-slate-100 group">
-              {!leftImgError ? (
-                <Image
-                  src={leftImgSrc}
-                  alt={leftImgAlt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={() => setLeftImgError(true)}
-                />
-              ) : (
-                <div className="absolute inset-0 bg-emerald-900 flex items-center justify-center text-white p-6 text-center">
-                  <p className="font-semibold">Collaborative Community Workshops</p>
-                </div>
-              )}
+              <Image
+                src={leftImgSrc}
+                alt={leftImgAlt}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
               <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md text-white p-4 rounded-2xl border border-white/20 flex items-center justify-between transition-all duration-300 group-hover:bg-black/75">
                 <div>
                   <p className="text-xs font-medium text-amber-300">Grassroots Engagement</p>
@@ -140,8 +128,7 @@ export function MissionSection({ data }: MissionSectionProps) {
 
             {/* Segmented Controls / Tabs */}
             <Tabs
-              value={activeTab}
-              onValueChange={setActiveTab}
+              defaultValue={tabs[0]?.id || "vision"}
               className="w-full pt-4"
             >
               <TabsList className={`grid max-w-sm`} style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>

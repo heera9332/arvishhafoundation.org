@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -37,23 +35,22 @@ export interface HomeHeroProps {
 export function HomeHero({ data }: HomeHeroProps) {
   const d = data as any;
   const imageObj = typeof d?.image === "object" ? d.image : null;
+  const imageFallback =
+    (imageObj && "fallback" in imageObj && (imageObj as any).fallback) ||
+    "/images/hero-community.png";
+
   const imageSrc =
     (typeof d?.image === "string" ? d.image : null) ||
     imageObj?.url ||
     d?.imageUrl ||
     imageObj?.src ||
-    homeData.hero.image.src;
+    homeData.hero.image.src ||
+    imageFallback;
 
   const imageAlt =
     imageObj?.alt ||
     d?.imageAlt ||
     homeData.hero.image.alt;
-
-  const imageFallback =
-    (imageObj && "fallback" in imageObj && (imageObj as any).fallback) ||
-    "/images/hero-community.png";
-
-  const [imgSrc, setImgSrc] = useState(imageSrc);
 
   const primaryCtaHref =
     (d?.primaryCta && ("url" in d.primaryCta ? d.primaryCta.url : (d.primaryCta as any).href)) ||
@@ -323,17 +320,12 @@ export function HomeHero({ data }: HomeHeroProps) {
             <ScrollReveal variant="zoom-in" delay={200} duration={800} className="w-full flex justify-center">
               <div className="relative w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[500px] aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden shadow-2xl shadow-emerald-950/20 bg-emerald-900 border-2 border-white/80 z-10 transition-transform duration-500 hover:shadow-emerald-950/30">
                 <Image
-                  src={imgSrc}
+                  src={imageSrc}
                   alt={imageAlt}
                   fill
                   priority
                   sizes="(max-width: 640px) 90vw, (max-width: 1024px) 480px, 500px"
                   className="object-cover transition-transform duration-700 hover:scale-105"
-                  onError={() => {
-                    if (imgSrc !== imageFallback) {
-                      setImgSrc(imageFallback);
-                    }
-                  }}
                 />
                 {/* Gentle ambient gradient for bottom depth */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

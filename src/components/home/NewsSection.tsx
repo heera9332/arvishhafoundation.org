@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
@@ -19,7 +17,6 @@ export interface NewsSectionProps {
 }
 
 function ArticleCard({ article }: { article: any }) {
-  const [imgError, setImgError] = useState(false);
   const imgSrc =
     typeof article.image === "object" && article.image?.url
       ? article.image.url
@@ -32,20 +29,13 @@ function ArticleCard({ article }: { article: any }) {
   return (
     <article className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-2 hover:border-emerald-700/30 h-full">
       <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-        {!imgError ? (
-          <Image
-            src={imgSrc}
-            alt={article.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-108"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[#03452c] flex items-center justify-center text-white p-4 text-center">
-            <span className="font-semibold text-sm">{category}</span>
-          </div>
-        )}
+        <Image
+          src={imgSrc}
+          alt={article.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-108"
+        />
         <div className="absolute top-4 left-4">
           <Badge className="bg-[#03452c] text-white border-0 font-medium text-xs shadow-xs">
             {category}

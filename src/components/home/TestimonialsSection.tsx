@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Quote } from "lucide-react";
 import { Container } from "@/components/layout/Container";
@@ -16,7 +14,6 @@ export interface TestimonialsSectionProps {
 }
 
 function TestimonialCard({ item }: { item: any }) {
-  const [imgError, setImgError] = useState(false);
   const avatarSrc =
     typeof item.avatar === "object" && item.avatar?.url
       ? item.avatar.url
@@ -40,20 +37,13 @@ function TestimonialCard({ item }: { item: any }) {
 
       <div className="flex items-center gap-4 pt-4 border-t border-emerald-850">
         <div className="relative h-12 w-12 rounded-full overflow-hidden bg-emerald-900 border-2 border-amber-400/60 shrink-0 transition-transform duration-300 group-hover:scale-110">
-          {!imgError ? (
-            <Image
-              src={avatarSrc}
-              alt={item.name}
-              fill
-              sizes="48px"
-              className="object-cover"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="h-full w-full flex items-center justify-center font-bold text-white text-sm">
-              {item.name ? item.name.charAt(0) : "A"}
-            </div>
-          )}
+          <Image
+            src={avatarSrc}
+            alt={item.name}
+            fill
+            sizes="48px"
+            className="object-cover"
+          />
         </div>
         <div>
           <h4 className="text-base font-bold text-white leading-tight group-hover:text-amber-300 transition-colors">

@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -39,7 +37,6 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 function FocusAreaCard({ item }: { item: any }) {
-  const [imgError, setImgError] = useState(false);
   const imgSrc =
     (typeof item.image === "object" && item.image?.url)
       ? item.image.url
@@ -73,20 +70,13 @@ function FocusAreaCard({ item }: { item: any }) {
 
       {/* Image with Floating Icon Badge */}
       <div className="relative w-full aspect-16/10 rounded-2xl overflow-hidden bg-slate-100 mt-2">
-        {!imgError ? (
-          <Image
-            src={imgSrc}
-            alt={item.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-108"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[#03452c]/90 flex items-center justify-center text-amber-400">
-            {iconMap[icon] || <GraduationCap className="h-5 w-5 text-amber-400" />}
-          </div>
-        )}
+        <Image
+          src={imgSrc}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-108"
+        />
         <div className="absolute bottom-3 left-3 h-10 w-10 rounded-xl bg-[#03452c]/95 backdrop-blur-xs flex items-center justify-center shadow-md border border-white/20 transition-transform duration-300 group-hover:scale-110 group-hover:bg-[#022f1e]">
           {iconMap[icon] || <GraduationCap className="h-5 w-5 text-amber-400" />}
         </div>

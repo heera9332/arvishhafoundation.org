@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Calendar, ArrowRight } from "lucide-react";
@@ -19,7 +17,6 @@ export interface ProjectsSectionProps {
 }
 
 function ProjectCard({ project }: { project: any }) {
-  const [imgError, setImgError] = useState(false);
   const imgSrc =
     typeof project.image === "object" && project.image?.url
       ? project.image.url
@@ -36,20 +33,13 @@ function ProjectCard({ project }: { project: any }) {
     <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-2 hover:border-emerald-700/30 h-full">
       {/* Project Image */}
       <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-        {!imgError ? (
-          <Image
-            src={imgSrc}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-108"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-[#03452c] flex items-center justify-center text-white p-4 text-center">
-            <span className="font-semibold text-sm">{category}</span>
-          </div>
-        )}
+        <Image
+          src={imgSrc}
+          alt={project.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-108"
+        />
         <div className="absolute top-4 left-4 flex gap-2">
           <Badge className="bg-emerald-950/80 backdrop-blur-xs text-white border-0 text-xs font-semibold">
             {category}
