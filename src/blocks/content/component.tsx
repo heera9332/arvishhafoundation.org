@@ -2,6 +2,7 @@ import React from "react";
 import type { ContentBlock } from "@/payload-types";
 import { Container } from "@/components/layout/Container";
 import { LexicalRenderer, type LexicalNode } from "@/blocks/shared/LexicalRenderer";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 
 export function ContentComponent(block: ContentBlock) {
   const widthClasses: Record<string, string> = {
@@ -29,15 +30,17 @@ export function ContentComponent(block: ContentBlock) {
       : "prose-slate";
 
   return (
-    <section className={`py-12 sm:py-16 ${bgClass}`}>
+    <section className={`py-12 sm:py-16 ${bgClass} overflow-hidden`}>
       <Container>
-        <div className={`prose ${proseThemeClass} max-w-none ${containerClass}`}>
-          {block.content?.root && (
-            <LexicalRenderer
-              node={block.content.root as unknown as LexicalNode}
-            />
-          )}
-        </div>
+        <ScrollReveal variant="fade-up" duration={700}>
+          <div className={`prose ${proseThemeClass} max-w-none ${containerClass}`}>
+            {block.content?.root && (
+              <LexicalRenderer
+                node={block.content.root as unknown as LexicalNode}
+              />
+            )}
+          </div>
+        </ScrollReveal>
       </Container>
     </section>
   );

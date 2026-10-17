@@ -22,6 +22,8 @@ import { SectionLabel } from "@/components/common/SectionLabel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { PostGridItem } from "@/lib/posts";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import { StaggerGroup, StaggerItem } from "@/components/animation/StaggerGroup";
 
 export interface PostsGridClientProps {
   initialPosts?: PostGridItem[];
@@ -252,38 +254,40 @@ export function PostsGridClient({
     <section ref={sectionRef} className="py-20 sm:py-28 bg-[#faf9f5] scroll-mt-24">
       <Container>
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-          <div className="max-w-3xl">
-            {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
-            {heading && (
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                {heading}
-              </h2>
-            )}
-            {description && (
-              <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-                {description}
-              </p>
+        <ScrollReveal variant="fade-up" duration={650}>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+            <div className="max-w-3xl">
+              {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
+              {heading && (
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  {heading}
+                </h2>
+              )}
+              {description && (
+                <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+                  {description}
+                </p>
+              )}
+            </div>
+
+            {showViewAll && (
+              <Button
+                asChild
+                className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto shrink-0 shadow-sm self-start md:self-auto hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Link
+                  href={viewAllLink.url || "#"}
+                  target={viewAllLink.openInNewTab ? "_blank" : undefined}
+                  rel={viewAllLink.openInNewTab ? "noopener noreferrer" : undefined}
+                  className="inline-flex items-center gap-2 font-semibold"
+                >
+                  <span>{viewAllLink.label || "View All Posts"}</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
             )}
           </div>
-
-          {showViewAll && (
-            <Button
-              asChild
-              className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto shrink-0 shadow-sm self-start md:self-auto"
-            >
-              <Link
-                href={viewAllLink.url || "#"}
-                target={viewAllLink.openInNewTab ? "_blank" : undefined}
-                rel={viewAllLink.openInNewTab ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 font-semibold"
-              >
-                <span>{viewAllLink.label || "View All Posts"}</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          )}
-        </div>
+        </ScrollReveal>
 
         {/* Interactive Controls (Search & Category Filters) */}
         {(enableSearch || showCategoryFilter) && (
@@ -394,140 +398,145 @@ export function PostsGridClient({
             </p>
           </div>
         ) : displayedPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {displayedPosts.map((post) => {
+          <StaggerGroup
+            staggerInterval={80}
+            duration={600}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          >
+            {displayedPosts.map((post, idx) => {
               const isProject = post.postType === "projects";
 
               return (
-                <article
-                  key={post.id || post.slug}
-                  className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1"
-                >
-                  {/* Card Cover Media */}
-                  <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                <StaggerItem key={post.id || post.slug} index={idx}>
+                  <article
+                    className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-2 hover:border-emerald-700/30 h-full"
+                  >
+                    {/* Card Cover Media */}
+                    <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-108"
+                      />
 
-                    {/* Badge Overlays */}
-                    <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                      <Badge className="bg-[#03452c] text-white border-0 text-xs font-semibold">
-                        {post.category}
-                      </Badge>
-                      {isProject && post.status && (
-                        <Badge className="bg-amber-400 text-slate-950 border-0 text-xs font-bold">
-                          {post.status}
+                      {/* Badge Overlays */}
+                      <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                        <Badge className="bg-[#03452c] text-white border-0 text-xs font-semibold shadow-xs">
+                          {post.category}
                         </Badge>
-                      )}
-                      {postType === "all" && (
-                        <Badge variant="outline" className="bg-white/90 text-slate-800 border-0 text-xs backdrop-blur-xs font-medium">
-                          {isProject ? "Project" : "Story"}
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      {/* Meta Information Strip */}
-                      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-3">
-                        {isProject ? (
-                          <>
-                            {post.location && (
-                              <span className="flex items-center gap-1 font-medium">
-                                <MapPin className="h-3.5 w-3.5 text-emerald-800" />
-                                <span className="line-clamp-1">{post.location}</span>
-                              </span>
-                            )}
-                            {post.year && (
-                              <>
-                                <span>•</span>
-                                <span className="flex items-center gap-1 font-medium">
-                                  <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                                  <span>{post.year}</span>
-                                </span>
-                              </>
-                            )}
-                            {post.beneficiaries && (
-                              <>
-                                <span>•</span>
-                                <span className="flex items-center gap-1 font-bold text-emerald-950">
-                                  <Users className="h-3.5 w-3.5 text-amber-500" />
-                                  <span>{post.beneficiaries}</span>
-                                </span>
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            {post.date && (
-                              <span className="flex items-center gap-1">
-                                <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                                <span>{post.date}</span>
-                              </span>
-                            )}
-                            {post.readTime && (
-                              <>
-                                <span>•</span>
-                                <span className="flex items-center gap-1">
-                                  <Clock className="h-3.5 w-3.5 text-emerald-800" />
-                                  <span>{post.readTime}</span>
-                                </span>
-                              </>
-                            )}
-                            {post.author && (
-                              <>
-                                <span>•</span>
-                                <span className="flex items-center gap-1">
-                                  <User className="h-3.5 w-3.5 text-emerald-800" />
-                                  <span className="line-clamp-1">{post.author}</span>
-                                </span>
-                              </>
-                            )}
-                          </>
+                        {isProject && post.status && (
+                          <Badge className="bg-amber-400 text-slate-950 border-0 text-xs font-bold shadow-xs">
+                            {post.status}
+                          </Badge>
+                        )}
+                        {postType === "all" && (
+                          <Badge variant="outline" className="bg-white/90 text-slate-800 border-0 text-xs backdrop-blur-xs font-medium">
+                            {isProject ? "Project" : "Story"}
+                          </Badge>
                         )}
                       </div>
-
-                      {/* Title */}
-                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors leading-snug">
-                        <Link href={post.href}>{post.title}</Link>
-                      </h3>
-
-                      {/* Excerpt */}
-                      <p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">
-                        {post.excerpt}
-                      </p>
                     </div>
 
-                    {/* Bottom Action Footer */}
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <Link
-                        href={post.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors"
-                      >
-                        <span>{isProject ? "View Initiative" : "Read Full Story"}</span>
-                        <ArrowRight className="h-3.5 w-3.5 -rotate-45 group-hover:rotate-0 transition-transform" />
-                      </Link>
+                    {/* Card Body */}
+                    <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                      <div>
+                        {/* Meta Information Strip */}
+                        <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mb-3">
+                          {isProject ? (
+                            <>
+                              {post.location && (
+                                <span className="flex items-center gap-1 font-medium">
+                                  <MapPin className="h-3.5 w-3.5 text-emerald-800" />
+                                  <span className="line-clamp-1">{post.location}</span>
+                                </span>
+                              )}
+                              {post.year && (
+                                <>
+                                  <span>•</span>
+                                  <span className="flex items-center gap-1 font-medium">
+                                    <Calendar className="h-3.5 w-3.5 text-emerald-800" />
+                                    <span>{post.year}</span>
+                                  </span>
+                                </>
+                              )}
+                              {post.beneficiaries && (
+                                <>
+                                  <span>•</span>
+                                  <span className="flex items-center gap-1 font-bold text-emerald-950">
+                                    <Users className="h-3.5 w-3.5 text-amber-500" />
+                                    <span>{post.beneficiaries}</span>
+                                  </span>
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {post.date && (
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="h-3.5 w-3.5 text-emerald-800" />
+                                  <span>{post.date}</span>
+                                </span>
+                              )}
+                              {post.readTime && (
+                                <>
+                                  <span>•</span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="h-3.5 w-3.5 text-emerald-800" />
+                                    <span>{post.readTime}</span>
+                                  </span>
+                                </>
+                              )}
+                              {post.author && (
+                                <>
+                                  <span>•</span>
+                                  <span className="flex items-center gap-1">
+                                    <User className="h-3.5 w-3.5 text-emerald-800" />
+                                    <span className="line-clamp-1">{post.author}</span>
+                                  </span>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </div>
 
-                      {isProject && (
+                        {/* Title */}
+                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors duration-300 leading-snug">
+                          <Link href={post.href}>{post.title}</Link>
+                        </h3>
+
+                        {/* Excerpt */}
+                        <p className="mt-3 text-sm text-slate-600 leading-relaxed line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      {/* Bottom Action Footer */}
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                         <Link
-                          href="/get-involved"
-                          className="text-xs font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
+                          href={post.href}
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors group/link"
                         >
-                          Volunteer
+                          <span>{isProject ? "View Initiative" : "Read Full Story"}</span>
+                          <ArrowRight className="h-3.5 w-3.5 -rotate-45 group-hover/link:rotate-0 transition-transform duration-200" />
                         </Link>
-                      )}
+
+                        {isProject && (
+                          <Link
+                            href="/get-involved"
+                            className="text-xs font-semibold text-emerald-800 hover:text-emerald-950 transition-colors"
+                          >
+                            Volunteer
+                          </Link>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </article>
+                  </article>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerGroup>
         ) : (
           /* Empty State */
           <div className="py-20 text-center bg-white rounded-3xl border border-dashed border-slate-300 p-8">

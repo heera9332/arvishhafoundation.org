@@ -11,6 +11,7 @@ import { homeData } from "@/data/page-home";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/posts";
 import { wordpressApi } from "@/lib/wordpress";
 import { constructMetadata, generateBreadcrumbSchema } from "@/lib/seo";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 
 export const revalidate = 300; // 5 min ISR
 
@@ -144,109 +145,117 @@ export default async function NewsDetailPage({
         ]}
       />
 
-      <article className="py-16 sm:py-24 bg-white">
+      <article className="py-16 sm:py-24 bg-white overflow-hidden">
         <Container size="narrow">
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-            <Button
-              asChild
-              variant="ghost"
-              className="gap-2 text-slate-600 hover:text-slate-900"
-            >
-              <Link href="/news" className="flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                <span>Back to All Articles</span>
-              </Link>
-            </Button>
+          <ScrollReveal variant="fade-down" duration={600}>
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+              <Button
+                asChild
+                variant="ghost"
+                className="gap-2 text-slate-600 hover:text-slate-900 group"
+              >
+                <Link href="/news" className="flex items-center gap-2">
+                  <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                  <span>Back to All Articles</span>
+                </Link>
+              </Button>
 
-            <div className="flex items-center gap-4 text-xs text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5 text-emerald-800" />
-                <span>{dateFormatted}</span>
-              </span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5">
-                <User className="h-3.5 w-3.5 text-emerald-800" />
-                <span>{author}</span>
-              </span>
-              {readTime && (
-                <>
-                  <span>•</span>
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-emerald-800" />
-                    <span>{readTime}</span>
-                  </span>
-                </>
+              <div className="flex items-center gap-4 text-xs text-slate-500">
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="h-3.5 w-3.5 text-emerald-800" />
+                  <span>{dateFormatted}</span>
+                </span>
+                <span>•</span>
+                <span className="flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5 text-emerald-800" />
+                  <span>{author}</span>
+                </span>
+                {readTime && (
+                  <>
+                    <span>•</span>
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="h-3.5 w-3.5 text-emerald-800" />
+                      <span>{readTime}</span>
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal variant="zoom-in" duration={800} delay={100}>
+            <div className="group relative w-full aspect-16/9 rounded-3xl overflow-hidden shadow-xl mb-12 bg-slate-100">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 900px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-[#03452c] text-white border-0 text-xs font-semibold shadow-md">
+                  {category}
+                </Badge>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal variant="fade-up" duration={700} delay={200}>
+            <div className="prose prose-lg prose-slate max-w-none space-y-6 leading-relaxed text-slate-700">
+              {lexicalParagraphs.length > 0 ? (
+                <div className="space-y-6">
+                  {lexicalParagraphs.map((p, idx) => (
+                    <p
+                      key={idx}
+                      className={
+                        idx === 0
+                          ? "text-xl font-medium text-slate-800 leading-relaxed"
+                          : "leading-relaxed"
+                      }
+                    >
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ) : wpPost ? (
+                <div
+                  dangerouslySetInnerHTML={{ __html: wpPost.content?.rendered || "" }}
+                  className="space-y-4"
+                />
+              ) : (
+                <div className="space-y-6">
+                  <p className="text-xl font-medium text-slate-800 leading-relaxed">
+                    {cmsPost?.excerpt || staticArticle?.excerpt}
+                  </p>
+                  <p>
+                    At Arvishha Foundation, our field programs are built on regular, on-the-ground engagement with rural and urban communities. Through dedicated dialogue sessions, local partnerships, and continuous monitoring, our teams strive to ensure every program delivers meaningful and sustainable outcomes.
+                  </p>
+                  <p>
+                    Education, healthcare access, and women&apos;s economic empowerment remain at the core of our interventions. When community members are equipped with knowledge, skills, and equal opportunity, entire generations thrive.
+                  </p>
+                  <p>
+                    We invite supporters, educators, and volunteers to partner with us as we expand these essential initiatives to more underserved areas across the region.
+                  </p>
+                </div>
               )}
             </div>
-          </div>
+          </ScrollReveal>
 
-          <div className="relative w-full aspect-16/9 rounded-3xl overflow-hidden shadow-xl mb-12 bg-slate-100">
-            <Image
-              src={image}
-              alt={title}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 900px"
-              className="object-cover"
-            />
-            <div className="absolute top-4 left-4">
-              <Badge className="bg-[#03452c] text-white border-0 text-xs font-semibold">
-                {category}
-              </Badge>
-            </div>
-          </div>
-
-          <div className="prose prose-lg prose-slate max-w-none space-y-6 leading-relaxed text-slate-700">
-            {lexicalParagraphs.length > 0 ? (
-              <div className="space-y-6">
-                {lexicalParagraphs.map((p, idx) => (
-                  <p
-                    key={idx}
-                    className={
-                      idx === 0
-                        ? "text-xl font-medium text-slate-800 leading-relaxed"
-                        : "leading-relaxed"
-                    }
-                  >
-                    {p}
-                  </p>
-                ))}
+          <ScrollReveal variant="fade-up" duration={600} delay={250}>
+            <div className="mt-16 pt-8 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-slate-500 uppercase">Tags:</span>
+                <Badge variant="secondary">Community</Badge>
+                <Badge variant="secondary">{category}</Badge>
+                <Badge variant="secondary">Empowerment</Badge>
               </div>
-            ) : wpPost ? (
-              <div
-                dangerouslySetInnerHTML={{ __html: wpPost.content?.rendered || "" }}
-                className="space-y-4"
-              />
-            ) : (
-              <div className="space-y-6">
-                <p className="text-xl font-medium text-slate-800 leading-relaxed">
-                  {cmsPost?.excerpt || staticArticle?.excerpt}
-                </p>
-                <p>
-                  At Arvishha Foundation, our field programs are built on regular, on-the-ground engagement with rural and urban communities. Through dedicated dialogue sessions, local partnerships, and continuous monitoring, our teams strive to ensure every program delivers meaningful and sustainable outcomes.
-                </p>
-                <p>
-                  Education, healthcare access, and women&apos;s economic empowerment remain at the core of our interventions. When community members are equipped with knowledge, skills, and equal opportunity, entire generations thrive.
-                </p>
-                <p>
-                  We invite supporters, educators, and volunteers to partner with us as we expand these essential initiatives to more underserved areas across the region.
-                </p>
-              </div>
-            )}
-          </div>
 
-          <div className="mt-16 pt-8 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-500 uppercase">Tags:</span>
-              <Badge variant="secondary">Community</Badge>
-              <Badge variant="secondary">{category}</Badge>
-              <Badge variant="secondary">Empowerment</Badge>
+              <Button asChild className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full transition-transform duration-200 hover:scale-105 active:scale-95 shadow-md">
+                <Link href="/get-involved">Get Involved in this Cause</Link>
+              </Button>
             </div>
-
-            <Button asChild className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full">
-              <Link href="/get-involved">Get Involved in this Cause</Link>
-            </Button>
-          </div>
+          </ScrollReveal>
         </Container>
       </article>
     </>

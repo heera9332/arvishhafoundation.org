@@ -13,6 +13,9 @@ import { Container } from "@/components/layout/Container";
 import { homeData } from "@/data/page-home";
 import type { ImpactStatsBlock } from "@/payload-types";
 
+import { StaggerGroup, StaggerItem } from "@/components/animation/StaggerGroup";
+import { AnimatedCounter } from "@/components/animation/AnimatedCounter";
+
 export interface ImpactTrustProps {
   data?: ImpactStatsBlock | typeof homeData.impactStats;
 }
@@ -37,35 +40,38 @@ export function ImpactTrust({ data }: ImpactTrustProps) {
   return (
     <section className="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/60">
       <Container>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <StaggerGroup
+          staggerInterval={100}
+          duration={650}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+        >
           {stats.map((stat: any, idx: number) => (
-            <div
-              key={stat.id || idx}
-              className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
-            >
-              <div className="mb-4 inline-flex p-3 rounded-2xl bg-emerald-50 w-fit">
-                {stat.icon && iconMap[stat.icon] ? (
-                  iconMap[stat.icon]
-                ) : (
-                  <Users className="h-6 w-6 text-amber-500" />
-                )}
-              </div>
-              <div>
-                <p className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#03452c] tracking-tight">
-                  {stat.value}
-                </p>
-                <h4 className="mt-2 text-base sm:text-lg font-bold text-slate-900 leading-tight">
-                  {stat.label}
-                </h4>
-                {stat.sublabel && (
-                  <p className="mt-1 text-xs sm:text-sm text-slate-500">
-                    {stat.sublabel}
+            <StaggerItem key={stat.id || idx} index={idx}>
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between group h-full">
+                <div className="mb-4 inline-flex p-3 rounded-2xl bg-emerald-50 w-fit transition-transform duration-300 group-hover:scale-110 group-hover:bg-emerald-100">
+                  {stat.icon && iconMap[stat.icon] ? (
+                    iconMap[stat.icon]
+                  ) : (
+                    <Users className="h-6 w-6 text-amber-500" />
+                  )}
+                </div>
+                <div>
+                  <p className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#03452c] tracking-tight transition-transform duration-300 group-hover:scale-105">
+                    <AnimatedCounter value={stat.value} />
                   </p>
-                )}
+                  <h4 className="mt-2 text-base sm:text-lg font-bold text-slate-900 leading-tight">
+                    {stat.label}
+                  </h4>
+                  {stat.sublabel && (
+                    <p className="mt-1 text-xs sm:text-sm text-slate-500">
+                      {stat.sublabel}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerGroup>
       </Container>
     </section>
   );

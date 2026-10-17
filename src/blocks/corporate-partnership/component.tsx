@@ -9,6 +9,7 @@ import { DynamicForm } from "@/components/forms/DynamicForm";
 import { getMediaUrl } from "@/blocks/shared/getMediaUrl";
 import { getInvolvedData } from "@/data/page-get-involved";
 import type { CorporatePartnershipBlock } from "@/payload-types";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 
 export interface CorporatePartnershipComponentProps {
   data?: CorporatePartnershipBlock | Record<string, unknown>;
@@ -39,53 +40,61 @@ export function CorporatePartnershipComponent(
     "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80";
 
   return (
-    <section id="partner" className="py-20 sm:py-28 bg-[#faf9f5] border-t border-slate-200/60 scroll-mt-32">
+    <section id="partner" className="py-20 sm:py-28 bg-[#faf9f5] border-t border-slate-200/60 scroll-mt-32 overflow-hidden">
       <Container>
         <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-14 shadow-lg grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 space-y-6">
-            <SectionLabel>{eyebrow}</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {heading}
-            </h2>
-            <p className="text-base text-slate-600 leading-relaxed">
-              {description}
-            </p>
+          <div className="lg:col-span-7">
+            <ScrollReveal variant="fade-right" duration={700}>
+              <div className="space-y-6">
+                <SectionLabel>{eyebrow}</SectionLabel>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                  {heading}
+                </h2>
+                <p className="text-base text-slate-600 leading-relaxed">
+                  {description}
+                </p>
 
-            <div className="space-y-3 pt-2">
-              {benefits.map((b, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-700 shrink-0 mt-0.5" />
-                  <span className="text-sm text-slate-700">{b}</span>
+                <div className="space-y-3 pt-2">
+                  {benefits.map((b, idx) => (
+                    <div key={idx} className="flex items-start gap-3 group">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-700 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                      <span className="text-sm text-slate-700">{b}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {block.form ? (
-              <div className="pt-6">
-                <DynamicForm form={block.form} defaultFormTitle="csr" />
+                {block.form ? (
+                  <div className="pt-6">
+                    <DynamicForm form={block.form} defaultFormTitle="csr" />
+                  </div>
+                ) : (
+                  ctaText && (
+                    <div className="pt-4">
+                      <Button
+                        asChild
+                        className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-8 py-3.5 h-auto text-base shadow-md transition-all duration-200 hover:scale-105 active:scale-95"
+                      >
+                        <Link href={ctaLink}>{ctaText}</Link>
+                      </Button>
+                    </div>
+                  )
+                )}
               </div>
-            ) : (
-              ctaText && (
-                <div className="pt-4">
-                  <Button
-                    asChild
-                    className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-8 py-3.5 h-auto text-base"
-                  >
-                    <Link href={ctaLink}>{ctaText}</Link>
-                  </Button>
-                </div>
-              )
-            )}
+            </ScrollReveal>
           </div>
 
-          <div className="lg:col-span-5 relative aspect-4/3 rounded-2xl overflow-hidden bg-slate-100 shadow-md">
-            <Image
-              src={imgSrc}
-              alt="Corporate CSR partnership meeting"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover"
-            />
+          <div className="lg:col-span-5">
+            <ScrollReveal variant="fade-left" duration={700} delay={150}>
+              <div className="group relative aspect-4/3 rounded-2xl overflow-hidden bg-slate-100 shadow-md">
+                <Image
+                  src={imgSrc}
+                  alt="Corporate CSR partnership meeting"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </Container>

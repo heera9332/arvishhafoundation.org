@@ -17,6 +17,10 @@ import { Container } from "@/components/layout/Container";
 import { homeData } from "@/data/page-home";
 import type { HeroBlock } from "@/payload-types";
 
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import { AnimatedCounter } from "@/components/animation/AnimatedCounter";
+import { FloatingElement } from "@/components/animation/FloatingElement";
+
 const heroStatIcons: Record<string, React.ReactNode> = {
   Users: <Users className="w-5 h-5 sm:w-6 sm:h-6" />,
   Sprout: <Sprout className="w-5 h-5 sm:w-6 sm:h-6" />,
@@ -98,134 +102,147 @@ export function HomeHero({ data }: HomeHeroProps) {
           {/* Left Column: Eyebrow, Editorial Heading, Description, CTAs, Stats */}
           <div className="lg:col-span-7 flex flex-col justify-center">
             {/* 1. Eyebrow */}
-            <div className="flex items-center gap-3 mb-5 sm:mb-6">
-              <span className="w-7 h-1 bg-[#ea580c] rounded-full inline-block shrink-0" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-slate-700 uppercase">
-                {d?.eyebrow || homeData.hero.eyebrow}
-              </span>
-            </div>
+            <ScrollReveal variant="fade-down" delay={60} duration={600}>
+              <div className="flex items-center gap-3 mb-5 sm:mb-6">
+                <span className="w-7 h-1 bg-[#ea580c] rounded-full inline-block shrink-0 transition-all duration-300 hover:w-10" />
+                <span className="text-[11px] sm:text-xs font-semibold tracking-[0.22em] text-slate-700 uppercase">
+                  {d?.eyebrow || homeData.hero.eyebrow}
+                </span>
+              </div>
+            </ScrollReveal>
 
             {/* 2. Editorial Serif Heading */}
-            {d?.headingPrefix || d?.headingMiddle || d?.highlightWord ? (
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
-                {d?.headingPrefix || "Building a future"}
-                {d?.headingMiddle && (
-                  <>
-                    <br />
-                    {d.headingMiddle}
-                  </>
-                )}
-                {(d?.headingAction || d?.highlightWord) && (
-                  <>
-                    <br />
-                    {d.headingAction && `${d.headingAction} `}
-                    {d.highlightWord && (
-                      <span className="relative inline-block italic font-serif text-[#033624]">
-                        {d.highlightWord}
-                        {/* Hand-drawn curved orange brush underline */}
-                        <svg
-                          className="absolute -bottom-2 sm:-bottom-2.5 left-0 w-[105%] h-3 sm:h-4 text-[#ea580c] pointer-events-none"
-                          viewBox="0 0 170 14"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          preserveAspectRatio="none"
-                        >
-                          <path
-                            d="M3 8.5C45 4 118 4.2 167 10C125 12.8 55 12 3 8.5Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </span>
-                    )}
-                  </>
-                )}
-              </h1>
-            ) : (
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
-                {d?.heading || homeData.hero.heading}
-              </h1>
-            )}
+            <ScrollReveal variant="fade-up" delay={150} duration={700}>
+              {d?.headingPrefix || d?.headingMiddle || d?.highlightWord ? (
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
+                  {d?.headingPrefix || "Building a future"}
+                  {d?.headingMiddle && (
+                    <>
+                      <br />
+                      {d.headingMiddle}
+                    </>
+                  )}
+                  {(d?.headingAction || d?.highlightWord) && (
+                    <>
+                      <br />
+                      {d.headingAction && `${d.headingAction} `}
+                      {d.highlightWord && (
+                        <span className="relative inline-block italic font-serif text-[#033624]">
+                          {d.highlightWord}
+                          {/* Hand-drawn curved orange brush underline */}
+                          <svg
+                            className="absolute -bottom-2 sm:-bottom-2.5 left-0 w-[105%] h-3 sm:h-4 text-[#ea580c] pointer-events-none"
+                            viewBox="0 0 170 14"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            preserveAspectRatio="none"
+                          >
+                            <path
+                              d="M3 8.5C45 4 118 4.2 167 10C125 12.8 55 12 3 8.5Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                    </>
+                  )}
+                </h1>
+              ) : (
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] xl:text-[70px] font-serif font-semibold text-[#033624] tracking-tight leading-[1.08] mb-6">
+                  {d?.heading || homeData.hero.heading}
+                </h1>
+              )}
+            </ScrollReveal>
 
             {/* 3. Description Narrative */}
             {(d?.description || d?.subheading || homeData.hero.description) && (
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl mb-8 sm:mb-10">
-                {d?.description || d?.subheading || homeData.hero.description}
-              </p>
+              <ScrollReveal variant="fade-up" delay={250} duration={700}>
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl mb-8 sm:mb-10">
+                  {d?.description || d?.subheading || homeData.hero.description}
+                </p>
+              </ScrollReveal>
             )}
 
             {/* 4. Action CTAs */}
             {((d?.primaryCta?.label) || (d?.secondaryCta?.label)) && (
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-12 sm:mb-14">
-                {/* Primary Pill Button */}
-                {d?.primaryCta?.label && (
-                  <Link
-                    href={primaryCtaHref}
-                    className="inline-flex items-center justify-center gap-2.5 bg-[#033624] hover:bg-[#022417] text-white text-sm sm:text-base font-semibold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-200 group"
-                  >
-                    <span>{d.primaryCta.label}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                )}
+              <ScrollReveal variant="fade-up" delay={350} duration={700}>
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-12 sm:mb-14">
+                  {/* Primary Pill Button */}
+                  {d?.primaryCta?.label && (
+                    <Link
+                      href={primaryCtaHref}
+                      className="inline-flex items-center justify-center gap-2.5 bg-[#033624] hover:bg-[#022417] text-white text-sm sm:text-base font-semibold px-7 sm:px-8 py-3.5 sm:py-4 rounded-full shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+                    >
+                      <span>{d.primaryCta.label}</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                  )}
 
-                {/* Secondary Join Mission with Play Circle */}
-                {d?.secondaryCta?.label && (
-                  <Link
-                    href={secondaryCtaHref}
-                    className="inline-flex items-center gap-3 text-slate-900 hover:text-[#033624] font-semibold text-sm sm:text-base transition-colors group"
-                  >
-                    <div className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center group-hover:border-[#033624]/40 group-hover:shadow transition-all">
-                      <Play className="w-4 h-4 fill-[#033624] text-[#033624] ml-0.5" />
-                    </div>
-                    <span>{d.secondaryCta.label}</span>
-                  </Link>
-                )}
-              </div>
+                  {/* Secondary Join Mission with Play Circle */}
+                  {d?.secondaryCta?.label && (
+                    <Link
+                      href={secondaryCtaHref}
+                      className="inline-flex items-center gap-3 text-slate-900 hover:text-[#033624] font-semibold text-sm sm:text-base transition-all duration-300 group hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                      <div className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow-sm flex items-center justify-center group-hover:border-[#033624]/60 group-hover:shadow-md group-hover:scale-105 transition-all duration-300">
+                        <Play className="w-4 h-4 fill-[#033624] text-[#033624] ml-0.5 transition-transform duration-300 group-hover:scale-110" />
+                      </div>
+                      <span className="group-hover:underline underline-offset-4">{d.secondaryCta.label}</span>
+                    </Link>
+                  )}
+                </div>
+              </ScrollReveal>
             )}
 
             {/* 5. Bottom Stats Strip */}
             {d?.stats && d.stats.length > 0 && (
-              <div className="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 items-start">
-                {d.stats.slice(0, 3).map((stat: any, idx: number) => (
-                  <div
-                    key={stat.id || idx}
-                    className={`flex items-start gap-3.5 ${
-                      idx > 0 ? "sm:border-l sm:border-slate-200 sm:pl-4" : ""
-                    }`}
-                  >
+              <ScrollReveal variant="fade-up" delay={450} duration={750}>
+                <div className="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 items-start">
+                  {d.stats.slice(0, 3).map((stat: any, idx: number) => (
                     <div
-                      className={`p-2 rounded-xl shrink-0 mt-0.5 ${
-                        idx === 2
-                          ? "bg-amber-100/80 text-[#ea580c]"
-                          : "bg-emerald-100/80 text-[#033624]"
+                      key={stat.id || idx}
+                      className={`flex items-start gap-3.5 group p-2 rounded-2xl transition-all duration-300 hover:bg-white/60 ${
+                        idx > 0 ? "sm:border-l sm:border-slate-200 sm:pl-4" : ""
                       }`}
                     >
-                      {heroStatIcons[stat.icon || "Users"] || (
-                        <Users className="w-5 h-5 sm:w-6 sm:h-6" />
-                      )}
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
-                        {stat.value}
+                      <div
+                        className={`p-2 rounded-xl shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110 ${
+                          idx === 2
+                            ? "bg-amber-100/80 text-[#ea580c]"
+                            : "bg-emerald-100/80 text-[#033624]"
+                        }`}
+                      >
+                        {heroStatIcons[stat.icon || "Users"] || (
+                          <Users className="w-5 h-5 sm:w-6 sm:h-6" />
+                        )}
                       </div>
-                      <div className="text-xs text-slate-600 font-medium mt-1 leading-snug">
-                        {stat.label}
-                      </div>
-                      {stat.sublabel && (
-                        <div className="text-[11px] text-slate-400 mt-1 leading-snug">
-                          {stat.sublabel}
+                      <div>
+                        <div className="text-xl sm:text-2xl font-bold text-slate-900 leading-none">
+                          <AnimatedCounter value={stat.value} />
                         </div>
-                      )}
+                        <div className="text-xs text-slate-600 font-medium mt-1 leading-snug">
+                          {stat.label}
+                        </div>
+                        {stat.sublabel && (
+                          <div className="text-[11px] text-slate-400 mt-1 leading-snug">
+                            {stat.sublabel}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </ScrollReveal>
             )}
           </div>
 
           {/* Right Column: Hero Visual with Overlays & Botanical Art */}
           <div className="lg:col-span-5 relative flex justify-center items-center">
             {/* Background Botanical Stems Illustration */}
-            <div className="absolute -top-12 -right-8 w-48 h-72 pointer-events-none opacity-60 z-0 hidden sm:block">
+            <FloatingElement
+              animation="reverse"
+              className="absolute -top-12 -right-8 w-48 h-72 pointer-events-none opacity-60 z-0 hidden sm:block"
+            >
               <svg viewBox="0 0 160 240" fill="none" className="w-full h-full text-emerald-800/25">
                 <path
                   d="M130 10C100 60 70 140 90 220"
@@ -233,7 +250,6 @@ export function HomeHero({ data }: HomeHeroProps) {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 />
-                {/* Leaves along the branch */}
                 <path
                   d="M125 30C140 25 155 35 150 45C140 50 128 40 125 30Z"
                   fill="currentColor"
@@ -255,10 +271,13 @@ export function HomeHero({ data }: HomeHeroProps) {
                   opacity="0.4"
                 />
               </svg>
-            </div>
+            </FloatingElement>
 
             {/* Left Botanical Accent behind photo */}
-            <div className="absolute bottom-16 -left-10 w-36 h-56 pointer-events-none opacity-40 z-0 hidden sm:block">
+            <FloatingElement
+              animation="slow"
+              className="absolute bottom-16 -left-10 w-36 h-56 pointer-events-none opacity-40 z-0 hidden sm:block"
+            >
               <svg viewBox="0 0 120 180" fill="none" className="w-full h-full text-emerald-800/30">
                 <path
                   d="M30 180C40 130 20 80 10 20"
@@ -277,7 +296,7 @@ export function HomeHero({ data }: HomeHeroProps) {
                   opacity="0.3"
                 />
               </svg>
-            </div>
+            </FloatingElement>
 
             {/* Orange Curved Flow Line wrapping around right of photo */}
             <svg
@@ -295,52 +314,65 @@ export function HomeHero({ data }: HomeHeroProps) {
             </svg>
 
             {/* Top Right Solid Orange Accent Circle */}
-            <div className="absolute top-2 -right-2 sm:top-5 sm:-right-4 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#f27228] shadow-md z-20" />
+            <FloatingElement
+              animation="delayed"
+              className="absolute top-2 -right-2 sm:top-5 sm:-right-4 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#f27228] shadow-md z-20"
+            />
 
             {/* Main Rounded Image Container */}
-            <div className="relative w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[500px] aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden shadow-2xl shadow-emerald-950/20 bg-emerald-900 border-2 border-white/80 z-10">
-              <Image
-                src={imgSrc}
-                alt={imageAlt}
-                fill
-                priority
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 480px, 500px"
-                className="object-cover transition-transform duration-700 hover:scale-105"
-                onError={() => {
-                  if (imgSrc !== imageFallback) {
-                    setImgSrc(imageFallback);
-                  }
-                }}
-              />
-              {/* Gentle ambient gradient for bottom depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-            </div>
+            <ScrollReveal variant="zoom-in" delay={200} duration={800} className="w-full flex justify-center">
+              <div className="relative w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[500px] aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden shadow-2xl shadow-emerald-950/20 bg-emerald-900 border-2 border-white/80 z-10 transition-transform duration-500 hover:shadow-emerald-950/30">
+                <Image
+                  src={imgSrc}
+                  alt={imageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 480px, 500px"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  onError={() => {
+                    if (imgSrc !== imageFallback) {
+                      setImgSrc(imageFallback);
+                    }
+                  }}
+                />
+                {/* Gentle ambient gradient for bottom depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+              </div>
+            </ScrollReveal>
 
             {/* Floating Overlay Badge 1: Community First (Bottom Left) */}
-            <div className="absolute -bottom-6 left-2 sm:-left-6 lg:-left-8 z-20 bg-[#121c17]/85 backdrop-blur-md text-white p-4 sm:p-5 rounded-2xl border border-white/15 shadow-2xl max-w-[210px] sm:max-w-[230px]">
-              <span className="w-7 h-1 bg-[#f27228] rounded-full block mb-2.5" />
-              <h4 className="font-bold text-white text-sm sm:text-base leading-tight">
-                {d?.floatingBadges?.communityFirstTitle ||
-                  d?.floatingBadges?.communityFirst?.title ||
-                  "Community First"}
-              </h4>
-              <p className="text-xs text-slate-300 mt-1 leading-snug">
-                {d?.floatingBadges?.communityFirstSubtitle ||
-                  d?.floatingBadges?.communityFirst?.subtitle ||
-                  "Local action. Lasting change."}
-              </p>
-            </div>
+            <ScrollReveal variant="fade-right" delay={500} duration={700} className="absolute -bottom-6 left-2 sm:-left-6 lg:-left-8 z-20">
+              <FloatingElement animation="slow">
+                <div className="bg-[#121c17]/85 backdrop-blur-md text-white p-4 sm:p-5 rounded-2xl border border-white/15 shadow-2xl max-w-[210px] sm:max-w-[230px] hover:border-amber-400/50 transition-all duration-300 hover:scale-105">
+                  <span className="w-7 h-1 bg-[#f27228] rounded-full block mb-2.5" />
+                  <h4 className="font-bold text-white text-sm sm:text-base leading-tight">
+                    {d?.floatingBadges?.communityFirstTitle ||
+                      d?.floatingBadges?.communityFirst?.title ||
+                      "Community First"}
+                  </h4>
+                  <p className="text-xs text-slate-300 mt-1 leading-snug">
+                    {d?.floatingBadges?.communityFirstSubtitle ||
+                      d?.floatingBadges?.communityFirst?.subtitle ||
+                      "Local action. Lasting change."}
+                  </p>
+                </div>
+              </FloatingElement>
+            </ScrollReveal>
 
             {/* Floating Overlay Badge 2: Empowering communities (Bottom Right) */}
-            <div className="absolute bottom-8 -right-2 sm:-right-6 lg:-right-8 z-20 bg-white/95 backdrop-blur-md rounded-2xl px-4 sm:px-5 py-3.5 shadow-xl border border-slate-100 flex items-center gap-3">
-              <Heart className="w-5 h-5 text-[#f27228] fill-[#f27228] shrink-0" />
-              <span className="text-xs font-bold text-slate-900 leading-snug max-w-[140px] sm:max-w-[155px]">
-                {d?.floatingBadges?.proofText ||
-                  d?.floatingBadges?.empowering?.text ||
-                  d?.proofBadge?.text ||
-                  "Empowering communities across India"}
-              </span>
-            </div>
+            <ScrollReveal variant="fade-left" delay={600} duration={700} className="absolute bottom-8 -right-2 sm:-right-6 lg:-right-8 z-20">
+              <FloatingElement animation="delayed">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl px-4 sm:px-5 py-3.5 shadow-xl border border-slate-100 flex items-center gap-3 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105">
+                  <Heart className="w-5 h-5 text-[#f27228] fill-[#f27228] shrink-0 animate-pulse-subtle" />
+                  <span className="text-xs font-bold text-slate-900 leading-snug max-w-[140px] sm:max-w-[155px]">
+                    {d?.floatingBadges?.proofText ||
+                      d?.floatingBadges?.empowering?.text ||
+                      d?.proofBadge?.text ||
+                      "Empowering communities across India"}
+                  </span>
+                </div>
+              </FloatingElement>
+            </ScrollReveal>
           </div>
         </div>
       </Container>

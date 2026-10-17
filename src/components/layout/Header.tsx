@@ -169,7 +169,7 @@ export function Header({ data = defaultHeaderData }: HeaderProps) {
                       )}
                     </button>
                     {isOpen && (
-                      <div className="absolute top-full left-0 mt-1 min-w-[210px] bg-[#023420]/95 backdrop-blur-md rounded-2xl p-2 shadow-xl border border-emerald-900/50 z-50">
+                      <div className="absolute top-full left-0 mt-1 min-w-[210px] bg-[#023420]/95 backdrop-blur-md rounded-2xl p-2 shadow-xl border border-emerald-900/50 z-50 transition-all duration-200 animate-in fade-in-50 zoom-in-95">
                         {link.children
                           ?.filter((child) => child.enabled !== false)
                           .map((child) => (

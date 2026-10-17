@@ -9,6 +9,8 @@ import { getMediaUrl } from "@/blocks/shared/getMediaUrl";
 import { whatWeDoData } from "@/data/page-what-we-do";
 import type { PillarsBlock, Media } from "@/payload-types";
 
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+
 export interface PillarsComponentProps {
   data?: PillarsBlock | Record<string, unknown>;
 }
@@ -70,7 +72,9 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
                   className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center scroll-mt-32"
                 >
                   {/* Text Content */}
-                  <div
+                  <ScrollReveal
+                    variant={isEven ? "fade-left" : "fade-right"}
+                    duration={700}
                     className={`lg:col-span-6 space-y-6 ${
                       isEven ? "lg:order-2" : "lg:order-1"
                     }`}
@@ -94,7 +98,7 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
                           (init: PillarInitiative, iIdx: number) => (
                             <div
                               key={iIdx}
-                              className="bg-[#faf9f5] border border-slate-200/80 rounded-2xl p-5 hover:border-emerald-800/40 transition-colors"
+                              className="bg-[#faf9f5] border border-slate-200/80 rounded-2xl p-5 hover:border-emerald-800/40 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300"
                             >
                               <h4 className="text-base font-bold text-[#03452c] mb-1">
                                 {init.title}
@@ -107,24 +111,27 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
                         )}
                       </div>
                     )}
-                  </div>
+                  </ScrollReveal>
 
                   {/* Visual Image */}
-                  <div
+                  <ScrollReveal
+                    variant={isEven ? "fade-right" : "fade-left"}
+                    duration={700}
+                    delay={100}
                     className={`lg:col-span-6 ${
                       isEven ? "lg:order-1" : "lg:order-2"
                     }`}
                   >
-                    <div className="relative w-full aspect-4/3 rounded-3xl overflow-hidden shadow-xl border-4 border-slate-100 bg-slate-100">
+                    <div className="relative w-full aspect-4/3 rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-4 border-slate-100 bg-slate-100 group">
                       <Image
                         src={imgSrc}
                         alt={pillar.title || "Arvishha Foundation Pillar"}
                         fill
                         sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
-                  </div>
+                  </ScrollReveal>
                 </div>
               );
             })}
@@ -136,7 +143,8 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
       {showCta && (
         <section className="py-20 bg-[#023420] text-white">
           <Container>
-            <div className="max-w-3xl mx-auto text-center space-y-6">
+            <ScrollReveal variant="zoom-in" duration={700}>
+              <div className="max-w-3xl mx-auto text-center space-y-6">
               <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest">
                 Get Involved
               </span>
@@ -172,6 +180,7 @@ export function PillarsComponent(props: PillarsComponentProps | PillarsBlock) {
                 )}
               </div>
             </div>
+          </ScrollReveal>
           </Container>
         </section>
       )}

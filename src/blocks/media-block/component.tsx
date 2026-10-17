@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { MediaBlock as MediaBlockType } from "@/payload-types";
 import { Container } from "@/components/layout/Container";
 import { getMediaUrl } from "@/blocks/shared/getMediaUrl";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 
 export function MediaBlockComponent(block: MediaBlockType) {
   const mediaUrl = getMediaUrl(block.media) || block.mediaUrl;
@@ -19,25 +20,27 @@ export function MediaBlockComponent(block: MediaBlockType) {
   const sizeClass = sizeClasses[block.size || "wide"] || sizeClasses.wide;
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-12 bg-white overflow-hidden">
       <Container
         size={block.size === "wide" ? "wide" : "default"}
         className={block.size === "fullscreen" ? "max-w-none px-0" : undefined}
       >
-        <div className={`relative overflow-hidden shadow-xl bg-slate-100 ${sizeClass}`}>
-          <Image
-            src={mediaUrl}
-            alt={alt}
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        {block.caption && (
-          <p className="text-center text-xs text-slate-500 mt-3 italic max-w-2xl mx-auto">
-            {block.caption}
-          </p>
-        )}
+        <ScrollReveal variant="zoom-in" duration={800}>
+          <div className={`group relative overflow-hidden shadow-xl bg-slate-100 ${sizeClass}`}>
+            <Image
+              src={mediaUrl}
+              alt={alt}
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
+          {block.caption && (
+            <p className="text-center text-xs text-slate-500 mt-3 italic max-w-2xl mx-auto">
+              {block.caption}
+            </p>
+          )}
+        </ScrollReveal>
       </Container>
     </section>
   );

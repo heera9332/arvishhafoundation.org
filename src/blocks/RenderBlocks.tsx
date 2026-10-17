@@ -28,6 +28,8 @@ import { CorporatePartnershipComponent } from "./corporate-partnership/component
 import { PillarsComponent } from "./pillars/component";
 import { PostsGridComponent } from "./posts-grid/component";
 
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+
 // Shared utilities
 export { getMediaUrl } from "./shared/getMediaUrl";
 export { LexicalRenderer, type LexicalNode } from "./shared/LexicalRenderer";
@@ -73,7 +75,7 @@ export interface RenderBlocksProps {
 }
 
 /**
- * Main Layout Block Renderer for Payload CMS pages.
+ * Main Layout Block Renderer for Payload CMS pages with smooth section entrance transitions.
  */
 export const RenderBlocks: React.FC<RenderBlocksProps> = ({
   blocks,
@@ -101,13 +103,17 @@ export const RenderBlocks: React.FC<RenderBlocksProps> = ({
         const key = block.id || `${blockType}-${index}`;
 
         if (BlockComponent) {
+          const isHero = blockType === "hero" || index === 0;
           return (
-            <div
-              className={`cms-block cms-block-${blockType}`}
+            <ScrollReveal
               key={key}
+              variant={isHero ? "fade" : "fade-up"}
+              duration={isHero ? 500 : 700}
+              threshold={isHero ? 0 : 0.08}
+              className={`cms-block cms-block-${blockType}`}
             >
               <BlockComponent {...block} />
-            </div>
+            </ScrollReveal>
           );
         }
 

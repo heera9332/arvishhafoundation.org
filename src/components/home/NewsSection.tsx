@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import { homeData } from "@/data/page-home";
 import type { NewsBlock } from "@/payload-types";
 
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+import { StaggerGroup, StaggerItem } from "@/components/animation/StaggerGroup";
+
 export interface NewsSectionProps {
   data?: NewsBlock | typeof homeData.news;
 }
@@ -27,7 +30,7 @@ function ArticleCard({ article }: { article: any }) {
   const readTime = article.readTime || null;
 
   return (
-    <article className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-1">
+    <article className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group hover:-translate-y-2 hover:border-emerald-700/30 h-full">
       <div className="relative w-full aspect-16/10 bg-slate-100 overflow-hidden">
         {!imgError ? (
           <Image
@@ -35,7 +38,7 @@ function ArticleCard({ article }: { article: any }) {
             alt={article.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-108"
             onError={() => setImgError(true)}
           />
         ) : (
@@ -44,7 +47,7 @@ function ArticleCard({ article }: { article: any }) {
           </div>
         )}
         <div className="absolute top-4 left-4">
-          <Badge className="bg-[#03452c] text-white border-0 font-medium text-xs">
+          <Badge className="bg-[#03452c] text-white border-0 font-medium text-xs shadow-xs">
             {category}
           </Badge>
         </div>
@@ -68,7 +71,7 @@ function ArticleCard({ article }: { article: any }) {
             )}
           </div>
 
-          <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors leading-snug">
+          <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#03452c] transition-colors duration-300 leading-snug">
             {article.title}
           </h3>
 
@@ -79,7 +82,7 @@ function ArticleCard({ article }: { article: any }) {
 
         <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#03452c] transition-colors">
           <span>Read Full Article</span>
-          <ArrowRight className="h-4 w-4 -rotate-45 group-hover:rotate-0 transition-transform" />
+          <ArrowRight className="h-4 w-4 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
         </div>
       </div>
     </article>
@@ -106,40 +109,48 @@ export function NewsSection({ data }: NewsSectionProps) {
   return (
     <section className="py-20 sm:py-28 bg-white border-t border-slate-100">
       <Container>
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 sm:mb-16 gap-6">
-          <div className="max-w-2xl">
-            <SectionLabel>{eyebrow}</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              {heading}
-            </h2>
-            <p className="mt-4 text-base text-slate-600 leading-relaxed">
-              {subheading}
-            </p>
+        <ScrollReveal variant="fade-up" duration={650}>
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 sm:mb-16 gap-6">
+            <div className="max-w-2xl">
+              <SectionLabel>{eyebrow}</SectionLabel>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                {heading}
+              </h2>
+              <p className="mt-4 text-base text-slate-600 leading-relaxed">
+                {subheading}
+              </p>
+            </div>
+
+            <Button
+              asChild
+              className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto shrink-0 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <Link href={viewAllHref} className="inline-flex items-center gap-2">
+                <span>{viewAllLabel}</span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
           </div>
+        </ScrollReveal>
 
-          <Button
-            asChild
-            className="bg-[#03452c] hover:bg-[#023320] text-white rounded-full px-7 py-3 h-auto shrink-0 shadow-sm"
-          >
-            <Link href={viewAllHref} className="inline-flex items-center gap-2">
-              <span>{viewAllLabel}</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <StaggerGroup
+          staggerInterval={120}
+          duration={650}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
           {articles.map((article: any, idx: number) => {
             const articleSlug =
               article.slug ||
               (article.href ? article.href.replace(/^\/news\/?/, "") : `article-${idx}`);
             return (
-              <Link key={article.id || idx} href={`/news/${articleSlug}`}>
-                <ArticleCard article={article} />
-              </Link>
+              <StaggerItem key={article.id || idx} index={idx}>
+                <Link href={`/news/${articleSlug}`} className="block h-full">
+                  <ArticleCard article={article} />
+                </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerGroup>
       </Container>
     </section>
   );

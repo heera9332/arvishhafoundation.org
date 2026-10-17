@@ -9,6 +9,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { homeData } from "@/data/page-home";
 import type { MissionVisionBlock } from "@/payload-types";
 
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
+
 export interface MissionSectionProps {
   data?: MissionVisionBlock | typeof homeData.missionApproach;
 }
@@ -67,8 +69,12 @@ export function MissionSection({ data }: MissionSectionProps) {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Context Card & Authentic Visual */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="bg-[#faf9f5] border border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xs">
+          <ScrollReveal
+            variant="fade-right"
+            duration={700}
+            className="lg:col-span-6 space-y-6"
+          >
+            <div className="bg-[#faf9f5] border border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xs hover:shadow-lg transition-all duration-300">
               <span className="inline-block text-xs font-semibold text-emerald-800 uppercase tracking-widest mb-3">
                 {leftBadge}
               </span>
@@ -80,7 +86,7 @@ export function MissionSection({ data }: MissionSectionProps) {
               </p>
               <ul className="space-y-2.5 text-sm text-slate-700">
                 {leftBulletPoints.map((pt: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2.5">
+                  <li key={idx} className="flex items-start gap-2.5 group transition-transform duration-200 hover:translate-x-1">
                     <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                     <span>{pt}</span>
                   </li>
@@ -88,14 +94,14 @@ export function MissionSection({ data }: MissionSectionProps) {
               </ul>
             </div>
 
-            <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden shadow-lg border border-slate-100 bg-slate-100">
+            <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden shadow-lg border border-slate-100 bg-slate-100 group">
               {!leftImgError ? (
                 <Image
                   src={leftImgSrc}
                   alt={leftImgAlt}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={() => setLeftImgError(true)}
                 />
               ) : (
@@ -103,20 +109,25 @@ export function MissionSection({ data }: MissionSectionProps) {
                   <p className="font-semibold">Collaborative Community Workshops</p>
                 </div>
               )}
-              <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md text-white p-4 rounded-2xl border border-white/20 flex items-center justify-between">
+              <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md text-white p-4 rounded-2xl border border-white/20 flex items-center justify-between transition-all duration-300 group-hover:bg-black/75">
                 <div>
                   <p className="text-xs font-medium text-amber-300">Grassroots Engagement</p>
                   <p className="text-sm font-semibold">Participatory Rural Planning</p>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-amber-400 flex items-center justify-center text-slate-950 font-bold shadow-md">
-                  <Heart className="h-5 w-5 fill-slate-950" />
+                <div className="h-10 w-10 rounded-full bg-amber-400 flex items-center justify-center text-slate-950 font-bold shadow-md transition-transform duration-300 group-hover:scale-110">
+                  <Heart className="h-5 w-5 fill-slate-950 animate-pulse-subtle" />
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Approach Narrative & Tabs */}
-          <div className="lg:col-span-6 space-y-6 lg:pt-4">
+          <ScrollReveal
+            variant="fade-left"
+            duration={700}
+            delay={150}
+            className="lg:col-span-6 space-y-6 lg:pt-4"
+          >
             <div>
               <SectionLabel>{eyebrow}</SectionLabel>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.15]">
@@ -135,7 +146,11 @@ export function MissionSection({ data }: MissionSectionProps) {
             >
               <TabsList className={`grid max-w-sm`} style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
                 {tabs.map((tab: any) => (
-                  <TabsTrigger key={tab.id} value={tab.id}>
+                  <TabsTrigger
+                    key={tab.id}
+                    value={tab.id}
+                    className="transition-all duration-300 data-[state=active]:shadow-sm"
+                  >
                     {tab.title}
                   </TabsTrigger>
                 ))}
@@ -145,7 +160,7 @@ export function MissionSection({ data }: MissionSectionProps) {
                 <TabsContent
                   key={tab.id}
                   value={tab.id}
-                  className="mt-6 bg-[#f4f7f4] rounded-3xl p-7 border border-emerald-900/10 shadow-2xs space-y-4"
+                  className="mt-6 bg-[#f4f7f4] rounded-3xl p-7 border border-emerald-900/10 shadow-2xs space-y-4 transition-all duration-300 animate-in fade-in-50"
                 >
                   <h4 className="text-xl font-bold text-[#03452c]">
                     {tab.heading}
@@ -166,7 +181,7 @@ export function MissionSection({ data }: MissionSectionProps) {
                 </TabsContent>
               ))}
             </Tabs>
-          </div>
+          </ScrollReveal>
         </div>
       </Container>
     </section>

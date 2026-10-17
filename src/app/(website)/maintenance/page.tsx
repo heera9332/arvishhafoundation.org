@@ -13,6 +13,7 @@ import {
 import { siteConfig } from "@/lib/seo";
 import { getSiteSettings } from "@/global/site-settings";
 import { MaintenanceActions } from "@/components/common/MaintenanceActions";
+import { ScrollReveal } from "@/components/animation/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Under Scheduled Maintenance | Arvishha Foundation",
@@ -90,77 +91,85 @@ export default async function MaintenancePage({
       <main className="relative z-10 flex-1 flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl w-full text-center space-y-8">
           {/* Animated Icon Badge */}
-          <div className="inline-flex items-center justify-center">
-            <div className="relative">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-tr from-[#03452c] to-emerald-700/80 p-0.5 shadow-2xl flex items-center justify-center">
-                <div className="w-full h-full bg-[#022216] rounded-[22px] flex items-center justify-center border border-emerald-500/30">
-                  <Wrench className="w-10 h-10 sm:w-12 sm:h-12 text-amber-400 animate-bounce" />
+          <ScrollReveal variant="zoom-in" duration={800}>
+            <div className="inline-flex items-center justify-center">
+              <div className="relative">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-tr from-[#03452c] to-emerald-700/80 p-0.5 shadow-2xl flex items-center justify-center">
+                  <div className="w-full h-full bg-[#022216] rounded-[22px] flex items-center justify-center border border-emerald-500/30">
+                    <Wrench className="w-10 h-10 sm:w-12 sm:h-12 text-amber-400 animate-bounce" />
+                  </div>
+                </div>
+                <div className="absolute -bottom-2 -right-2 bg-amber-500 text-slate-950 p-2 rounded-xl shadow-lg border border-amber-300">
+                  <Sparkles className="w-4 h-4" />
                 </div>
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-amber-500 text-slate-950 p-2 rounded-xl shadow-lg border border-amber-300">
-                <Sparkles className="w-4 h-4" />
-              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Heading and Notice */}
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/20 text-xs font-semibold tracking-wide uppercase">
-              <Clock className="w-3.5 h-3.5" />
-              <span>Platform Upgrades in Progress</span>
+          <ScrollReveal variant="fade-up" duration={700} delay={150}>
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/20 text-xs font-semibold tracking-wide uppercase">
+                <Clock className="w-3.5 h-3.5" />
+                <span>Platform Upgrades in Progress</span>
+              </div>
+              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                We&apos;re Improving Your Community Experience
+              </h1>
+              <p className="text-base sm:text-lg text-emerald-100/80 max-w-xl mx-auto leading-relaxed">
+                Our website is currently undergoing scheduled maintenance and system optimization. We will be back online shortly with enhanced performance and new tools.
+              </p>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              We&apos;re Improving Your Community Experience
-            </h1>
-            <p className="text-base sm:text-lg text-emerald-100/80 max-w-xl mx-auto leading-relaxed">
-              Our website is currently undergoing scheduled maintenance and system optimization. We will be back online shortly with enhanced performance and new tools.
-            </p>
-          </div>
+          </ScrollReveal>
 
           {/* Information Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-emerald-500/40 transition-colors">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
-                <HeartHandshake className="w-5 h-5" />
+          <ScrollReveal variant="fade-up" duration={700} delay={250}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
+                  <HeartHandshake className="w-5 h-5" />
+                </div>
+                <h2 className="text-sm font-semibold text-white">Grassroots Operations</h2>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                  Active programs in education, health, and welfare remain 100% operational.
+                </p>
               </div>
-              <h2 className="text-sm font-semibold text-white">Grassroots Operations</h2>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Active programs in education, health, and welfare remain 100% operational.
-              </p>
-            </div>
 
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-emerald-500/40 transition-colors">
-              <div className="w-9 h-9 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-3">
-                <Phone className="w-5 h-5" />
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1">
+                <div className="w-9 h-9 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-3">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <h2 className="text-sm font-semibold text-white">Immediate Inquiries</h2>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                  Direct phone and email communication channels are open for urgent matters.
+                </p>
               </div>
-              <h2 className="text-sm font-semibold text-white">Immediate Inquiries</h2>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Direct phone and email communication channels are open for urgent matters.
-              </p>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Quick Contact Bar */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#01140c]/90 border border-emerald-900/80 flex flex-wrap items-center justify-around gap-4 text-xs text-emerald-200">
-            {settings.phone && (
-              <a
-                href={`tel:${phoneDigits}`}
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Phone className="w-4 h-4 text-amber-400" />
-                <span className="font-medium">{settings.phone}</span>
-              </a>
-            )}
-            {settings.contactEmail && (
-              <a
-                href={`mailto:${settings.contactEmail}`}
-                className="flex items-center gap-2 hover:text-white transition-colors"
-              >
-                <Mail className="w-4 h-4 text-amber-400" />
-                <span className="font-medium">{settings.contactEmail}</span>
-              </a>
-            )}
-          </div>
+          <ScrollReveal variant="fade-up" duration={600} delay={350}>
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#01140c]/90 border border-emerald-900/80 flex flex-wrap items-center justify-around gap-4 text-xs text-emerald-200 shadow-md">
+              {settings.phone && (
+                <a
+                  href={`tel:${phoneDigits}`}
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-amber-400" />
+                  <span className="font-medium">{settings.phone}</span>
+                </a>
+              )}
+              {settings.contactEmail && (
+                <a
+                  href={`mailto:${settings.contactEmail}`}
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Mail className="w-4 h-4 text-amber-400" />
+                  <span className="font-medium">{settings.contactEmail}</span>
+                </a>
+              )}
+            </div>
+          </ScrollReveal>
 
           {/* Interactive Bypass & Preview Controls */}
           <MaintenanceActions />
